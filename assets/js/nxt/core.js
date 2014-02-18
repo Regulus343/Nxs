@@ -502,6 +502,19 @@ function initializeKeyCommands() {
 							}, 250);
 						}
 					}
+					break;
+				case "Q": //QR code
+					if (account !== false) {
+						if ($('#modal-qr-code').hasClass('open')) {
+							$('#modal-qr-code').foundation('reveal', 'close');
+						} else {
+							$('#modal-qr-code').foundation('reveal', 'open');
+
+							$('#qr-code').html('').qrcode('nxtacct:' + account);
+							$('#modal-qr-code h3.account-number').text(account);
+						}
+					}
+					break;
 			}
 		}
 	});

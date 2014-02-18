@@ -14,6 +14,7 @@ Nxs, pronounced "Nexus" as Nxt is pronounced "Next", is a modified version of th
 - Ability to show a hint on the `Unlock Account` dialog
 - Ability to display a QR code of the currently unlocked account
 - Ability to filter transactions by sent, received, confirmed, or unconfirmed
+- Ability to run secret phrases through a substitution cipher (of which there are 100 by default) to obfuscate dictionary words
 
 ## Table of Contents
 
@@ -27,7 +28,7 @@ Nxs, pronounced "Nexus" as Nxt is pronounced "Next", is a modified version of th
 <a name="composer-package-installation"></a>
 ## Installation
 
-To install Nxs, copy the `nxt` directory to the `webapps/root` directory of the Nxt Client. Then, open `etc/webdefault.xml` and add this:
+To install Nxs, copy the directory to the `webapps/root` directory of the Nxt Client and rename it to `nxs`. Then, open `etc/webdefault.xml` and add this:
 
 	<init-param>
 		<param-name>relativeResourceBase</param-name>
@@ -39,7 +40,7 @@ Run Nxt from the command line and open the web app it (at `http://localhost:7874
 <a name="unlocking-account"></a>
 ## Unlocking an Account
 
-You may type a secret phrase to unlock an account. Please choose something secure. 50+ characters is recommended. Clicking the `Show Phrase` checkbox will show your secret phrase as you type it so you may check it for mistakes. Otherwise, the characters will be hidden as you type them. You may set a secret phrase hint in the config file in `assets/js/config.js`. This may help you to remember your secret phrase. Do not use something specific enough to help someone else figure out your secret phrase should your computer ever become breached. If the hint is used, it should be somewhat vague.
+You may type a secret phrase to unlock an account. Please choose something secure. 50+ characters is recommended. Clicking the `Show Phrase` checkbox will show your secret phrase as you type it so you may check it for mistakes. Otherwise, the characters will be hidden as you type them. You may set a secret phrase hint in the config file in `assets/js/config.js`. This may help you to remember your secret phrase. Do not use something specific enough to help someone else figure out your secret phrase should your computer ever become breached. If the hint is used, it should be somewhat vague. There is also a `Generate` button to randomly generate a new account secret phrase for you and a `Cipher` button with available substitution ciphers. This can be useful if you are using a unique phrase of dictionary words which you would like to obfuscate through substitution.
 
 <a name="keyboard-shortcuts"></a>
 ## Keyboard Shortcuts
