@@ -3,7 +3,7 @@ Nxs
 
 **A versatile web interface for the official Nxt Client for the Nxt cryptocurrency**
 
-Nxs, pronounced "Nexus" as Nxt is pronounced "Next", is a modified version of the default NRS web app of the official Nxt client that includes many new features and a more modern design. Some of Nxt's features include:
+Nxs, pronounced "Nexus" as Nxt is pronounced "Next", is a modified version of the default NRS web app of the official Nxt client that includes many new features and a more modern design. Some of Nxs' features include:
 
 - a jQuery solution for loading separate HTML views, rather than the `<iframe>` tag solution of the original client
 - Zurb Foundation 5 as the CSS base
