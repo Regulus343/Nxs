@@ -1,0 +1,467 @@
+<!-- General -->
+<div id="modal-general" class="reveal-modal" data-reveal data-reveal-general>
+	<h2>
+		<span class="icon icon-bubble"></span>
+		<span data-language-text="labels.message"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div class="row modal-bottom-row">
+		<div class="large-12 columns">
+			<div class="icon icon-bubble2 icon-modal"></div>
+
+			<div class="modal-content"></div>
+
+			<button class="radius icon-left ok">
+				<span class="icon icon-checkmark"></span>
+				<span data-language-text="labels.ok"></span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<!-- Unlock Account -->
+<div id="modal-unlock-account" class="reveal-modal" data-reveal>
+	<h2>
+		<span class="icon icon-key-round"></span>
+		<span data-language-text="labels.unlockAccount"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div class="form">
+		<div class="row">
+			<div class="large-12 columns">
+				<p data-language-text="messages.unlockAccount"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<div class="secret-phrase-hint hidden">
+					<span class="label round radius" data-language-text="labels.hint"></span>
+					<span class="hint"></span>
+				</div>
+
+				<label for="unlock-secret-phrase" data-language-text="labels.secretPhrase"></label>
+
+				<input type="password" name="secret_phrase" id="unlock-secret-phrase" class="secret-phrase" value="" data-language-text="messages.typeSecretPhrase" data-language-attribute="placeholder" accesskey="p" />
+
+				<input type="text" name="secret_phrase_visible" id="unlock-secret-phrase-visible" class="secret-phrase-visible hidden" value="" data-language-text="messages.typeSecretPhrase" data-language-attribute="placeholder" />
+
+				<div class="secret-phrase-area">
+					<span class="label round radius" id="generate-secret-phrase" data-language-text="labels.generate"></span>
+
+					<span class="label round radius select-cipher" data-language-text="labels.cipher"></span>
+
+					<span class="label round radius secret-phrase-char-counter">0</span>
+				</div>
+
+				<ul class="select-cipher-menu"></ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<input type="checkbox" name="show_secret_phrase" id="unlock-show-secret-phrase" class="show-secret-phrase" />
+				<label for="unlock-show-secret-phrase" class="checkbox" data-language-text="labels.showPhrase"></label>
+			</div>
+		</div>
+
+		<div class="row modal-bottom-row">
+			<div class="large-12 columns">
+				<button id="unlock-account" class="radius icon-left">
+					<span class="icon icon-key-round"></span>
+					<span data-language-text="labels.unlockAccount"></span>
+				</button>
+			</div>
+		</div>
+	</div><!-- /.form -->
+
+	<div class="loading">
+		<div class="text">
+			<span data-language-text="messages.loading.unlockingAccount"></span>
+			<span class="dots"></span>
+		</div>
+	</div>
+</div><!-- /#modal-unlock-account -->
+
+<!-- Authorize Account -->
+<div id="modal-authorize-account" class="reveal-modal" data-reveal>
+	<h2>
+		<span class="icon icon-key-round"></span>
+		<span data-language-text="labels.auth"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div class="form">
+		<div class="row">
+			<div class="large-12 columns">
+				<p data-language-text="messages.authorizeAccount"></p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<label for="website" data-language-text="labels.website"></label>
+
+				<input type="text" name="website" id="website" value="http://" data-language-text="labels.website" data-language-attribute="placeholder" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<div class="secret-phrase-hint hidden">
+					<span class="label round radius" data-language-text="labels.hint"></span>
+					<span class="hint"></span>
+				</div>
+
+				<label for="authorize-secret-phrase" data-language-text="labels.secretPhrase"></label>
+
+				<input type="password" name="secret_phrase" id="authorize-secret-phrase" class="secret-phrase" value="" data-language-text="messages.typeSecretPhrase" data-language-attribute="placeholder" accesskey="p" />
+
+				<input type="text" name="secret_phrase_visible" id="authorize-secret-phrase-visible" class="secret-phrase-visible hidden" value="" data-language-text="messages.typeSecretPhrase" data-language-attribute="placeholder" />
+
+				<div class="secret-phrase-area">
+					<span class="label round radius select-cipher" data-language-text="labels.cipher"></span>
+
+					<span class="label round radius secret-phrase-char-counter">0</span>
+				</div>
+
+				<ul class="select-cipher-menu"></ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<input type="checkbox" name="show_secret_phrase" id="authorize-show-secret-phrase" class="show-secret-phrase" />
+				<label for="authorize-show-secret-phrase" class="checkbox" data-language-text="labels.showPhrase"></label>
+			</div>
+		</div>
+
+		<div class="row modal-bottom-row">
+			<div class="large-12 columns">
+				<button id="authorize-account" class="radius icon-left">
+					<span class="icon icon-key-round"></span>
+					<span data-language-text="labels.generateAuthToken"></span>
+				</button>
+			</div>
+		</div>
+	</div><!-- /.form -->
+
+	<div class="loading">
+		<div class="text">
+			<span data-language-text="messages.loading.generatingAuthToken"></span>
+			<span class="dots"></span>
+		</div>
+	</div>
+</div><!-- /#modal-authorize-account -->
+
+<!-- Account Authorized -->
+<div id="modal-account-authorized" class="reveal-modal" data-reveal>
+	<h2>
+		<span class="icon icon-key-round"></span>
+		<span data-language-text="labels.auth"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<p class="account-authorized-message" data-language-text="messages.accountAuthorized"></p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<label for="auth-token" data-language-text="labels.authToken"></label>
+
+			<textarea name="auth_token" id="auth-token" readonly="readonly" data-language-text="labels.authToken" data-language-attribute="placeholder"></textarea>
+		</div>
+	</div>
+
+	<div class="row modal-bottom-row">
+		<div class="large-12 columns">
+			<button class="radius icon-left ok">
+				<span class="icon icon-checkmark"></span>
+				<span data-language-text="labels.ok"></span>
+			</button>
+		</div>
+	</div>
+</div><!-- /#modal-authorize-account -->
+
+<!-- Account QR Code -->
+<div id="modal-qr-code" class="reveal-modal" data-reveal>
+	<h2>
+		<span class="icon icon-qrcode"></span>
+		<span data-language-text="labels.qrCode"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div id="qr-code"></div>
+
+	<h3 class="account-number"></h3>
+</div>
+
+<!-- Send -->
+<div id="modal-send" class="reveal-modal" data-reveal>
+	<h2>
+		<span class="icon icon-nxt-n"></span>
+		<span data-language-text="labels.sendNxt"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div class="form">
+		<div class="row">
+			<div class="large-4 columns">
+				<label for="send-recipient" data-language-text="labels.recipient"></label>
+
+				<input type="text" name="recipient" id="send-recipient" value="" data-language-text="labels.recipient" data-language-attribute="placeholder" data-positive-number accesskey="r" />
+			</div>
+
+			<div class="large-4 columns">
+				<label for="send-amount" data-language-text="labels.amount"></label>
+
+				<span class="icon icon-nxt-n icon-amount-input"></span>
+
+				<input type="number" name="amount" id="send-amount" class="amount" value="0" data-language-text="labels.amount" data-language-attribute="placeholder" data-positive-number accesskey="a" />
+			</div>
+
+			<div class="large-4 columns">
+				<label for="send-fee" data-language-text="labels.fee"></label>
+
+				<span class="icon icon-nxt-n icon-amount-input"></span>
+
+				<input type="number" name="fee" id="send-fee" class="amount fee" value="0" data-language-text="labels.fee" data-language-attribute="placeholder" data-positive-number accesskey="f" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-6 columns">
+				<label for="send-deadline" data-language-text="labels.deadlineInHours"></label>
+
+				<input type="number" name="deadline" id="send-deadline" class="deadline" value="" data-language-text="labels.deadline" data-language-attribute="placeholder" accesskey="d" />
+			</div>
+
+			<div class="large-6 columns">
+				<label for="send-deadline-time" data-language-text="labels.deadline"></label>
+
+				<input type="text" name="deadline_time" id="send-deadline-time" readonly="readonly" value="" data-language-text="labels.noDeadline" data-language-attribute="placeholder" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<div class="secret-phrase-hint hidden">
+					<span class="label round radius" data-language-text="labels.hint"></span>
+					<span class="hint"></span>
+				</div>
+
+				<label for="send-secret-phrase" data-language-text="labels.secretPhrase"></label>
+
+				<input type="password" name="secret_phrase" id="send-secret-phrase" class="secret-phrase" value="" data-language-text="messages.typeSecretPhrase" data-language-attribute="placeholder" accesskey="p" />
+
+				<input type="text" name="secret_phrase_visible" id="send-secret-phrase-visible" class="secret-phrase-visible hidden" value="" data-language-text="messages.typeSecretPhrase" data-language-attribute="placeholder" />
+
+				<div class="secret-phrase-area">
+					<span class="label round radius select-cipher" data-language-text="labels.cipher"></span>
+
+					<span class="label round radius secret-phrase-char-counter">0</span>
+				</div>
+
+				<ul class="select-cipher-menu"></ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<input type="checkbox" name="show_secret_phrase" id="send-show-secret-phrase" class="show-secret-phrase" />
+				<label for="send-show-secret-phrase" class="checkbox" data-language-text="labels.showPhrase"></label>
+			</div>
+		</div>
+
+		<div class="row modal-bottom-row">
+			<div class="large-12 columns">
+				<button id="send-confirm" class="radius icon-right">
+					<span data-language-text="labels.send"></span>
+					<span class="icon icon-arrow-right3"></span>
+				</button>
+
+				<div id="send-double-click" data-language-text="messages.sendDoubleClick"></div>
+			</div>
+		</div>
+	</div><!-- /.form -->
+
+	<div class="loading">
+		<div class="text">
+			<span data-language-text="messages.loading.signingTransaction"></span>
+			<span class="dots"></span>
+		</div>
+	</div>
+</div>
+
+<!-- Asset -->
+<div id="modal-asset" class="reveal-modal" data-reveal>
+	<h2>
+		<span class="icon icon-document"></span>
+		<span data-language-text="labels.asset"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div class="form">
+		<div class="row">
+			<div class="large-4 columns">
+				<label for="asset-name" data-language-text="labels.assetName"></label>
+
+				<input type="text" name="name" id="asset-name" value="" data-language-text="labels.assetName" data-language-attribute="placeholder" data-positive-number accesskey="n" />
+			</div>
+
+			<div class="large-4 columns">
+				<label for="asset-quantity" data-language-text="labels.quantity"></label>
+
+				<input type="number" name="quantity" id="asset-quantity" value="1" data-language-text="labels.quantity" data-language-attribute="placeholder" data-positive-number accesskey="q" />
+			</div>
+
+			<div class="large-4 columns">
+				<label for="asset-fee" data-language-text="labels.fee"></label>
+
+				<span class="icon icon-nxt-n icon-amount-input"></span>
+
+				<input type="number" name="fee" id="asset-fee" class="amount fee" value="0" data-language-text="labels.fee" data-language-attribute="placeholder" data-positive-number accesskey="f" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<label for="asset-description" data-language-text="labels.description"></label>
+
+				<textarea name="description" id="asset-description" class="description" value="" data-language-text="labels.description" data-language-attribute="placeholder" accesskey="d" />
+			</div>
+		</div>
+
+		<div class="row modal-bottom-row">
+			<div class="large-12 columns">
+				<button id="asset-issue" class="radius icon-right">
+					<span data-language-text="labels.issueAsset"></span>
+					<span class="icon icon-arrow-right3"></span>
+				</button>
+			</div>
+		</div>
+	</div><!-- /.form -->
+
+	<div class="loading">
+		<div class="text">
+			<span data-language-text="messages.loading.issuingAsset"></span>
+			<span class="dots"></span>
+		</div>
+	</div>
+</div>
+
+<!-- Ask Order -->
+<div id="modal-order-ask" class="reveal-modal" data-reveal>
+	<h2>
+		<span class="icon icon-bubble2"></span>
+		<span data-language-text="labels.ask"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div class="form">
+		<div class="row">
+			<div class="large-4 columns">
+				<label for="order-ask-quantity" data-language-text="labels.quantity"></label>
+
+				<input type="number" name="quantity" id="order-ask-quantity" value="1" data-language-text="labels.quantity" data-language-attribute="placeholder" data-positive-number accesskey="q" />
+			</div>
+
+			<div class="large-4 columns">
+				<label for="order-ask-amount" data-language-text="labels.amount"></label>
+
+				<span class="icon icon-nxt-n icon-amount-input"></span>
+
+				<input type="number" name="amount" id="order-ask-amount" class="amount" value="0" data-language-text="labels.amount" data-language-attribute="placeholder" data-positive-number accesskey="a" />
+			</div>
+
+			<div class="large-4 columns">
+				<label for="order-ask-fee" data-language-text="labels.fee"></label>
+
+				<span class="icon icon-nxt-n icon-amount-input"></span>
+
+				<input type="number" name="fee" id="order-ask-fee" class="amount fee" value="0" data-language-text="labels.fee" data-language-attribute="placeholder" data-positive-number accesskey="f" />
+			</div>
+		</div>
+
+		<div class="row modal-bottom-row">
+			<div class="large-12 columns">
+				<button id="asset-issue" class="radius icon-right">
+					<span data-language-text="labels.placeAskOrder"></span>
+					<span class="icon icon-arrow-right3"></span>
+				</button>
+			</div>
+		</div>
+	</div><!-- /.form -->
+
+	<div class="loading">
+		<div class="text">
+			<span data-language-text="messages.loading.placingAskOrder"></span>
+			<span class="dots"></span>
+		</div>
+	</div>
+</div>
+
+<!-- Bid Order -->
+<div id="modal-order-bid" class="reveal-modal" data-reveal>
+	<h2>
+		<span class="icon icon-bubble2"></span>
+		<span data-language-text="labels.bid"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div class="form">
+		<div class="row">
+			<div class="large-4 columns">
+				<label for="order-bid-quantity" data-language-text="labels.quantity"></label>
+
+				<input type="number" name="quantity" id="order-bid-quantity" value="1" data-language-text="labels.quantity" data-language-attribute="placeholder" data-positive-number accesskey="q" />
+			</div>
+
+			<div class="large-4 columns">
+				<label for="order-bid-amount" data-language-text="labels.amount"></label>
+
+				<span class="icon icon-nxt-n icon-amount-input"></span>
+
+				<input type="number" name="amount" id="order-bid-amount" class="amount" value="0" data-language-text="labels.amount" data-language-attribute="placeholder" data-positive-number accesskey="a" />
+			</div>
+
+			<div class="large-4 columns">
+				<label for="order-bid-fee" data-language-text="labels.fee"></label>
+
+				<span class="icon icon-nxt-n icon-amount-input"></span>
+
+				<input type="number" name="fee" id="order-bid-fee" class="amount fee" value="0" data-language-text="labels.fee" data-language-attribute="placeholder" data-positive-number accesskey="f" />
+			</div>
+		</div>
+
+		<div class="row modal-bottom-row">
+			<div class="large-12 columns">
+				<button id="asset-issue" class="radius icon-right">
+					<span data-language-text="labels.placeBidOrder"></span>
+					<span class="icon icon-arrow-right3"></span>
+				</button>
+			</div>
+		</div>
+	</div><!-- /.form -->
+
+	<div class="loading">
+		<div class="text">
+			<span data-language-text="messages.loading.placingBidOrder"></span>
+			<span class="dots"></span>
+		</div>
+	</div>
+</div>

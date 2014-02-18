@@ -1,0 +1,103 @@
+{
+	"labels": {
+		"nxt":                       "Nxt",
+		"accountNumber":             "Número de Cuenta",
+		"send":                      "Enviar",
+		"sendNxt":                   "Enviar Nxt",
+		"alias":                     "Alias",
+		"sender":                    "Remitente",
+		"recipient":                 "Destinatario",
+		"amount":                    "Cantidad",
+		"fee":                       "Comisión",
+		"balance":                   "Saldo",
+		"forge":                     "Forja",
+		"block":                     "Bloque",
+		"transaction":               "Transacción",
+		"deadline":                  "Tiempo Límite",
+		"deadlineInHours":           "Tiempo Límite (en horas)",
+		"deadlineInMinutes":         "Tiempo Límite (en minutos)",
+		"noDeadline":                "Sin tiempo límite...",
+		"generalNotification":       "Notificación General",
+		"message":                   "Mensaje",
+		"info":                      "Info",
+		"warning":                   "Aviso",
+		"error":                     "Error",
+		"success":                   "Éxito",
+		"ok":                        "OK",
+		"cancel":                    "Cancelar",
+
+		"unlockAccount":             "Desbloquear Cuenta",
+		"secretPhrase":              "Contraseña Secreta",
+		"showPhrase":                "Mostrar Contraseña",
+		"hint":                      "Pista",
+
+		"qrCode":                    "Código QR",
+
+		"transactions":              "Transacciones",
+		"peers":                     "Pares",
+		"blocks":                    "Bloques",
+		"accounts":                  "Cuentas",
+
+		"myTransactions":            "Mis Transacciones",
+		"allTransactions":           "Todas las Transacciones",
+
+		"all":                       "Total",
+		"received":                  "Recibido",
+		"sent":                      "Enviado",
+		"unconfirmed":               "Sin Confirmar",
+		"confirmed":                 "Confirmado",
+		"doubleSpending":            "Doble Gasto",
+
+		"activePeers":               "Pares Activos",
+		"knownPeers":                "Pares Conocidos",
+		"blacklistedPeers":          "Pares en Lista Negra",
+
+		"wellKnown":                 "Bien Conocidos",
+		"announced":                 "Anunciados",
+
+		"recentBlocks":              "Bloques Recientes",
+		"orphanedBlocks":            "Bloques Huérfanos",
+
+		"withTransactions":          "Con Transacciones",
+		"withoutTransactions":       "Sin Transacciones"
+	},
+
+	"messages": {
+		"typeSecretPhrase":          "Entra una contraseña secreta para desbloquear una cuenta...",
+
+		"sendDoubleClick":           "Para prevenir envíos accidentales, debes hacer doble clic en el botón 'Enviar'. Esto puede cambiarse en las opciones de configuración.",
+
+		"noTransactions":            "Actualmente no hay transacciones.",
+		"noTransactionsSub":         "Por favor ajusta la categoría o los filtros para ver transacciones.",
+
+		"noPeers":                   "Actualmente no hay pares.",
+		"noPeersSub":                "Por favor ajusta la categoría o los filtros para ver pares.",
+
+		"forgeNextBlock":            "Puedes forjar el siguiente bloque en:",
+		"noBlocks":                  "Actualmente no hay bloques.",
+		"noBlocksSub":               "Por favor ajusta la categoría o los filtros para ver bloques.",
+
+		"success": {
+			"amountSent":            "Has enviado [amount] con éxito a [recipient]."
+		},
+
+		"errors": {
+			"general":               "Algo ha salido mal. Por favor, inténtalo de nuevo.",
+			"recipientRequired":     "Por favor introduce un destinatario.",
+			"amountGreaterThanZero": "La cantidad debe ser mayor que 0.",
+			"deadlineWithinLimits":  "El tiempo límite debe estar entre 1 y 24 horas.",
+			"secretPhraseLength":    "Tu contraseña secreta es demasiado corta. Por favor, elige una contraseña más segura.",
+			"secretPhraseRequired":  "Por favor, introduce tu contraseña secreta.",
+			"secretPhraseIncorrect": "La contraseña secreta no es correcta."
+		},
+
+		"warnings": {
+			"secretPhraseLength":    "Tu contraseña secreta es demasiado corta y puede ser forzada fácilmente por un hacker. Se recomienda encarecidamente que elijas una contraseña secreta más segura."
+		},
+
+		"loading": {
+			"blockchain":            "Cargando cadena de bloques",
+			"signingTransaction":    "Firmando transacción"
+		}
+	}
+}

@@ -1,0 +1,140 @@
+<div class="widget-header">
+	<h3>
+		<span class="icon icon-earth"></span>
+		<span data-language-text="labels.peers"></span>
+	</h3>
+
+	<div class="icon icon-close icon-close-red close-widget toggle toggle-widget" title="Close" data-toggle-id="peers"></div>
+</div>
+
+<div class="content">
+	<div class="tabs" data-type="peers">
+		<div class="tab-nav">
+
+			<!-- Active Peers -->
+			<div class="tab-section-trigger active" data-section-id="active-peers-section">
+				<span class="icon icon-broadcast icon-light-blue"></span>
+				<span data-language-text="labels.activePeers"></span>
+
+				<span class="counter">
+					<span class="current">0</span>
+					<span class="divider hidden">/</span>
+					<span class="total hidden">0</span>
+				</span>
+
+				<ul class="filters" data-filter-callback="updateCounter('peers', 'active')">
+					<li class="active" data-filter="all">
+						<span class="icon icon-radio-unchecked"></span>
+						<span data-language-text="labels.all"></span>
+					</li>
+					<li data-filter="well-known">
+						<span class="icon icon-radio-checked"></span>
+						<span data-language-text="labels.wellKnown"></span>
+					</li>
+					<li data-filter="announced">
+						<span class="icon icon-notification"></span>
+						<span data-language-text="labels.announced"></span>
+					</li>
+				</ul>
+
+				<div class="highlight-bg"></div>
+			</div>
+
+			<!-- Known Peers -->
+			<div class="tab-section-trigger" data-section-id="known-peers-section">
+				<span class="icon icon-globe icon-light-yellow"></span>
+				<span data-language-text="labels.knownPeers"></span>
+
+				<span class="counter">
+					<span class="current">0</span>
+					<span class="divider hidden">/</span>
+					<span class="total hidden">0</span>
+				</span>
+
+				<ul class="filters" data-filter-callback="updateCounter('peers', 'known')">
+					<li class="active" data-filter="all">
+						<span class="icon icon-radio-unchecked"></span>
+						<span data-language-text="labels.all"></span>
+					</li>
+					<li data-filter="well-known">
+						<span class="icon icon-radio-checked"></span>
+						<span data-language-text="labels.wellKnown"></span>
+					</li>
+					<li data-filter="announced">
+						<span class="icon icon-notification"></span>
+						<span data-language-text="labels.announced"></span>
+					</li>
+				</ul>
+
+				<div class="highlight-bg"></div>
+			</div>
+
+			<!-- Blacklisted Peers -->
+			<div class="tab-section-trigger" data-section-id="blacklisted-peers-section">
+				<span class="icon icon-fire icon-light-red"></span>
+				<span data-language-text="labels.blacklistedPeers"></span>
+
+				<span class="counter">
+					<span class="current">0</span>
+					<span class="divider hidden">/</span>
+					<span class="total hidden">0</span>
+				</span>
+
+				<ul class="filters" data-filter-callback="updateCounter('peers', 'blacklisted')">
+					<li class="active" data-filter="all">
+						<span class="icon icon-radio-unchecked"></span>
+						<span data-language-text="labels.all"></span>
+					</li>
+					<li data-filter="well-known">
+						<span class="icon icon-radio-checked"></span>
+						<span data-language-text="labels.wellKnown"></span>
+					</li>
+					<li data-filter="announced">
+						<span class="icon icon-notification"></span>
+						<span data-language-text="labels.announced"></span>
+					</li>
+				</ul>
+
+				<div class="highlight-bg"></div>
+			</div>
+
+		</div><!-- /.tab-nav -->
+
+		<div class="tab-content scrollable">
+
+			<!-- Active Peers -->
+			<div id="active-peers-section" class="tab-section">
+
+				<table id="active-peers" class="items"></table>
+
+				<h4 class="no-items">
+					<span class="icon icon-info2"></span> <span data-language-text="messages.noPeers"></span>
+					<div class="sub" data-language-text="messages.noPeersSub"></div>
+				</h4>
+			</div>
+
+			<!-- Known Peers -->
+			<div id="known-peers-section" class="tab-section hidden">
+
+				<table id="known-peers" class="items"></table>
+
+				<h4 class="no-items">
+					<span class="icon icon-info2"></span> <span data-language-text="messages.noPeers"></span>
+					<div class="sub" data-language-text="messages.noPeersSub"></div>
+				</h4>
+			</div>
+
+			<!-- Blacklisted Peers -->
+			<div id="blacklisted-peers-section" class="tab-section hidden">
+
+				<table id="blacklisted-peers" class="items"></table>
+
+				<h4 class="no-items">
+					<span class="icon icon-info2"></span> <span data-language-text="messages.noPeers"></span>
+					<div class="sub" data-language-text="messages.noPeersSub"></div>
+				</h4>
+			</div>
+
+		</div><!-- /.tab-content -->
+	</div>
+</div>

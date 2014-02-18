@@ -1,0 +1,104 @@
+<div class="widget-header">
+	<h3>
+		<span class="icon icon-loop2"></span>
+		<span data-language-text="labels.transactions"></span>
+	</h3>
+
+	<div class="icon icon-close icon-close-red close-widget toggle toggle-widget" title="Close" data-toggle-id="transactions"></div>
+</div>
+
+<div class="content">
+	<div class="tabs" data-type="transactions">
+		<div class="tab-nav">
+
+			<!-- My Transactions -->
+			<div class="tab-section-trigger active" data-section-id="my-transactions-section">
+				<span class="icon icon-home icon-light-blue"></span>
+				<span data-language-text="labels.myTransactions"></span>
+
+				<span class="counter">
+					<span class="current">0</span>
+					<span class="divider hidden">/</span>
+					<span class="total hidden">0</span>
+				</span>
+
+				<ul class="filters" data-filter-callback="updateCounter('transactions', 'my')">
+					<li class="active" data-filter="all">
+						<span class="icon icon-radio-unchecked"></span>
+						<span data-language-text="labels.all"></span>
+					</li>
+					<li data-filter="received">
+						<span class="icon icon-arrow-left2"></span>
+						<span data-language-text="labels.received"></span>
+					</li>
+					<li data-filter="sent">
+						<span class="icon icon-arrow-right2"></span>
+						<span data-language-text="labels.sent"></span>
+					</li>
+				</ul>
+
+				<div class="highlight-bg"></div>
+			</div>
+
+			<!-- All Transactions -->
+			<div class="tab-section-trigger" data-section-id="all-transactions-section">
+				<span class="icon icon-feed icon-light-yellow"></span>
+				<span data-language-text="labels.allTransactions"></span>
+
+				<span class="counter">
+					<span class="current">0</span>
+					<span class="divider hidden">/</span>
+					<span class="total hidden">0</span>
+				</span>
+
+				<ul class="filters" data-filter-callback="updateCounter('transactions', 'all')">
+					<li class="active" data-filter="all">
+						<span class="icon icon-radio-unchecked"></span>
+						<span data-language-text="labels.all"></span>
+					</li>
+					<li data-filter="unconfirmed">
+						<span class="icon icon-question"></span>
+						<span data-language-text="labels.unconfirmed"></span>
+					</li>
+					<li data-filter="confirmed">
+						<span class="icon icon-radio-checked"></span>
+						<span data-language-text="labels.confirmed"></span>
+					</li>
+					<!--<li data-filter="double-spending">
+						<span class="icon icon-notification"></span>
+						<span data-language-text="labels.doubleSpending"></span>
+					</li>-->
+				</ul>
+
+				<div class="highlight-bg"></div>
+			</div>
+
+		</div><!-- /.tab-nav -->
+
+		<div class="tab-content scrollable">
+
+			<!-- My Transactions -->
+			<div id="my-transactions-section" class="tab-section">
+
+				<ul id="my-transactions" class="items"></ul>
+
+				<h4 class="no-items">
+					<span class="icon icon-info2"></span> <span data-language-text="messages.noTransactions"></span>
+					<div class="sub" data-language-text="messages.noTransactionsSub"></div>
+				</h4>
+			</div>
+
+			<!-- All Transactions -->
+			<div id="all-transactions-section" class="tab-section hidden">
+
+				<ul id="all-transactions" class="items"></ul>
+
+				<h4 class="no-items">
+					<span class="icon icon-info2"></span> <span data-language-text="messages.noTransactions"></span>
+					<div class="sub" data-language-text="messages.noTransactionsSub"></div>
+				</h4>
+			</div>
+
+		</div><!-- /.tab-content -->
+	</div>
+</div>

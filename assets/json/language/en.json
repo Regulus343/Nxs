@@ -1,0 +1,145 @@
+{
+	"labels": {
+		"nxt":                       "Nxt",
+		"accountNumber":             "Account Number",
+		"send":                      "Send",
+		"sendNxt":                   "Send Nxt",
+		"alias":                     "Alias",
+		"sender":                    "Sender",
+		"recipient":                 "Recipient",
+		"amount":                    "Amount",
+		"fee":                       "Fee",
+		"balance":                   "Balance",
+		"forge":                     "Forge",
+		"block":                     "Block",
+		"transaction":               "Transaction",
+		"deadline":                  "Deadline",
+		"deadlineInHours":           "Deadline (in hours)",
+		"deadlineInMinutes":         "Deadline (in minutes)",
+		"noDeadline":                "No deadline...",
+		"generalNotification":       "General Notification",
+		"message":                   "Message",
+		"info":                      "Info",
+		"warning":                   "Warning",
+		"error":                     "Error",
+		"success":                   "Success",
+		"ok":                        "OK",
+		"cancel":                    "Cancel",
+		"cipher":                    "Cipher",
+		"generate":                  "Generate",
+
+		"unlockAccount":             "Unlock Account",
+		"secretPhrase":              "Secret Phrase",
+		"showPhrase":                "Show Phrase",
+		"hint":                      "Hint",
+
+		"auth":                      "Authorization",
+		"authToken":                 "Authorization Token",
+		"generateAuthToken":         "Generate Authorization Token",
+		"website":                   "Website",
+
+		"qrCode":                    "QR Code",
+
+		"asset":                     "Asset",
+		"ask":                       "Ask",
+		"bid":                       "Bid",
+
+		"assetName":                 "Asset Name",
+		"quantity":                  "Quantity",
+		"description":               "Description",
+
+		"issueAsset":                "Issue Asset",
+		"placeAskOrder":             "Place Ask Order",
+		"placeBidOrder":             "Place Bid Order",
+
+		"transactions":              "Transactions",
+		"peers":                     "Peers",
+		"blocks":                    "Blocks",
+		"accounts":                  "Accounts",
+
+		"myTransactions":            "My Transactions",
+		"allTransactions":           "All Transactions",
+
+		"all":                       "All",
+		"received":                  "Received",
+		"sent":                      "Sent",
+		"unconfirmed":               "Unconfirmed",
+		"confirmed":                 "Confirmed",
+		"doubleSpending":            "Double Spending",
+
+		"activePeers":               "Active Peers",
+		"knownPeers":                "Known Peers",
+		"blacklistedPeers":          "Blacklisted Peers",
+
+		"wellKnown":                 "Well-Known",
+		"announced":                 "Announced",
+
+		"recentBlocks":              "Recent Blocks",
+		"orphanedBlocks":            "Orphaned Blocks",
+
+		"withTransactions":          "With Transactions",
+		"withoutTransactions":       "Without Transactions",
+
+		"confirmation":              "Confirmation",
+		"confirmations":             "Confirmations",
+
+		"connected":                 "Connected",
+		"disconnected":              "Disconnected",
+
+		"downloaded":                "Downloaded",
+		"uploaded":                  "Uploaded"
+	},
+
+	"messages": {
+		"typeSecretPhrase":          "Type a secret phrase to unlock an account...",
+
+		"sendDoubleClick":           "To prevent accidental sending, you must double-click the 'Send' button. This may be disabled in the config settings.",
+
+		"noTransactions":            "There are currently no transactions.",
+		"noTransactionsSub":         "Please adjust category or filters to see transactions.",
+
+		"noPeers":                   "There are currently no peers.",
+		"noPeersSub":                "Please adjust category or filters to see peers.",
+
+		"forgeNextBlock":            "You can forge the next block in:",
+		"noBlocks":                  "There are currently no blocks.",
+		"noBlocksSub":               "Please adjust category or filters to see blocks.",
+
+		"disconnectRemoveFromList":  "Disconnect and remove from list.",
+		"removeFromList":            "Remove from list.",
+
+		"unlockAccount":             "Type in a long, secure phrase. This will be the access code to your account and its funds. Please ensure you do not lose your secret phrase as it will not be able to be recovered. To ensure a secure account, a phrase of 30+ characters is recommended.",
+		"authorizeAccount":          "Type in a website URL and your secret phrase to create an authorization token for your account.",
+		"accountAuthorized":         "Use the authorization token below for the website it was created for ([website]).",
+
+		"success": {
+			"amountSent":            "You have successfully sent [amount] to [recipient].",
+			"orderPlaced":           "Your order has been placed.",
+			"assetIssued":           "Your asset has been issued."
+		},
+
+		"errors": {
+			"general":               "Something went wrong. Please try again.",
+			"recipientRequired":     "Please enter a recipient.",
+			"amountGreaterThanZero": "The amount must be greater than 0.",
+			"deadlineWithinLimits":  "The deadline must be between 1 and 24 hours.",
+			"secretPhraseLength":    "Your secret phrase is too short. Please choose a more secure secret phrase.",
+			"secretPhraseRequired":  "Please enter your secret phrase.",
+			"secretPhraseIncorrect": "Your secret phrase is incorrect."
+		},
+
+		"warnings": {
+			"secretPhraseLength":    "Your secret phrase is too short and may easily be picked up by a hacker. It is strongly recommended you choose a more secure secret phrase."
+		},
+
+		"loading": {
+			"blockchain":            "Loading blockchain",
+			"unlockingAccount":      "Unlocking account",
+			"generatingAuthToken":   "Generating authorization token",
+			"signingTransaction":    "Signing transaction",
+			"issuingAsset":          "Issuing asset",
+			"placingAskOrder":       "Placing ask order",
+			"placingBidOrder":       "Placing bid order"
+		}
+	}
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Nxt</title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta name="author" content="Cody Jassman - http://github.com/Regulus343 / me@codyjassman.com" />
+		<meta name="keywords" content="Nxt, crypto, cryptocurrency, digital currency, money P2P, peer to peer" />
+		<meta name="description" content="The Nxs (Nexus) mod for the Nxt NRS Client." />
+
+		<link href="assets/images/icon.png" rel="icon" type="image/png">
+
+		<link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/foundation.min.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/jquery-ui/smoothness/smoothness.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/icons.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/scroller.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/quick-styles.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/styles.css" />
+
+		<script type="text/javascript" src="assets/js/config.js"></script>
+
+		<script type="text/javascript" src="assets/js/jquery.js"></script>
+		<script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="assets/js/jquery.cookie.js"></script>
+		<!--<script type="text/javascript" src="assets/js/jquery.slimscroll.js"></script>-->
+		<script type="text/javascript" src="assets/js/jquery.actual.min.js"></script>
+		<script type="text/javascript" src="assets/js/jquery.fs.scroller.min.js"></script>
+		<script type="text/javascript" src="assets/js/jquery.tinysort.min.js"></script>
+		<script type="text/javascript" src="assets/js/jquery.qrcode.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/modernizr.js"></script>
+		<script type="text/javascript" src="assets/js/fastclick.js"></script>
+		<script type="text/javascript" src="assets/js/foundation.min.js"></script>
+		<script type="text/javascript" src="assets/js/handlebars.min.js"></script>
+		<script type="text/javascript" src="assets/js/moment.min.js"></script>
+
+		<script type="text/javascript" src="assets/js/nxt/core.js"></script>
+		<script type="text/javascript" src="assets/js/nxt/transactions.js"></script>
+		<script type="text/javascript" src="assets/js/nxt/peers.js"></script>
+		<script type="text/javascript" src="assets/js/nxt/blocks.js"></script>
+
+		<script type="text/javascript" src="assets/js/language.js"></script>
+		<script type="text/javascript" src="assets/js/cipher.js"></script>
+
+		<script type="text/javascript" src="assets/js/initialize.js"></script>
+	</head>
+
+	<body>
+		<!-- Navigation Bar -->
+		<nav class="top-bar docs-bar hide-for-small" data-topbar data-load-view="nav"></nav>
+
+		<!-- Widgets -->
+		<div id="widgets">
+
+			<!-- Transactions View -->
+			<div id="transactions" class="widget" data-load-view="transactions"></div><!-- /#transactions -->
+
+			<!-- Peers View -->
+			<div id="peers" class="widget hidden" data-load-view="peers"></div><!-- /#peers -->
+
+			<!-- Blocks View -->
+			<div id="blocks" class="widget hidden" data-load-view="blocks"></div><!-- /#blocks -->
+
+			<!-- Accounts View -->
+			<div id="accounts" class="widget hidden" data-load-view="accounts"></div><!-- /#accounts -->
+
+			<!-- Splash Logo -->
+			<div id="logo-splash"></div>
+
+		</div><!-- /#widgets -->
+
+		<div id="interfaceDisabler" class="interfaceDisabler">
+			<div class="dialog">
+				<div class="dialogHeader">
+					<div id="dialogTitle" class="dialogTitle"></div>
+					<div id="dialogClose" class="close" title="Close"></div>
+				</div>
+				<div id="dialogContent" class="dialogContent"></div>
+			</div>
+		</div>
+
+		<!-- Modal Windows -->
+		<div id="modals" class="hidden" data-load-view="modals"></div>
+
+		<div id="footer">
+			<div class="versions">
+				<a href="http://www.nxtcrypto.org/nxt-coin/client-download" target="_blank">Nxt</a> :: <span class="nxt-version"></span> / Nxs :: <span class="nxs-version"></span>
+			</div>
+		</div>
+
+		<input type="hidden" name="deadline" id="deadline" value="" />
+
+		<!-- Templates -->
+		<div class="template" data-load-view="templates/transaction"></div>
+		<div class="template" data-load-view="templates/peer"></div>
+		<div class="template" data-load-view="templates/block"></div>
+	</body>
+</html>

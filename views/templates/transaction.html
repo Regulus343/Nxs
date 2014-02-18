@@ -1,0 +1,57 @@
+<script id="transaction-template" type="text/x-handlebars-template">
+
+	<li class="transaction-{{index}}" data-filters="{{filters}}">
+		<h5>
+			{{#if timestampTransaction}}
+				<span class="icon icon-loop2" title="Transaction Time"></span>
+			{{else}}
+				<span class="icon icon-stack" title="Block Time"></span>
+			{{/if}}
+
+			{{formattedTimestamp}}
+
+			<span class="readable-timestamp" data-timestamp="{{timestamp}}">{{readableTimestamp}}</span>
+		</h5>
+
+		<div class="confirmations confirmations-{{numberOfConfirmations}}" title="{{numberOfConfirmationsTitleText}}" data-confirmations="{{numberOfConfirmations}}">
+			<span class="icon icon-bars"></span> {{numberOfConfirmationsFormatted}}
+		</div>
+
+		<div class="amount">
+			<div class="amount">
+				<span class="icon icon-nxt-n"></span> {{amount}} <span class="unit">NXT</span>
+
+				<span class="fee">
+					<span class="icon icon-plus"></span> {{fee}}
+				</span>
+			</div>
+		</div>
+
+		<div class="transaction-info">
+			<a href="{{senderUrl}}" target="_blank" class="{{senderClass}} sender" title="Sender">
+				{{#if forgedBlock}}
+					<span class="icon icon-stack"></span>
+				{{else}}
+					<span class="icon icon-user2"></span>
+				{{/if}}
+
+				<span class="account-number">{{sender}}</span>
+			</a>
+
+			<span class="icon icon-shuffle"></span> 
+
+			<a href="{{recipientUrl}}" target="_blank" class="{{recipientClass}} recipient" title="Recipient">
+				<span class="icon icon-user2"></span>
+				<span class="account-number">{{recipient}}</span>
+			</a>
+
+			<a href="{{transactionUrl}}" target="_blank" class="transaction-id" title="Transaction ID">
+				<span class="icon icon-loop2"></span>
+				<span class="transaction-id">{{id}}</span>
+			</a>
+		</div>
+
+		<span class="timestamp-numeric hidden">{{numericTimestamp}}</span>
+	</li>
+
+</script>

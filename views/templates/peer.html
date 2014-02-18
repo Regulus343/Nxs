@@ -1,0 +1,43 @@
+<script id="peer-template" type="text/x-handlebars-template">
+
+	<tr class="peer-{{index}}" data-filters="{{filters}}" data-index="{{index}}">
+		<td class="icon-cell connection-state-cell {{stateClass}}" title="{{state}}">
+			<span class="icon icon-broadcast"></span>
+		</td>
+		<td class="{{addressTypeClass}}" title="{{announcedAddress}}">
+			{{announcedAddressFormatted}}
+		</td>
+
+		{{#if active}}
+			<td class="icon-cell icon-weight {{weightClass}}">
+				<span class="icon icon-lightning"></span>
+			</td>
+			<td class="weight {{weightClass}}">
+				{{weight}}
+			</td>
+
+			<td class="icon-cell icon-uploaded uploaded-downloaded">
+				<span class="icon icon-upload"></span>
+			</td>
+			<td class="uploaded-downloaded uploaded" title="{{uploadedTitleText}}">
+				{{uploadedFormatted}}
+			</td>
+
+			<td class="icon-cell icon-downloaded uploaded-downloaded">
+				<span class="icon icon-download"></span>
+			</td>
+			<td class="uploaded-downloaded downloaded" title="{{downloadedTitleText}}">
+				{{downloadedFormatted}}
+			</td>
+
+			<td>
+				{{software}}
+			</td>
+
+			<td class="actions">
+				<span class="icon icon-close remove" title="{{removeTitleText}}"></span>
+			</td>
+		{{/if}}
+	</tr>
+
+</script>

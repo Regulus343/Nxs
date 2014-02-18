@@ -1,0 +1,45 @@
+<script id="block-template" type="text/x-handlebars-template">
+
+	<li class="block-{{index}}" data-filters="{{filters}}">
+		<h4>
+			<span class="icon icon-stack" title="Block"></span>
+
+			<a href="{{blockUrl}}" target="_blank" class="height" title="Block Height">
+				{{height}}
+			</a>
+
+			<a href="{{forgerUrl}}" target="_blank" class="{{recipientClass}} forger" title="Forger">
+				<span class="icon icon-user2"></span>
+				<span class="account-number">{{forger}}</span>
+			</a>
+		</h4>
+
+		<h5>
+			{{formattedTimestamp}}
+
+			<span class="readable-timestamp" data-timestamp="{{timestamp}}">{{readableTimestamp}}</span>
+		</h5>
+
+		<div class="transactions transactions-{{numberOfTransactions}}" title="{{numberOfTransactions}} transaction(s)">
+			<span class="icon icon-loop2"></span> {{numberOfTransactions}}
+		</div>
+
+		<div class="amount-transactions">
+			<div class="amount">
+				<span class="icon icon-nxt-n"></span> {{totalAmount}} <span class="unit">NXT</span>
+
+				<span class="fee">
+					<span class="icon icon-plus"></span> {{totalFee}}
+				</span>
+			</div>
+		</div>
+
+		<div class="block-info">
+			<a href="{{blockUrl}}" target="_blank" class="block-id" title="Block ID">
+				<span class="icon icon-loop2"></span>
+				<span class="block-id">{{id}}</span>
+			</a>
+		</div>
+	</li>
+
+</script>

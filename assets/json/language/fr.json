@@ -1,0 +1,103 @@
+{
+	"labels": {
+		"nxt":                       "Nxt",
+		"accountNumber":             "Numéro de compte",
+		"send":                      "Envoyer",
+		"sendNxt":                   "Envoyer des Nxt",
+		"alias":                     "Alias",
+		"sender":                    "Emetteur",
+		"recipient":                 "Destinataire",
+		"amount":                    "Montant",
+		"fee":                       "Frais",
+		"balance":                   "Balance",
+		"forge":                     "Forge",
+		"block":                     "Bloc",
+		"transaction":               "Transaction",
+		"deadline":                  "Date limite",
+		"deadlineInHours":           "Date limite (en heures)",
+		"deadlineInMinutes":         "Date limite (en minutes)",
+		"noDeadline":                "Sans date limite...",
+		"generalNotification":       "Notifications générales",
+		"message":                   "Message",
+		"info":                      "Info",
+		"warning":                   "Alerte",
+		"error":                     "Erreur",
+		"success":                   "Succès",
+		"ok":                        "OK",
+		"cancel":                    "Annuler",
+
+		"unlockAccount":             "Ouvrir le compte",
+		"secretPhrase":              "Phrase secrète",
+		"showPhrase":                "Montrer la phrase",
+		"hint":                      "Indice",
+
+		"qrCode":                    "QR Code",
+
+		"transactions":              "Transactions",
+		"peers":                     "Pairs",
+		"blocks":                    "Blocs",
+		"accounts":                  "Comptes",
+
+		"myTransactions":            "Mes Transactions",
+		"allTransactions":           "Toutes les transactions",
+
+		"all":                       "Toutes",
+		"received":                  "Reçues",
+		"sent":                      "Envoyées",
+		"unconfirmed":               "Non confirmées",
+		"confirmed":                 "Confirmées",
+		"doubleSpending":            "Double dépense",
+
+		"activePeers":               "Pairs actifs",
+		"knownPeers":                "Pairs connus",
+		"blacklistedPeers":          "Pairs en liste noire",
+
+		"wellKnown":                 "De confiance",
+		"announced":                 "Annoncés",
+
+		"recentBlocks":              "Blocs récents",
+		"orphanedBlocks":            "Blocs orphelins",
+
+		"withTransactions":          "Avec transactions",
+		"withoutTransactions":       "Sans transaction"
+	},
+
+	"messages": {
+		"typeSecretPhrase":          "Entrez une phrase secrète pour accéder au compte...",
+
+		"sendDoubleClick":           "Pour éviter un envoi accidentel, vous devez double-cliquer sur le bouton envoi. Cela peut être modifié dans le panneau de configuration.",
+
+		"noTransactions":            "Il n'y a actuellement pas de transaction.",
+		"noTransactionsSub":         "Merci de définir la catégorie ou les filtres pour voir les transactions.",
+
+		"noPeers":                   "Il n'y a actuellement pas de pair.",
+		"noPeersSub":                "Merci de définir la catégorie ou les filtres pour voir les pairs.",
+
+		"forgeNextBlock":            "Vous pourrez forger le prochain bloc dans :",
+		"noBlocks":                  "Il n'y a actuellement pas de bloc.",
+		"noBlocksSub":               "Merci de définir la catégorie ou les filtres pour voir les blocs.",
+
+		"success": {
+			"amountSent":            "Vous avez envoyé avec succès [amount] à [recipient]."
+		},
+
+		"errors": {
+			"general":               "Une erreur est survenue. Veuillez reessayer.",
+			"recipientRequired":     "Merci d'entrer un destinataire.",
+			"amountGreaterThanZero": "Le montant doit être supérieur à 0.",
+			"deadlineWithinLimits":  "La date limite doit être entre 1 et 24 heures.",
+			"secretPhraseLength":    "Votre phrase secrète est trop courte. Veuillez choisir une phrase secrète plus longue.",
+			"secretPhraseRequired":  "Veuillez entrer votre phrase secrète.",
+			"secretPhraseIncorrect": "Votre phrase secrète est erronée."
+		},
+
+		"warnings": {
+			"secretPhraseLength":    "Votre phrase secrète est trop courte et pourrait être trouvée par un hacker. Il est fortement recommandé de choisir une phrase secrète plus longue."
+		},
+
+		"loading": {
+			"blockchain":            "Chargement de la blockchain",
+			"signingTransaction":    "Signature de la transaction"
+		}
+	}
+}

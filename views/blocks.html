@@ -1,0 +1,90 @@
+<div class="widget-header">
+	<h3>
+		<span class="icon icon-stack"></span>
+		<span data-language-text="labels.blocks"></span>
+	</h3>
+
+	<div class="icon icon-close icon-close-red close-widget toggle toggle-widget" title="Close" data-toggle-id="blocks"></div>
+</div>
+
+<div class="content">
+	<div class="tabs" data-type="blocks">
+		<div class="tab-nav">
+
+			<!-- Recent Blocks -->
+			<div class="tab-section-trigger active" data-section-id="recent-blocks-section">
+				<span class="icon icon-clock icon-light-blue"></span>
+				<span data-language-text="labels.recentBlocks"></span>
+
+				<span class="counter">
+					<span class="current">0</span>
+					<span class="divider hidden">/</span>
+					<span class="total hidden">0</span>
+				</span>
+
+				<ul class="filters" data-filter-callback="updateCounter('blocks', 'recent')">
+					<li class="active" data-filter="all">
+						<span class="icon icon-radio-unchecked"></span>
+						<span data-language-text="labels.all"></span>
+					</li>
+					<li data-filter="with-transactions">
+						<span class="icon icon-star"></span>
+						<span data-language-text="labels.withTransactions"></span>
+					</li>
+					<li data-filter="without-transactions">
+						<span class="icon icon-star-empty"></span>
+						<span data-language-text="labels.withoutTransactions"></span>
+					</li>
+				</ul>
+
+				<div class="highlight-bg"></div>
+			</div>
+
+			<!-- Orphaned Blocks -->
+			<div class="tab-section-trigger" data-section-id="orphaned-blocks-section">
+				<span class="icon icon-blocked icon-light-red"></span>
+				<span data-language-text="labels.orphanedBlocks"></span>
+
+				<span class="counter">
+					<span class="current">0</span>
+					<span class="divider hidden">/</span>
+					<span class="total hidden">0</span>
+				</span>
+
+				<div class="highlight-bg"></div>
+			</div>
+
+		</div><!-- /.tab-nav -->
+
+		<!-- Generation Time -->
+		<div id="generation-time" class="hidden">
+			<span data-language-text="messages.forgeNextBlock"></span> <strong></strong>.
+		</div>
+
+		<div class="tab-content scrollable">
+
+			<!-- Recent Blocks -->
+			<div id="recent-blocks-section" class="tab-section">
+
+				<ul id="recent-blocks" class="items"></ul>
+
+				<h4 class="no-items">
+					<span class="icon icon-info2"></span> <span data-language-text="messages.noBlocks"></span>
+					<div class="sub" data-language-text="messages.noBlocksSub"></div>
+				</h4>
+			</div>
+
+			<!-- Orphaned Blocks -->
+			<div id="orphaned-blocks-section" class="tab-section hidden">
+
+				<ul id="orphaned-blocks" class="items"></ul>
+
+				<h4 class="no-items">
+					<span class="icon icon-info2"></span> <span data-language-text="messages.noBlocks"></span>
+					<div class="sub" data-language-text="messages.noBlocksSub"></div>
+				</h4>
+			</div>
+
+		</div><!-- /.tab-content -->
+	</div>
+</div>
