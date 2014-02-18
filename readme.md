@@ -103,7 +103,7 @@ Special thanks to the following people or organizations for their contribution t
 - the developers of the official Nxt Client
 - [NXT Spain](http://nxtspain.org) for translating the language file to Spanish
 - [nxtcoin.fr](https://twitter.com/nxtcoinfr) for translating the language file to French
-- the developers of the other Nxt clients such as dotNXT, clieNXT, and Solaris
+- the developers of the other Nxt clients such as dotNXT, clieNXT, and NXT Solaris
 - the rest of the wonderful Nxt community for their hard work and support
 
 <a name="license"></a>
