@@ -1,0 +1,145 @@
+{
+	"labels": {
+		"nxt":                       "Nxt",
+		"accountNumber":             "Konto Nummer",
+		"send":                      "senden",
+		"sendNxt":                   "Nxt senden",
+		"alias":                     "Alias",
+		"sender":                    "Absender",
+		"recipient":                 "Empfänger",
+		"amount":                    "Menge",
+		"fee":                       "Gebühr",
+		"balance":                   "Kontostand",
+		"forge":                     "schmieden",
+		"block":                     "Block",
+		"transaction":               "Transaktion",
+		"deadline":                  "Frist",
+		"deadlineInHours":           "Frist (in Stunden)",
+		"deadlineInMinutes":         "Frist (in Minuten)",
+		"noDeadline":                "keine Frist...",
+		"generalNotification":       "Allgemeine Mitteilung",
+		"message":                   "Nachricht",
+		"info":                      "Info",
+		"warning":                   "Warnung",
+		"error":                     "Fehler",
+		"success":                   "Erfolg",
+		"ok":                        "OK",
+		"cancel":                    "abbrechen",
+		"cipher":                    "Chiffre",
+		"generate":                  "erzeugen",
+
+		"unlockAccount":             "Konto entsperren",
+		"secretPhrase":              "Passwort",
+		"showPhrase":                "Passwort anzeigen",
+		"hint":                      "Tipp",
+
+		"auth":                      "Autorisation",
+		"authToken":                 "Autorisierungs-Token",
+		"generateAuthToken":         "erzeuge Autorisierungs-Token",
+		"website":                   "Webseite",
+
+		"qrCode":                    "QR Code",
+
+		"asset":                     "Asset",
+		"ask":                       "Nachfrage",
+		"bid":                       "Angebot",
+
+		"assetName":                 "Asset Name",
+		"quantity":                  "Menge",
+		"description":               "Beschreibung",
+
+		"issueAsset":                "Vermögensausgabe",
+		"placeAskOrder":             "Kaufangebot erstellen",
+		"placeBidOrder":             "Verkaufsangebot erstellen",
+
+		"transactions":              "Transaktionen",
+		"peers":                     "Verbindungen",
+		"blocks":                    "Blöcke",
+		"accounts":                  "Konten",
+
+		"myTransactions":            "Meine Transaktionen",
+		"allTransactions":           "Alle Transaktionen",
+
+		"all":                       "alle",
+		"received":                  "empfangen",
+		"sent":                      "gesendet",
+		"unconfirmed":               "unbestätigt",
+		"confirmed":                 "bestätigt",
+		"doubleSpending":            "Doppeltausgaben",
+
+		"activePeers":               "aktive Verbindungen",
+		"knownPeers":                "bekannte Verbindungen",
+		"blacklistedPeers":          "verbotene Verbindungen",
+
+		"wellKnown":                 "gut bekannte",
+		"announced":                 "angekündigt",
+
+		"recentBlocks":              "letzte Blöcke",
+		"orphanedBlocks":            "verwaiste Blöcke",
+
+		"withTransactions":          "mit Transaktionen",
+		"withoutTransactions":       "ohne Transaktionen",
+
+		"confirmation":              "Bestätigung",
+		"confirmations":             "Bestätigungen",
+
+		"connected":                 "verbunden",
+		"disconnected":              "nicht verbunden",
+
+		"downloaded":                "heruntergeladen",
+		"uploaded":                  "hochgeladen"
+	},
+
+	"messages": {
+		"typeSecretPhrase":          "Geben Sie ein Passwort ein um das Konto zu entsperren...",
+
+		"sendDoubleClick":           "Um versehentliches Senden zu vermeiden, müssen Sie den 'senden' button doppelt klicken. Das könnte in den Einstellungen deaktiviert sein.",
+
+		"noTransactions":            "Es gibt zur Zeit keine Transaktionen.",
+		"noTransactionsSub":         "Bitte passen Sie die Kategorie oder Filter an, um Transaktionen zu sehen.",
+
+		"noPeers":                   "Es gibt zur Zeit keine Verbindungen.",
+		"noPeersSub":                "Bitte passen Sie die Kategorie oder Filter an, um Verbindungen zu sehen.",
+
+		"forgeNextBlock":            "Sie können den nächsten Block schmieden in:",
+		"noBlocks":                  "Es gibt zur Zeit keine Blöcke.",
+		"noBlocksSub":               "Bitte passen Sie die Kategorie oder Filter an, um Blöcke zu sehen.",
+
+		"disconnectRemoveFromList":  "Verbindung trennen und von Liste entfernen.",
+		"removeFromList":            "Von Liste entfernen.",
+
+		"unlockAccount":             "Geben Sie ein langes,sicheres Passwort ein. Das wird der Zugang zu Ihrem Konto und dessen Guthaben. Gehen Sie sicher, dass Sie Ihr Passwort nicht verlieren, da es nicht wiederhergestellt werden kann. Um ein sicheres Konto zu gewährleisten wird ein Passwort mit 30+ Zeichen empfohlen.",
+		"authorizeAccount":          "Geben Sie eine Webseiten-URL und Ihr Passwort ein, um einen Autorisierungs-Token für Ihr Konto zu erstellen.",
+		"accountAuthorized":         "Benutzen Sie den Autorisierungs-Token unten für die Webseite für die er erstellt wurde ([website]).",
+
+		"success": {
+			"amountSent":            "Sie haben erfolgreich [amount] zu [recipient] gesendet.",
+			"orderPlaced":           "Ihr Angebot wurde eingestellt.",
+			"assetIssued":           "Ihr Asset wurde erteilt."
+		},
+
+		"errors": {
+			"general":               "Da ist was schief gelaufen. Bitte versuchen Sie es erneut.",
+			"recipientRequired":     "Bitte tragen Sie einen Empfänger ein.",
+			"amountGreaterThanZero": "Die Menge muss größer sein als 0.",
+			"deadlineWithinLimits":  "Die Frist muss zwischen 1 und 24 Stunden betragen.",
+			"secretPhraseLength":    "Ihr Passwort ist zu kurz. Bitte wählen Sie ein längeres, sichereres Passwort.",
+			"secretPhraseRequired":  "Bitte geben Sie Ihr Passwort ein.",
+			"secretPhraseIncorrect": "Das Passwort ist falsch."
+		},
+
+		"warnings": {
+			"secretPhraseLength":    "Ihr gewähltes Passwort ist zu kurz und kann somit leicht geknackt werden. Es wird ausdrücklich empfohlen ein längeres und somit sichereres Passwort zu wählen."
+		},
+
+		"loading": {
+			"blockchain":            "lade Blockchain",
+			"unlockingAccount":      "entsperre Konto",
+			"generatingAuthToken":   "generiere Autorisierungs-Token",
+			"signingTransaction":    "unterzeichne Transaktion",
+			"issuingAsset":          "gebe Asset aus",
+			"placingAskOrder":       "erstelle Nachfrage",
+			"placingBidOrder":       "erstelle Angebot"
+		}
+	}
+}
