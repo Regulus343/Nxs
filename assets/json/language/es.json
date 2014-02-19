@@ -25,13 +25,32 @@
 		"success":                   "Éxito",
 		"ok":                        "OK",
 		"cancel":                    "Cancelar",
+		"cipher":                    "*Cipher",
+		"generate":                  "*Generate",
 
 		"unlockAccount":             "Desbloquear Cuenta",
 		"secretPhrase":              "Contraseña Secreta",
 		"showPhrase":                "Mostrar Contraseña",
 		"hint":                      "Pista",
 
+		"auth":                      "*Authorization",
+		"authToken":                 "*Authorization Token",
+		"generateAuthToken":         "*Generate Authorization Token",
+		"website":                   "*Website",
+
 		"qrCode":                    "Código QR",
+
+		"asset":                     "*Asset",
+		"ask":                       "*Ask",
+		"bid":                       "*Bid",
+
+		"assetName":                 "*Asset Name",
+		"quantity":                  "*Quantity",
+		"description":               "*Description",
+
+		"issueAsset":                "*Issue Asset",
+		"placeAskOrder":             "*Place Ask Order",
+		"placeBidOrder":             "*Place Bid Order",
 
 		"transactions":              "Transacciones",
 		"peers":                     "Pares",
@@ -59,7 +78,16 @@
 		"orphanedBlocks":            "Bloques Huérfanos",
 
 		"withTransactions":          "Con Transacciones",
-		"withoutTransactions":       "Sin Transacciones"
+		"withoutTransactions":       "Sin Transacciones",
+
+		"confirmation":              "*Confirmation",
+		"confirmations":             "*Confirmations",
+
+		"connected":                 "*Connected",
+		"disconnected":              "*Disconnected",
+
+		"downloaded":                "*Downloaded",
+		"uploaded":                  "*Uploaded"
 	},
 
 	"messages": {
@@ -77,8 +105,17 @@
 		"noBlocks":                  "Actualmente no hay bloques.",
 		"noBlocksSub":               "Por favor ajusta la categoría o los filtros para ver bloques.",
 
+		"disconnectRemoveFromList":  "*Disconnect and remove from list.",
+		"removeFromList":            "*Remove from list.",
+
+		"unlockAccount":             "*Type in a long, secure phrase. This will be the access code to your account and its funds. Please ensure you do not lose your secret phrase as it will not be able to be recovered. To ensure a secure account, a phrase of 30+ characters is recommended.",
+		"authorizeAccount":          "*Type in a website URL and your secret phrase to create an authorization token for your account.",
+		"accountAuthorized":         "*Use the authorization token below for the website it was created for ([website]).",
+
 		"success": {
-			"amountSent":            "Has enviado [amount] con éxito a [recipient]."
+			"amountSent":            "Has enviado [amount] con éxito a [recipient].",
+			"orderPlaced":           "*Your order has been placed.",
+			"assetIssued":           "*Your asset has been issued."
 		},
 
 		"errors": {
@@ -97,7 +134,12 @@
 
 		"loading": {
 			"blockchain":            "Cargando cadena de bloques",
-			"signingTransaction":    "Firmando transacción"
+			"unlockingAccount":      "*Unlocking account",
+			"generatingAuthToken":   "*Generating authorization token",
+			"signingTransaction":    "Firmando transacción",
+			"issuingAsset":          "*Issuing asset",
+			"placingAskOrder":       "*Placing ask order",
+			"placingBidOrder":       "*Placing bid order"
 		}
 	}
 }

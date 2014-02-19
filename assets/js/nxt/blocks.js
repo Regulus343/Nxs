@@ -1,4 +1,5 @@
-var deadline = 0;
+var deadline      = 0;
+var initialBlocks = true;
 
 function addBlock(block, type) {
 	var source = $('#block-template').html();
@@ -45,7 +46,10 @@ function addBlock(block, type) {
 		//get HTML markup for template and append it
 		var html = template(b);
 
-		$('#' + type + '-blocks').append(html);
+		if (initialBlocks)
+			$('#' + type + '-blocks').append(html);
+		else
+			$('#' + type + '-blocks').prepend(html);
 
 		//update blocks counter
 		updateCounter('blocks', type);
@@ -72,6 +76,8 @@ function addBlocks(blocks, type) {
 	checkNoItemsForSectionFilter('blocks', type + '-blocks-section');
 
 	adjustWidgetTabContent();
+
+	initialBlocks = false;
 }
 
 function formatDeadline(deadline) {

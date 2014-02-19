@@ -4,13 +4,23 @@
 |------------------------------------------------------------------------------
 |
 | Created By:   Cody Jassman
-| Version:      0.2.7
-| Last Updated: February 17, 2014
+| Version:      0.2.8
+| Last Updated: February 18, 2014
 | 
-| The Nxs mod (pronounced "Nexus") for the Nxt Client is a major improvement
-| over the standard browser-based client. It includes configuration settings
-| found here, separates the JS & CSS from the HTML, removes the <iframe> tags,
-| and integrates jQuery and Zurb Foundation 5 for user interface interaction.
+| The Nxs GUI system (pronounced "Nexus") for the official Nxt client is a
+| major user interface improvement over the standard browser-based client. Nxs
+| does the following:
+|
+|     -integrates modern JS solutions such as jQuery 2 and the HandlebarsJS
+|      templating engine
+|
+|     -allows the creation of auto-generated random secret phrases and the use
+|      of substitution ciphers to obfuscate dictionary word-based phrases
+|
+|     -includes language files for English, French, German, and Spanish
+|
+|     -includes this configuration file which allows high customization of the
+|      user experience
 |
 */
 
@@ -214,9 +224,9 @@ var config = {
 	| Version
 	|--------------------------------------------------------------------------
 	|
-	| The current version number of Nxs.
+	| The current version number of Nxs. This variable should not be changed.
 	|
 	*/
-	'version': '0.2.7',
+	'version': '0.2.8',
 
 }

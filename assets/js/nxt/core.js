@@ -800,6 +800,7 @@ function sendRequest(requestParameters, data) {
 
 	var request = new XMLHttpRequest();
 	request.open("GET", "nxt?user=" + user + "&requestType=" + requestParameters + "&" + Math.random());
+
 	request.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
 			if (--numberOfPendingRequests < 1)
@@ -989,6 +990,7 @@ function sendRequest(requestParameters, data) {
 								removePeers(response.removedBlacklistedPeers, 'blacklisted');
 
 							if (response.addedRecentBlocks) {
+								//if current user forged a block, add the transaction to "My Transactions"
 								for (j = 0; j < response.addedRecentBlocks.length; j++) {
 									object = response.addedRecentBlocks[j];
 
@@ -1003,7 +1005,8 @@ function sendRequest(requestParameters, data) {
 										}, 'my');
 									}
 								}
-								addBlocks(response.addedRecentBlocks, true, 'recent');
+
+								addBlocks(response.addedRecentBlocks, 'recent');
 							}
 
 							if (response.addedOrphanedBlocks) {
