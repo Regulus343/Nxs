@@ -19,7 +19,7 @@ Nxs Change Log
 
 - Improved real-time updating of numbers of confirmations for transactions.
 
-- Made rate of request for new data adjustable allowing Nxs to potential run more smoothly on older computers.
+- Made rate of requests for new data adjustable allowing Nxs to potential run more smoothly on older computers.
 
 - Bug corrected where the block forge estimation time text was displayed when no account was unlocked.
 
