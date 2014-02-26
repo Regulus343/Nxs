@@ -250,7 +250,7 @@
 			<div class="large-6 columns">
 				<label for="send-deadline-time" data-language-text="labels.deadline"></label>
 
-				<input type="text" name="deadline_time" id="send-deadline-time" readonly="readonly" value="" data-language-text="labels.noDeadline" data-language-attribute="placeholder" />
+				<input type="text" name="deadline_time" id="send-deadline-time" class="deadline-time" readonly="readonly" value="" data-language-text="labels.noDeadline" data-language-attribute="placeholder" />
 			</div>
 		</div>
 
@@ -291,7 +291,7 @@
 					<span class="icon icon-arrow-right3"></span>
 				</button>
 
-				<div id="send-double-click" data-language-text="messages.sendDoubleClick"></div>
+				<div class="send-double-click" data-language-text="messages.sendDoubleClick"></div>
 			</div>
 		</div>
 	</div><!-- /.form -->
@@ -299,6 +299,116 @@
 	<div class="loading">
 		<div class="text">
 			<span data-language-text="messages.loading.signingTransaction"></span>
+			<span class="dots"></span>
+		</div>
+	</div>
+</div>
+
+<!-- Register Alias -->
+<div id="modal-register-alias" class="reveal-modal" data-reveal>
+	<h2>
+		<span class="icon icon-star"></span>
+		<span data-language-text="labels.registerAlias"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div class="form">
+		<div class="row">
+			<div class="large-4 columns">
+				<label for="register-alias-alias" data-language-text="labels.alias"></label>
+
+				<input type="text" name="alias" id="register-alias-alias" class="alias" value="" data-language-text="labels.alias" data-language-attribute="placeholder" data-positive-number accesskey="a" />
+
+				<div class="alert-box success radius alias-editable hidden"></div>
+				<div class="alert-box success radius alias-available hidden"></div>
+				<div class="alert-box warning radius alias-taken hidden"></div>
+			</div>
+
+			<div class="large-4 columns">
+				<label for="register-alias-type" data-language-text="labels.type"></label>
+
+				<select name="type" id="register-alias-type">
+					<option value="General" data-language-text="labels.general"></option>
+					<option value="Nxt Account" data-language-text="labels.nxtAccount"></option>
+					<option value="URL" data-language-text="labels.url"></option>
+				</select>
+			</div>
+
+			<div class="large-4 columns">
+				<label for="register-alias-uri" data-language-text="labels.uri"></label>
+
+				<input type="text" name="uri" id="register-alias-uri" class="uri" value="" data-language-text="labels.uri" data-language-attribute="placeholder" data-positive-number accesskey="u" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-4 columns">
+				<label for="register-alias-fee" data-language-text="labels.fee"></label>
+
+				<span class="icon icon-nxt-n icon-amount-input"></span>
+
+				<input type="number" name="fee" id="register-alias-fee" class="amount fee" value="0" data-language-text="labels.fee" data-language-attribute="placeholder" data-positive-number accesskey="f" />
+			</div>
+
+			<div class="large-4 columns">
+				<label for="register-alias-deadline" data-language-text="labels.deadlineInMinutes"></label>
+
+				<input type="number" name="deadline" id="register-alias-deadline" class="deadline" value="" data-language-text="labels.deadline" data-language-attribute="placeholder" accesskey="d" />
+			</div>
+
+			<div class="large-4 columns">
+				<label for="register-alias-deadline-time" data-language-text="labels.deadline"></label>
+
+				<input type="text" name="deadline_time" id="register-alias-deadline-time" class="deadline-time" readonly="readonly" value="" data-language-text="labels.noDeadline" data-language-attribute="placeholder" />
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<div class="secret-phrase-hint hidden">
+					<span class="label round radius" data-language-text="labels.hint"></span>
+					<span class="hint"></span>
+				</div>
+
+				<label for="register-alias-secret-phrase" data-language-text="labels.secretPhrase"></label>
+
+				<input type="password" name="secret_phrase" id="register-alias-secret-phrase" class="secret-phrase" value="" data-language-text="messages.typeSecretPhrase" data-language-attribute="placeholder" accesskey="p" />
+
+				<input type="text" name="secret_phrase_visible" id="register-alias-secret-phrase-visible" class="secret-phrase-visible hidden" value="" data-language-text="messages.typeSecretPhrase" data-language-attribute="placeholder" />
+
+				<div class="secret-phrase-area">
+					<span class="label round radius select-cipher" data-language-text="labels.cipher"></span>
+
+					<span class="label round radius secret-phrase-char-counter">0</span>
+				</div>
+
+				<ul class="select-cipher-menu"></ul>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				<input type="checkbox" name="show_secret_phrase" id="register-alias-show-secret-phrase" class="show-secret-phrase" />
+				<label for="register-alias-show-secret-phrase" class="checkbox" data-language-text="labels.showPhrase"></label>
+			</div>
+		</div>
+
+		<div class="row modal-bottom-row">
+			<div class="large-12 columns">
+				<button id="register-alias-confirm" class="radius icon-right">
+					<span data-language-text="labels.registerAlias"></span>
+					<span class="icon icon-arrow-right3"></span>
+				</button>
+
+				<div class="send-double-click" data-language-text="messages.sendDoubleClick"></div>
+			</div>
+		</div>
+	</div><!-- /.form -->
+
+	<div class="loading">
+		<div class="text">
+			<span data-language-text="messages.loading.registeringAlias"></span>
 			<span class="dots"></span>
 		</div>
 	</div>

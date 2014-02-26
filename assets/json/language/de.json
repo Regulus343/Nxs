@@ -53,9 +53,14 @@
 		"placeBidOrder":             "Verkaufsangebot erstellen",
 
 		"transactions":              "Transaktionen",
+		"accounts":                  "Konten",
+		"contacts":                  "*Contacts",
+		"assetExchange":             "*Asset Exchange",
+		"messages":                  "*Messages",
+		"aliases":                   "*Aliases",
+		"polls":                     "*Polls",
 		"peers":                     "Verbindungen",
 		"blocks":                    "Blöcke",
-		"accounts":                  "Konten",
 
 		"myTransactions":            "Meine Transaktionen",
 		"allTransactions":           "Alle Transaktionen",

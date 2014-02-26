@@ -1,0 +1,26 @@
+<script id="alias-template" type="text/x-handlebars-template">
+
+	<tr class="alias-{{index}}" data-filters="{{filters}}" data-index="{{index}}">
+		<td class="icon-cell">
+			<span class="icon icon-broadcast"></span>
+		</td>
+		<td class="alias" data-alias="{{alias}}">
+			{{alias}}
+		</td>
+
+		<td class="uri" title="{{uri}}" data-uri="{{uri}}">
+			{{{uriFormatted}}}
+		</td>
+
+		<td class="type" data-type-number="{{aliasTypeNumber}}">
+			{{aliasType}}
+		</td>
+
+		<td class="actions">
+			<button class="radius icon edit" data-language-text="labels.updateUri" data-language-attribute="title">
+				<span class="icon icon-pencil2"></span>
+			</button>
+		</td>
+	</tr>
+
+</script>

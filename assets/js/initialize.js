@@ -1,8 +1,5 @@
 $(document).ready(function(){
 
-	//adjust widgets
-	adjustWidgets();
-
 	//load views
 	loadViews();
 

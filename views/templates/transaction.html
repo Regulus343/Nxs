@@ -1,6 +1,6 @@
 <script id="transaction-template" type="text/x-handlebars-template">
 
-	<li class="transaction-{{index}}" data-filters="{{filters}}">
+	<li class="transaction-{{index}}" data-filters="{{filters}}" data-transaction-id="{{id}}">
 		<h5>
 			{{#if timestampTransaction}}
 				<span class="icon icon-loop2" title="Transaction Time"></span>
@@ -8,22 +8,33 @@
 				<span class="icon icon-stack" title="Block Time"></span>
 			{{/if}}
 
-			{{formattedTimestamp}}
+			<span class="timestamp" data-timestamp-numeric="{{numericTimestamp}}">{{formattedTimestamp}}</span>
 
 			<span class="readable-timestamp" data-timestamp="{{timestamp}}">{{readableTimestamp}}</span>
 		</h5>
 
 		<div class="confirmations confirmations-{{numberOfConfirmations}}" title="{{numberOfConfirmationsTitleText}}" data-confirmations="{{numberOfConfirmations}}">
-			<span class="icon icon-bars"></span> {{numberOfConfirmationsFormatted}}
+			<span class="icon icon-bars"></span>
+			<span class="number">{{numberOfConfirmationsFormatted}}</span>
 		</div>
 
 		<div class="amount">
 			<div class="amount">
-				<span class="icon icon-nxt-n"></span> {{amount}} <span class="unit">NXT</span>
+				<span class="icon icon-nxt-n"></span>
+				<span class="amount">{{amount}}</span>
+				<span class="unit">NXT</span>
 
 				<span class="fee">
 					<span class="icon icon-plus"></span> {{fee}}
 				</span>
+			</div>
+
+			<div class="additional-data hidden">
+				<div class="alias-data hidden">
+					<span class="icon icon-star icon-light-yellow" data-language-text="labels.alias" data-language-attribute="title"></span>
+
+					<span class="alias"></span> <span class="separator">:</span> <span class="uri"></span>
+				</div>
 			</div>
 		</div>
 
@@ -50,8 +61,6 @@
 				<span class="transaction-id">{{id}}</span>
 			</a>
 		</div>
-
-		<span class="timestamp-numeric hidden">{{numericTimestamp}}</span>
 	</li>
 
 </script>

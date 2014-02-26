@@ -95,7 +95,7 @@ function addPeers(peers, type) {
 
 	checkNoItemsForSectionFilter('peers', type + '-peers-section');
 
-	adjustWidgetTabContent();
+	adjustPageTabContent();
 }
 
 function changePeer(peer, type) {
@@ -230,5 +230,5 @@ function removePeers(peers, type) {
 }
 
 function requestPeerRemoving(index) {
-	sendRequest('removeActivePeer', {peer: index});
+	Api.sendUiRequest('removeActivePeer', {peer: index});
 }

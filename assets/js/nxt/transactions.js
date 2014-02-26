@@ -88,6 +88,10 @@ function addTransaction(transaction, type) {
 		t.formattedTimestamp = moment(t.timestamp).format(config.dateTimeFormat);
 		t.readableTimestamp  = moment(t.timestamp).fromNow();
 
+		if (t.attachment !== undefined) {
+			t.readableTimestamp += " " + t.attachment.alias;
+		}
+
 		//set number of confirmations
 		t.numberOfConfirmations = t.numberOfConfirmations ? t.numberOfConfirmations : 0;
 
@@ -117,6 +121,12 @@ function addTransaction(transaction, type) {
 		//reset scrollable area
 		$('#transactions .scrollable').scroller('reset');
 
+		//get additional transaction data
+		getAdditionalTransactionData(t.id);
+
+		//add language text to new markup
+		Language.replaceText();
+
 		return true;
 	}
 
@@ -134,13 +144,19 @@ function addTransactions(transactions, type) {
 
 	reorderTransactions(type);
 
+	updateTransactionConfirmations();
+
 	checkNoItemsForSectionFilter('transactions', type + '-transactions-section');
 
-	adjustWidgetTabContent();
+	adjustPageTabContent();
 }
 
 function reorderTransactions(type) {
-	$('#'+type+'-transactions li').tsort('span.timestamp-numeric', {order: 'desc'});
+	$('#'+type+'-transactions li').tsort('span.timestamp-numeric', {order: 'desc', attr: 'data-timestamp-numeric'});
+}
+
+function getAdditionalTransactionData(id) {
+	Api.sendRequest('getTransaction', {transaction: id});
 }
 
 function formatDeadline(deadline) {
@@ -175,16 +191,29 @@ function formatTimestamp(timestamp) {
 	return (new Date(Date.UTC(2013, 10, 24, 12, 0, 0, 0) + timestamp * 1000)).toLocaleString();
 }
 
+function updateTransactionConfirmations() {
+	$('#transactions ul.items li').each(function(){
+		var id = $(this).attr('data-transaction-id');
+		Api.sendRequest('getTransaction', {transaction: id});
+	});
+}
+
 function incrementNumberOfConfirmations(type) {
-	var transactions = $('#' + type + '-transactions tr'), i, element, numberOfConfirmations;
+	var transactions = $('#' + type + '-transactions li'), i, element, numberOfConfirmations;
 
 	transactions.each(function(){
 		numberOfConfirmations = parseInt($(this).find('.confirmations').attr('data-confirmations')) + 1;
 
-		if (numberOfConfirmations == 1)
+		if (numberOfConfirmations == 1) {
 			numberOfConfirmationsTitleText = numberOfConfirmations + ' ' + Language.get('labels.confirmation');
-		else
+
+			filters = $(this).parents('li').attr('data-filters');
+			filters = filters.replace('unconfirmed', 'confirmed');
+
+			$(this).parents('li').attr('data-filters', filters);
+		} else {
 			numberOfConfirmationsTitleText = numberOfConfirmations + ' ' + Language.get('labels.confirmations');
+		}
 
 		numberOfConfirmationsFormatted = numberOfConfirmations;
 		if (numberOfConfirmations > 100)
@@ -198,10 +227,11 @@ function incrementNumberOfConfirmations(type) {
 		}
 
 		$(this).find('.confirmations')
-			.text(numberOfConfirmationsFormatted)
 			.attr('class', 'confirmations confirmations-' + numberOfConfirmations)
 			.attr('title', numberOfConfirmationsTitleText)
 			.attr('data-confirmations', numberOfConfirmations);
+
+		$(this).find('.confirmations .number').text(numberOfConfirmationsFormatted);
 	});
 }
 
@@ -222,4 +252,21 @@ function removeTransactions(transactions, type) {
 	for (t = 0; t < transactions.length; t++) {
 		removeTransaction(transactions[t], type);
 	}
+}
+
+function sendMoney() {
+	$('#modal-send .form').addClass('invisible');
+	$('#modal-send .loading').fadeIn();
+
+	var secretPhrase = getSecretPhrase('send');
+
+	var data = {
+		recipient:    encodeURIComponent($('#send-recipient').val()),
+		amount:       parseFloat($('#send-amount').val()),
+		fee:          parseFloat($('#send-fee').val()),
+		deadline:     parseInt($('#send-deadline').val()),
+		secretPhrase: encodeURIComponent(secretPhrase),
+	};
+
+	Api.sendUiRequest('sendMoney', data);
 }

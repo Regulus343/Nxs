@@ -1,5 +1,6 @@
-var deadline      = 0;
-var initialBlocks = true;
+var deadline       = 0;
+var initialBlocks  = true;
+var genesisBlockId = "2680262203532249785";
 
 function addBlock(block, type) {
 	var source = $('#block-template').html();
@@ -73,9 +74,11 @@ function addBlocks(blocks, type) {
 
 	log('Adding blocks: ' + blocks.length);
 
+	updateTransactionConfirmations();
+
 	checkNoItemsForSectionFilter('blocks', type + '-blocks-section');
 
-	adjustWidgetTabContent();
+	adjustPageTabContent();
 
 	initialBlocks = false;
 }
@@ -130,7 +133,6 @@ function initializeBlocks() {
 		var i = deadline - (new Date()).getTime();
 
 		$('#generation-time strong').html(formatDeadline(Math.round(i / 1000)));
-		$('#generation-time').removeClass('hidden');
 	}, 1000);
 }
 

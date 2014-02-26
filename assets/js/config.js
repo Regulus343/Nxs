@@ -4,8 +4,9 @@
 |------------------------------------------------------------------------------
 |
 | Created By:   Cody Jassman
-| Version:      0.2.8
-| Last Updated: February 18, 2014
+| Version:      0.3.4
+| Last Updated: February 25, 2014
+| Source:       http://github.com/Regulus343/Nxs (or, simply, Nxt alias "Nxs")
 | 
 | The Nxs GUI system (pronounced "Nexus") for the official Nxt client is a
 | major user interface improvement over the standard browser-based client. Nxs
@@ -36,6 +37,50 @@ var config = {
 	|
 	*/
 	'language': 'en',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Ports
+	|--------------------------------------------------------------------------
+	|
+	| The port numbers for the UI server and the API server. These should
+	| match the "nxt-default.properties file" in Nxt's "conf" directory.
+	|
+	*/
+	'apiServerPort': 7876,
+
+	/*
+	|--------------------------------------------------------------------------
+	| SSL
+	|--------------------------------------------------------------------------
+	|
+	| If true, SSL will be used for API server requests.
+	|
+	*/
+	'ssl': false,
+
+	/*
+	|--------------------------------------------------------------------------
+	| HTTP Method
+	|--------------------------------------------------------------------------
+	|
+	| You may switch the http method from "post" to "get" if using a version
+	| previous to 0.8.0.
+	|
+	*/
+	'httpMethod': 'post',
+
+	/*
+	|--------------------------------------------------------------------------
+	| Data Request Wait Time
+	|--------------------------------------------------------------------------
+	|
+	| The time in milliseconds between UI server requests. The default value is 
+	| 2000 (2 seconds). Increase this number on older computers to make Nxs run
+	| more smoothly.
+	|
+	*/
+	'dataRequestWaitTime': 2000,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -210,6 +255,28 @@ var config = {
 
 	/*
 	|--------------------------------------------------------------------------
+	| Page Transition - Slide
+	|--------------------------------------------------------------------------
+	|
+	| Whether or not to use the sliding page transition. If false, the pages
+	| transition by a fade instead.
+	|
+	*/
+	'pageTransitionSlide': true,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Auto Trim Alias URI
+	|--------------------------------------------------------------------------
+	|
+	| If true, alias URIs are automatically trimmed of leading and trailing
+	| whitespace when an alias is registered or updated.
+	|
+	*/
+	'autoTrimAliasUri': true,
+
+	/*
+	|--------------------------------------------------------------------------
 	| Console Logging
 	|--------------------------------------------------------------------------
 	|
@@ -227,6 +294,6 @@ var config = {
 	| The current version number of Nxs. This variable should not be changed.
 	|
 	*/
-	'version': '0.2.8',
+	'version': '0.3.4',
 
 }

@@ -53,9 +53,14 @@
 		"placeBidOrder":             "*Place Bid Order",
 
 		"transactions":              "Transacciones",
+		"accounts":                  "Cuentas",
+		"contacts":                  "*Contacts",
+		"assetExchange":             "*Asset Exchange",
+		"messages":                  "*Messages",
+		"aliases":                   "*Aliases",
+		"polls":                     "*Polls",
 		"peers":                     "Pares",
 		"blocks":                    "Bloques",
-		"accounts":                  "Cuentas",
 
 		"myTransactions":            "Mis Transacciones",
 		"allTransactions":           "Todas las Transacciones",

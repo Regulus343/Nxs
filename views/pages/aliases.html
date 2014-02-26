@@ -1,0 +1,108 @@
+<div class="page-header">
+	<h3>
+		<span class="icon icon-star"></span>
+		<span data-language-text="labels.aliases"></span>
+	</h3>
+</div>
+
+<div class="content">
+	<div class="tabs" data-type="aliases">
+		<div class="tab-nav">
+
+			<!-- My Aliases -->
+			<div class="tab-section-trigger active" data-section-id="my-aliases-section">
+				<span class="icon icon-home icon-light-blue"></span>
+				<span data-language-text="labels.myAliases"></span>
+
+				<span class="counter">
+					<span class="current">0</span>
+					<span class="divider hidden">/</span>
+					<span class="total hidden">0</span>
+				</span>
+
+				<ul class="filters" data-filter-callback="updateCounter('aliases', 'my')">
+					<li class="active" data-filter="all">
+						<span class="icon icon-radio-unchecked"></span>
+						<span data-language-text="labels.all"></span>
+					</li>
+					<li data-filter="nxt-account">
+						<span class="icon icon-radio-checked"></span>
+						<span data-language-text="labels.nxtAccount"></span>
+					</li>
+					<li data-filter="url">
+						<span class="icon icon-earth"></span>
+						<span data-language-text="labels.url"></span>
+					</li>
+					<li data-filter="general">
+						<span class="icon icon-question"></span>
+						<span data-language-text="labels.general"></span>
+					</li>
+				</ul>
+
+				<div class="highlight-bg"></div>
+			</div>
+
+			<!-- All Aliases -->
+			<div class="tab-section-trigger" data-section-id="all-aliases-section">
+				<span class="icon icon-feed icon-light-yellow"></span>
+				<span data-language-text="labels.allAliases"></span>
+
+				<span class="counter">
+					<span class="current">0</span>
+					<span class="divider hidden">/</span>
+					<span class="total hidden">0</span>
+				</span>
+
+				<ul class="filters" data-filter-callback="updateCounter('aliases', 'all')">
+					<li class="active" data-filter="all">
+						<span class="icon icon-radio-unchecked"></span>
+						<span data-language-text="labels.all"></span>
+					</li>
+					<li data-filter="nxt-account">
+						<span class="icon icon-radio-checked"></span>
+						<span data-language-text="labels.nxtAccount"></span>
+					</li>
+					<li data-filter="url">
+						<span class="icon icon-earth"></span>
+						<span data-language-text="labels.url"></span>
+					</li>
+					<li data-filter="other">
+						<span class="icon icon-question"></span>
+						<span data-language-text="labels.other"></span>
+					</li>
+				</ul>
+
+				<div class="highlight-bg"></div>
+			</div>
+
+		</div><!-- /.tab-nav -->
+
+		<div class="tab-content scrollable">
+
+			<!-- My Aliases -->
+			<div id="my-aliases-section" class="tab-section">
+
+				<table id="my-aliases" class="items"></table>
+
+				<h4 class="no-items">
+					<span class="icon icon-info2"></span> <span data-language-text="messages.noAliases"></span>
+					<div class="sub" data-language-text="messages.noAliasesSub"></div>
+				</h4>
+			</div>
+
+			<!-- All Aliases -->
+			<div id="all-aliases-section" class="tab-section hidden">
+
+				<input type="text" name="search" id="search-aliases" class="right" value="" data-language-text="labels.searchAliases" data-language-attribute="placeholder" />
+
+				<table id="all-aliases" class="items"></table>
+
+				<h4 class="no-items">
+					<span class="icon icon-info2"></span> <span data-language-text="messages.noAliases"></span>
+					<div class="sub" data-language-text="messages.noAliasesSub"></div>
+				</h4>
+			</div>
+
+		</div><!-- /.tab-content -->
+	</div><!-- /.tabs -->
+</div><!-- /.content -->

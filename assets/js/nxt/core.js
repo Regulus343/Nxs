@@ -1,14 +1,8 @@
-var user                           = Math.random();
-var numberOfPendingRequests        = 0;
-var account                        = false;
-var balance                        = 0;
-
-var widgetIds                      = ["transactions", "peers", "blocks", "accounts"];
-var widgetToggleClassNames         = ["Transactions", "Peers", "Blocks", "Accounts"];
-
-var advancedWidgetIds              = ["library", "shops", "assetExchange", "reputation"];
-var advancedWidgetToggleClassNames = ["Library", "Shops", "AssetExchange", "Reputation"];
-
+var user              = Math.random();
+var account           = false;
+var balance           = 0;
+var currentPageId     = "transactions";
+var aliasFieldChanged = false;
 var selectedAssetId;
 
 function initialize() {
@@ -29,21 +23,17 @@ function initialize() {
 
 	//request initial data
 	setTimeout(function(){
-		sendRequest("getInitialData");
-		log('Getting initial data...');
-	}, 1000);
 
-	//automatically unlock account if secret phrase config variable is set
-	if (config.secretPhrase !== false) {
-		setTimeout(function(){
-			sendRequest("unlockAccount&secretPhrase=" + config.secretPhrase);
-		}, 1000);
-	} else {
-		$('#modal-unlock-account').foundation('reveal', 'open');
-		setTimeout(function(){
-			focusSecretPhrase();
-		}, 250);
-	}
+		Api.sendUiRequest('getInitialData');
+		log('Getting initial data...');
+
+		//automatically unlock account if secret phrase config variable is set
+		if (config.secretPhrase !== false)
+			Api.sendUiRequest('unlockAccount', {secretPhrase: encodeURIComponent(config.secretPhrase)});
+		else //otherwise, bring up account unlock dialog
+			showAccountDialog();
+
+	}, 1000);
 
 	//set secret phrase hint if secret phrase config variable is set
 	if (config.secretPhraseHint !== false && config.secretPhraseHint.length > 0) {
@@ -53,13 +43,13 @@ function initialize() {
 
 	//hide double-click message on "Send" dialog if config variable is not set
 	if (! config.sendRequireDoubleClick)
-		$('#send-double-click').addClass('hidden');
+		$('.send-double-click').addClass('hidden');
 
 	//initialize navigation bar
 	initializeNavBar();
 
-	//initialize toggles
-	initializeToggles();
+	//initialize page navigation
+	initializePageNav();
 
 	//initialize collapsible sections
 	initializeCollapsibleSections();
@@ -91,12 +81,14 @@ function initialize() {
 			$(this).val('0');
 	});
 
+	//set up send function
 	$('#send').click(function(){
 		setTimeout(function(){
 			$('#send-recipient').focus();
 		}, 250);
 	});
 
+	//set up amount fields
 	$('input.amount').each(function(){
 		var amount = parseFloat($(this).val());
 
@@ -115,14 +107,21 @@ function initialize() {
 		}
 	});
 
+	//set default fee
 	$('input.fee').val(config.defaultFee.toFixed(8));
 
+	//set up deadline fields
 	$('input.deadline').each(function(){
-		$(this).val(1);
+		if ($(this).attr('id').substr(0, 4) == "send")
+			$(this).val(1);
+		else
+			$(this).val(60);
 	}).change(function(){
 		var deadline = parseInt($(this).val());
-		if (deadline > 24)
-			deadline = 24;
+		var max      = $(this).attr('id').substr(0, 4) == "send" ? 24 : 3600;
+
+		if (deadline > max)
+			deadline = max;
 
 		if (deadline < 1)
 			deadline = 1;
@@ -130,16 +129,16 @@ function initialize() {
 		$(this).val(deadline);
 	}).keyup(function(){
 		var deadline = parseInt($(this).val());
-		if (deadline > 24)
-			deadline = 24;
+		var max      = $(this).attr('id').substr(0, 4) == "send" ? 24 : 3600;
+
+		if (deadline > max)
+			deadline = max;
 
 		if (deadline < 1)
 			deadline = 1;
 
 		$(this).val(deadline);
 	});
-
-	adjustDeadlineTime();
 
 	//set up account QR code action
 	$('#account').click(function(){
@@ -156,18 +155,16 @@ function initialize() {
 	//initialize blocks
 	initializeBlocks();
 
-	//adjust widgets
-	adjustWidgets();
-
-	$('.scrollable').scroller();
-	setTimeout(function(){
-		$('#peers .scrollable').scroller('reset');
-	}, 1250);
-
+	//adjust pages
+	adjustPages();
 	$(window).resize(function(){
-		adjustWidgetTabContent();
+		adjustPages();
 	});
 
+	//add scroll bar to scrollable areas
+	$('.scrollable').scroller();
+
+	//set loading text ellipsis display cycle
 	setInterval(function(){
 		$('.loading span.dots').each(function(){
 			if ($(this).text() == "") {
@@ -195,6 +192,133 @@ function initializeNavBar() {
 	});
 
 	$('.top-bar-section').hide().removeClass('hidden').fadeIn();
+
+	$('#side-nav-toggle').click(function(){
+		toggleSideNav();
+	});
+}
+
+function toggleSideNav() {
+	if ($('#side-nav').css('width') == "200px") {
+		$('#side-nav li span.text').fadeOut();
+		$('#side-nav').animate({width: '52px'}, 250);
+
+		var remainingWidth = $('body').actual('width') - 80;
+		$('#pages').animate({width: remainingWidth + 'px'}, 250);
+	} else {
+		$('#side-nav li span.text').fadeIn();
+		$('#side-nav').animate({width: '200px'}, 250);
+
+		var remainingWidth = $('body').actual('width') - 230;
+		$('#pages').animate({width: remainingWidth + 'px'}, 250);
+	}
+}
+
+function initializePageNav() {
+	$('li[data-page-nav] a').click(function(e){
+		var pageId = $(this).parents('li').attr('data-page-nav');
+ 
+ 		if (pageId != currentPageId) {
+ 			$('li[data-page-nav="' + currentPageId + '"]').removeClass('active');
+			$('li[data-page-nav="' + pageId + '"]').addClass('active');
+
+	 		if (config.pageTransitionSlide) {
+	 			var slideSpeed      = 500;
+				var currentPosition = $('li[data-page-nav="' + currentPageId + '"]').index();
+				var newPosition     = $('li[data-page-nav="' + pageId + '"]').index();
+				var pageHeight      = $('#' + currentPageId).actual('height');
+				var height          = pageHeight + 120;
+
+				if (newPosition > currentPosition) {
+					$('#' + pageId).css('top', height + 'px').removeClass('hidden');
+					$('#' + currentPageId).animate({top: '-' + height + 'px'}, slideSpeed);
+					$('#' + pageId).animate({top: '12px'}, slideSpeed);
+				} else {
+					$('#' + pageId).css('top', '-' + height + 'px').removeClass('hidden');
+					$('#' + currentPageId).animate({top: height + 'px'}, slideSpeed);
+					$('#' + pageId).animate({top: '12px'}, slideSpeed);
+				}
+			} else {
+				$('#' + pageId).hide().fadeIn('slow').removeClass('hidden');
+				$('#' + currentPageId).fadeOut('slow');
+			}
+
+			currentPageId = pageId;
+
+			$('.top-bar-section ul.page-sub-nav').fadeOut('fast');
+			$('.top-bar-section ul.page-sub-nav[data-page-id=' + pageId + ']').fadeIn();
+
+			adjustPages();
+		}
+	});
+}
+
+function initializeCollapsibleSections() {
+	$('.collapsible-section-trigger').click(function(){
+		var sectionId = $(this).attr('data-section-id');
+
+		if ($('#'+sectionId).hasClass('expanded')) {
+			$(this).removeClass('expanded');
+			$('#'+sectionId).animate({'height': '0'}).removeClass('expanded');
+		} else {
+			$(this).addClass('expanded');
+			$('#'+sectionId).animate({'height': $('#'+sectionId)[0].scrollHeight}).addClass('expanded');
+		}
+	});
+}
+
+function initializeTabSections() {
+	$('.tab-section-trigger').click(function(){
+		var type      = $(this).parents('.tabs').attr('data-type');
+		var sectionId = $(this).attr('data-section-id');
+
+		if (! $('#'+sectionId).hasClass('active')) {
+			$(this).parents('.tabs').find('.tab-section-trigger').removeClass('active');
+			$(this).addClass('active');
+
+			$(this).parents('.tabs').find('.tab-content').find('.tab-section')
+				.removeClass('active')
+				.addClass('hidden');
+
+			$('#'+sectionId)
+				.removeClass('hidden')
+				.addClass('active');
+
+			checkNoItemsForSectionFilter(type, sectionId);
+
+			$(this).parents('.tabs').find('.tab-content.scrollable').scroller('reset');
+		}
+	});
+
+	$('.tab-section-trigger ul.filters li').click(function(){
+		var type      = $(this).parents('.tabs').attr('data-type');
+		var sectionId = $(this).parents('.tab-section-trigger').attr('data-section-id');
+		var element   = $(this).parents('.tabs').find('.tab-content table.items').length ? "tr" : "li";
+
+		$(this).parents('ul.filters').children('li').removeClass('active');
+		$(this).addClass('active');
+
+		var filter = $(this).attr('data-filter');
+
+		log('Filter selected: "' + filter + '" (' + type + ')');
+		filter = filter.toLowerCase();
+
+		$('#' + sectionId + ' .items ' + element).each(function(){
+			var filters = $(this).attr('data-filters').split(' ');
+			if ($.inArray(filter, filters) >= 0)
+				$(this).removeClass('hidden');
+			else
+				$(this).addClass('hidden');
+		});
+
+		checkNoItemsForSectionFilter(type, sectionId);
+
+		$(this).parents('.tabs').find('.tab-content.scrollable').scroller('reset');
+
+		var callbackFunction = $(this).parents('ul.filters').attr('data-filter-callback');
+		if (callbackFunction)
+			eval(callbackFunction);
+	});
 }
 
 function initializeLockUnlockAccount() {
@@ -207,7 +331,7 @@ function initializeLockUnlockAccount() {
 	$('#lock').click(function(e){
 		e.preventDefault();
 
-		sendRequest("lockAccount");
+		Api.sendUiRequest('lockAccount');
 	});
 }
 
@@ -267,6 +391,8 @@ function initializeModalActions() {
 	initializeModalAuthorizeAccount();
 
 	initializeModalSend();
+
+	initializeModalRegisterAlias();
 }
 
 function initializeModalUnlockAccount() {
@@ -313,16 +439,16 @@ function initializeModalAuthorizeAccount() {
 }
 
 function initializeModalSend() {
-	adjustDeadlineTime();
+	adjustDeadlineTime('send');
 
-	$('#send-deadline').keyup(function(){
-		adjustDeadlineTime();
+	$('input.deadline').keyup(function(){
+		adjustDeadlineTime($(this).attr('id').replace('-deadline', ''));
 	}).change(function(){
-		adjustDeadlineTime();
+		adjustDeadlineTime($(this).attr('id').replace('-deadline', ''));
 	});
 
-	$('#send-deadline-time').click(function(){
-		$('#send-deadline').focus();
+	$('.deadline-time').click(function(){
+		$(this).parents('tr').find('input.deadline').focus();
 	});
 
 	$('#modal-send').keypress(function(e){
@@ -334,6 +460,53 @@ function initializeModalSend() {
 	var eventType = config.sendRequireDoubleClick ? "dblclick" : "click";
 	$('#send-confirm').on(eventType, function(){
 		sendMoney();
+	});
+}
+
+function initializeModalRegisterAlias() {
+	$('#register-alias').click(function(){
+		$('#modal-register-alias .loading').hide();
+		$('#modal-register-alias .form').removeClass('invisible');
+
+		$('#register-alias-alias').val('');
+		$('#register-alias-uri').val('');
+
+		$('#modal-register-alias .alias-available').hide();
+		$('#modal-register-alias .alias-taken').hide();
+
+		adjustDeadlineTime('register-alias');
+
+		setTimeout(function(){
+			$('#register-alias-alias').focus();
+		}, 250);
+	});
+
+	$('input.alias').keyup(function(){
+		checkAlias(this);
+	}).change(function(){
+		checkAlias(this);
+	});
+
+	$('#register-alias-type').change(function(){
+		if ($(this).val() == "General")
+			var placeholder = Language.get('labels.uri');
+		else
+			var placeholder = $(this).children('option:selected').text();
+
+		if ($(this).val() == "URL") {
+			if ($('#register-alias-uri').val() == "")
+				$('#register-alias-uri').val('http://');
+		} else {
+			if ($('#register-alias-uri').val() == "http://" || $('#register-alias-uri').val() == "https://")
+				$('#register-alias-uri').val('');
+		}
+
+		$('#register-alias-uri').attr('placeholder', placeholder).focus();
+	});
+
+	var eventType = config.sendRequireDoubleClick ? "dblclick" : "click";
+	$('#register-alias-confirm').on(eventType, function(){
+		registerAlias();
 	});
 }
 
@@ -370,100 +543,16 @@ function initializeCipherMenus() {
 	});
 }
 
-function initializeToggles() {
-	$('.toggle').click(function(e){
-		var toggleId = $(this).attr('data-toggle-id');
-
-		if ($('#' + toggleId).hasClass('hidden')) {
-			$('#' + toggleId).removeClass('hidden');
-
-			$('li[data-toggle-nav="'+toggleId+'"]').addClass('active');
-		} else {
-			$('#' + toggleId).addClass('hidden');
-
-			$('li[data-toggle-nav="'+toggleId+'"]').removeClass('active');
-		}
-
-		if ($(this).hasClass('toggle-widget'))
-			adjustWidgets();
-	});
-}
-
-function initializeCollapsibleSections() {
-	$('.collapsible-section-trigger').click(function(){
-		var sectionId = $(this).attr('data-section-id');
-
-		if ($('#'+sectionId).hasClass('expanded')) {
-			$(this).removeClass('expanded');
-			$('#'+sectionId).animate({'height': '0'}).removeClass('expanded');
-		} else {
-			$(this).addClass('expanded');
-			$('#'+sectionId).animate({'height': $('#'+sectionId)[0].scrollHeight}).addClass('expanded');
-		}
-	});
-}
-
-function initializeTabSections() {
-	$('.tab-section-trigger').click(function(){
-		var type      = $(this).parents('.tabs').attr('data-type');
-		var sectionId = $(this).attr('data-section-id');
-
-		if (! $('#'+sectionId).hasClass('active')) {
-			$(this).parents('.tabs').find('.tab-section-trigger').removeClass('active');
-			$(this).addClass('active');
-
-			$(this).parents('.tabs').find('.tab-content').find('.tab-section')
-				.removeClass('active')
-				.addClass('hidden');
-
-			$('#'+sectionId)
-				.removeClass('hidden')
-				.addClass('active');
-
-			checkNoItemsForSectionFilter(type, sectionId);
-
-			$(this).parents('.tabs').find('.tab-content.scrollable').scroller('reset');
-		}
-	});
-
-	$('.tab-section-trigger ul.filters li').click(function(){
-		var type      = $(this).parents('.tabs').attr('data-type');
-		var sectionId = $(this).parents('.tab-section-trigger').attr('data-section-id');
-		var element   = type == "peers" ? "tr" : "li";
-
-		$(this).parents('ul.filters').children('li').removeClass('active');
-		$(this).addClass('active');
-
-		var filter = $(this).attr('data-filter')
-
-		log('Filter Selected: ' + filter);
-		filter = filter.toLowerCase();
-
-		$('#' + sectionId + ' .items ' + element).each(function(){
-			var filters = $(this).attr('data-filters').split(' ');
-			if ($.inArray(filter, filters) >= 0)
-				$(this).removeClass('hidden');
-			else
-				$(this).addClass('hidden');
-		});
-
-		checkNoItemsForSectionFilter(type, sectionId);
-
-		$(this).parents('.tabs').find('.tab-content.scrollable').scroller('reset');
-
-		var callbackFunction = $(this).parents('ul.filters').attr('data-filter-callback');
-		if (callbackFunction)
-			eval(callbackFunction);
-	});
-}
-
 function checkNoItemsForSectionFilter(type, sectionId) {
-	var element = type == "peers" ? "tr" : "li";
+	var element = $('#' + type + ' table.items').length ? "tr" : "li";
 
-	if ($('#' + sectionId + ' .items ' + element).not('.hidden').length)
+	if ($('#' + sectionId + ' .items ' + element).not('.hidden').length) {
+		$('#' + type + ' table.items').removeClass('hidden');
 		$('#' + sectionId).find('.no-items').hide().addClass('hidden');
-	else
+	} else {
+		$('#' + type + ' table.items').addClass('hidden');
 		$('#' + sectionId).find('.no-items').removeClass('hidden').fadeIn();
+	}
 }
 
 function initializeKeyCommands() {
@@ -474,7 +563,7 @@ function initializeKeyCommands() {
 			switch (key) {
 				case "U": //unlock account; lock if already unlocked
 					if (account !== false)
-						sendRequest("lockAccount");
+						Api.sendUiRequest('lockAccount');
 
 					if ($('#modal-unlock-account').hasClass('open')) {
 						$('#modal-unlock-account').foundation('reveal', 'close');
@@ -488,7 +577,11 @@ function initializeKeyCommands() {
 					break;
 				case "L": //lock account
 					if (account !== false)
-						sendRequest("lockAccount");
+						Api.sendUiRequest('lockAccount');
+
+					break;
+				case "N": //toggle side navigation menu
+					toggleSideNav();
 
 					break;
 				case "S": //send
@@ -520,64 +613,20 @@ function initializeKeyCommands() {
 	});
 }
 
-function adjustWidgets() {
-	var widgets = 4 - $('#widgets .widget.hidden').length;
+function adjustPages() {
+	var remainingWidth = $('body').actual('width') - $('#side-nav').actual('width') - 50;
+	$('#pages').css('width', remainingWidth + 'px');
 
-	if (widgets == 0) {
-		$('#widgets')
-			.addClass('widgets-0')
-			.removeClass('widgets-1')
-			.removeClass('widgets-2')
-			.removeClass('widgets-3')
-			.removeClass('widgets-4');
-
-		$('#widgets #logo-splash').fadeIn('slow');
-	} else {
-		if (widgets == 1) {
-			$('#widgets')
-				.addClass('widgets-1')
-				.removeClass('widgets-0')
-				.removeClass('widgets-2')
-				.removeClass('widgets-3')
-				.removeClass('widgets-4');
-		} else if (widgets == 2) {
-			$('#widgets')
-				.addClass('widgets-2')
-				.removeClass('widgets-0')
-				.removeClass('widgets-1')
-				.removeClass('widgets-3')
-				.removeClass('widgets-4');
-		} else if (widgets == 3) {
-			$('#widgets')
-				.addClass('widgets-3')
-				.removeClass('widgets-0')
-				.removeClass('widgets-1')
-				.removeClass('widgets-2')
-				.removeClass('widgets-4');
-		} else if (widgets == 4) {
-			$('#widgets')
-				.addClass('widgets-4')
-				.removeClass('widgets-0')
-				.removeClass('widgets-1')
-				.removeClass('widgets-2')
-				.removeClass('widgets-3');
-		}
-
-		$('#widgets #logo-splash').hide();
-	}
-
-	$('.scrollable').scroller('reset');
-
-	adjustWidgetTabContent();
+	adjustPageTabContent();
 }
 
-function adjustWidgetTabContent() {
-	var widgetHeight = $('.widget').height();
-	$('.widget').each(function(){
+function adjustPageTabContent() {
+	var pageHeight = $('.page').height();
+	$('.page').each(function(){
 		var navHeight = $(this).find('.tab-nav').actual('height');
 		if (navHeight) {
 			var subtractHeight = $(this).attr('id') == "blocks" ? 95 : 50;
-			var contentHeight = widgetHeight - navHeight - subtractHeight;
+			var contentHeight = pageHeight - navHeight - subtractHeight;
 
 			$(this).find('.tab-content').height(contentHeight);
 		}
@@ -591,13 +640,13 @@ function loadViews() {
 
 	$('*[data-load-view]').each(function(){
 		if (! $(this).hasClass('view-loaded')) {
-			$(this).load('views/' + $(this).attr('data-load-view') + '.html').addClass('view-loaded');
+			$(this).load('views/' + $(this).attr('data-load-view').replace(/\./g, '/') + '.html').addClass('view-loaded');
 
 			loadAgain = true;
 		}
 	});
 
-	//if views were loaded, attempt to load empty views again in case there were more views to be loaded in newly loaded views
+	//if views were loaded, attempt to load empty views again in case there are more views to be loaded in newly loaded views
 	if (loadAgain)
 		setTimeout("loadViews();", 250);
 }
@@ -614,21 +663,18 @@ function adjustAmount() {
 	document.getElementById("amount").value = isNaN(quantity) || isNaN(price) ? "" : quantity * price;
 }
 
-function adjustDeadlineTime() {
-	var deadline = document.getElementById("send-deadline").value;
-	var deadline = $('#send-deadline').val();
+function adjustDeadlineTime(type) {
+	var deadline = $('#' + type + '-deadline').val();
 
-	isNaN(deadline) ? "" : ("~ " + (new Date((new Date()).getTime() + deadline * 3600000)).toLocaleString());
-
-	var deadline = document.getElementById("send-deadline").value;
-	var deadline = $('#send-deadline').val();
-
-	if (! parseInt(deadline))
+	if (!parseInt(deadline)) {
 		deadline = "";
-	else
-		deadline = "~ " + moment((new Date()).getTime() + Math.floor(deadline * 3600000)).format(config.dateTimeFormat);
+	} else {
+		var multiplier = (type == "send" ? 3600000 : 60000);
 
-	$('#send-deadline-time').val(deadline);
+		deadline = "~ " + moment((new Date()).getTime() + Math.floor(deadline * multiplier)).format(config.dateTimeFormat);
+	}
+
+	$('#' + type + '-deadline-time').val(deadline);
 }
 
 function adjustFee() {
@@ -678,7 +724,7 @@ function issueAsset() {
 	fee = element.value;
 	element.readOnly = true;
 	document.getElementById("issueAsset").disabled = true;
-	sendRequest("issueAsset&name=" + encodeURIComponent(name) + "&description=" + encodeURIComponent(description) + "&quantity=" + quantity + "&fee=" + fee);
+	Api.sendUiRequest("issueAsset&name=" + encodeURIComponent(name) + "&description=" + encodeURIComponent(description) + "&quantity=" + quantity + "&fee=" + fee);
 }
 
 function placeAskOrder() {
@@ -693,7 +739,7 @@ function placeAskOrder() {
 	fee = element.value;
 	element.readOnly = true;
 	document.getElementById("placeAskOrder").disabled = true;
-	sendRequest("placeAskOrder&asset=" + selectedAssetId + "&quantity=" + quantity + "&price=" + price + "&fee=" + fee);
+	Api.sendUiRequest("placeAskOrder&asset=" + selectedAssetId + "&quantity=" + quantity + "&price=" + price + "&fee=" + fee);
 }
 
 function placeBidOrder() {
@@ -708,15 +754,15 @@ function placeBidOrder() {
 	fee = element.value;
 	element.readOnly = true;
 	document.getElementById("placeBidOrder").disabled = true;
-	sendRequest("placeBidOrder&asset=" + selectedAssetId + "&quantity=" + quantity + "&price=" + price + "&fee=" + fee);
+	Api.sendUiRequest("placeBidOrder&asset=" + selectedAssetId + "&quantity=" + quantity + "&price=" + price + "&fee=" + fee);
 }
 
-function requestAccountLocking() {
-	sendRequest("lockAccount");
+function lockAccount() {
+	Api.sendUiRequest('lockAccount');
 }
 
 function requestAssets() {
-	sendRequest("getAssets&showIssuedAssets=" + (document.getElementById("issuedAssets").className == "enabledIssuedAssets") + "&showOwnedAssets=" + (document.getElementById("ownedAssets").className == "enabledOwnedAssets") + "&showOtherAssets=" + (document.getElementById("otherAssets").className == "enabledOtherAssets"));
+	Api.sendUiRequest("getAssets&showIssuedAssets=" + (document.getElementById("issuedAssets").className == "enabledIssuedAssets") + "&showOwnedAssets=" + (document.getElementById("ownedAssets").className == "enabledOwnedAssets") + "&showOtherAssets=" + (document.getElementById("otherAssets").className == "enabledOtherAssets"));
 }
 
 function getSecretPhrase(form) {
@@ -738,7 +784,7 @@ function unlockAccount() {
 	var secretPhrase = getSecretPhrase('unlock');
 
 	setTimeout(function(){
-		sendRequest('unlockAccount', {secretPhrase: encodeURIComponent(secretPhrase)});
+		Api.sendUiRequest('unlockAccount', {secretPhrase: encodeURIComponent(secretPhrase)});
 	}, 350);
 }
 
@@ -765,402 +811,11 @@ function generateAuthorizationToken() {
 		website = "https://" + website;
 
 	setTimeout(function(){
-		sendRequest('generateAuthorizationToken', {
+		Api.sendUiRequest('generateAuthorizationToken', {
 			secretPhrase: encodeURIComponent(secretPhrase),
 			website:      website,
 		});
 	}, 250);
-}
-
-function sendMoney() {
-	var secretPhrase;
-
-	$('#modal-send .form').addClass('invisible');
-	$('#modal-send .loading').fadeIn();
-
-	if ($('#send-show-secret-phrase').prop('checked'))
-		secretPhrase = $('#send-secret-phrase-visible').val();
-	else
-		secretPhrase = $('#send-secret-phrase').val();
-
-	var data = {
-		recipient:    $('#send-recipient').val(),
-		amount:       parseFloat($('#send-amount').val()),
-		fee:          parseFloat($('#send-fee').val()),
-		deadline:     parseInt($('#send-deadline').val()),
-		secretPhrase: encodeURIComponent(secretPhrase),
-	};
-
-	sendRequest('sendMoney', data);
-}
-
-function sendRequest(requestParameters, data) {
-	if (data !== undefined)
-		requestParameters += "&" + serialize(data);
-
-	var request = new XMLHttpRequest();
-	request.open("GET", "nxt?user=" + user + "&requestType=" + requestParameters + "&" + Math.random());
-
-	request.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			if (--numberOfPendingRequests < 1)
-				sendRequest("getNewData");
-
-			var responses = JSON.parse(this.responseText).responses, i, j, response, element, object, object2;
-			if (responses !== undefined && responses.length !== undefined) {
-				for (i = 0; i < responses.length; i++) {
-					response = responses[i];
-					switch (response.response) {
-						case "denyAccess":
-							numberOfPendingRequests++;
-
-							document.title = "Access denied";
-							document.body.style.backgroundColor = "#000";
-							document.body.innerHTML = "<div style='background-image: url(data:image/png;base64,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); height:24px; left:50%; margin: -12px -155px; top:50%; width: 310px;'></div>";
-							break;
-
-						case "lockAccount":
-							account = false;
-							removeAllTransactions('my');
-
-							$('#lock').addClass('hidden');
-							$('#unlock').removeClass('hidden');
-							$('.account-unlocked').addClass('hidden');
-							$('.account-unlocked').next('li.divider').addClass('hidden');
-
-							log('Account locked');
-
-							break;
-
-						case "notifyOfAcceptedAskOrder":
-							showSuccessMessage('orderPlaced');
-							break;
-
-						case "notifyOfAcceptedAssetIssuence":
-							showSuccessMessage('assetIssued');
-							break;
-
-						case "notifyOfAcceptedBidOrder":
-							showSuccessMessage('orderPlaced');
-							break;
-
-						case "notifyOfAcceptedTransaction":
-							showSuccessMessage('amountSent', {
-								replacementVars: {
-									amount:    '<strong>' + $('#send-amount').val() + '</strong>',
-									recipient: '<strong>' + $('#send-recipient').val() + '</strong>',
-								}
-							});
-
-							clearSecretPhrase();
-
-							log('Transaction accepted');
-
-							break;
-
-						case "notifyOfIncorrectAskOrder":
-							showMessage(response.message, {
-								onCloseFunction: function() {
-									showAskOrderDialog(response.quantity, response.price, response.fee);
-								}
-							});
-							break;
-
-						case "notifyOfIncorrectAssetIssuence":
-							showMessage(response.message, {
-								onCloseFunction: function() {
-									showAssetDialog(response.name, response.description, response.quantity, response.fee);
-								}
-							});
-							break;
-
-						case "notifyOfIncorrectBidOrder":
-							showMessage(response.message, {
-								onCloseFunction: function() {
-									showBidOrderDialog(response.quantity, response.price, response.fee);
-								}
-							});
-							break;
-
-						case "notifyOfIncorrectTransaction":
-							var message    = response.message;
-							var messageRaw = true;
-
-							//secret phrase errors
-							if (message == "Wrong secret phrase!") {
-								message    = "secretPhraseIncorrect";
-								messageRaw = false;
-							}
-
-							var secretPhrase = getSecretPhrase('send');
-
-							if (secretPhrase == "") {
-								message    = "secretPhraseRequired";
-								messageRaw = false;
-							}
-
-							//recipient error
-							if ($('#send-recipient').val() == "") {
-								message    = "recipientRequired";
-								messageRaw = false;
-							}
-
-							//amount error
-							if (message == "\"Amount\" must be greater than 0!") {
-								message    = "amountGreaterThanZero";
-								messageRaw = false;
-							}
-
-							//deadline error
-							if (message == "\"Deadline\" must be greater or equal to 1 minute and less than 24 hours!") {
-								message    = "deadlineWithinLimits";
-								messageRaw = false;
-							}
-
-							//show message
-							showError(message, {
-								messageRaw:      messageRaw,
-								onCloseFunction: function() {
-									showTransactionDialog();
-								}
-							});
-
-							break;
-
-						case "processInitialData":
-							document.title = document.title + " :: " + response.version;
-
-							$('.nxt-version').text(response.version);
-							$('.nxs-version').text(config.version);
-							$('#footer .versions').fadeIn('slow');
-
-							if (response.unconfirmedTransactions)
-								addTransactions(response.unconfirmedTransactions, 'all');
-
-							if (response.activePeers)
-								addPeers(response.activePeers, 'active');
-
-							if (response.knownPeers)
-								addPeers(response.knownPeers, 'known');
-
-							if (response.blacklistedPeers)
-								addPeers(response.blacklistedPeers, 'blacklisted');
-
-							if (response.recentBlocks)
-								addBlocks(response.recentBlocks, 'recent');
-
-							break;
-
-						case "processNewData":
-							if (response.addedMyTransactions)
-								addTransactions(response.addedMyTransactions, 'my');
-
-							if (response.addedConfirmedTransactions) {
-								incrementNumberOfConfirmations('all');
-								addTransactions(response.addedConfirmedTransactions, 'all');
-							}
-
-							if (response.addedUnconfirmedTransactions)
-								addTransactions(response.addedUnconfirmedTransactions, 'all');
-
-							if (response.removedUnconfirmedTransactions) {
-								removeTransactions(response.removedUnconfirmedTransactions, 'my');
-								removeTransactions(response.removedUnconfirmedTransactions, 'all');
-							}
-
-							if (response.addedActivePeers)
-								addPeers(response.addedActivePeers, 'active');
-
-							if (response.addedKnownPeers)
-								addPeers(response.addedKnownPeers, 'known');
-
-							if (response.addedBlacklistedPeers)
-								addPeers(response.addedBlacklistedPeers, 'blacklisted');
-
-							if (response.changedActivePeers)
-								changePeers(response.changedActivePeers, 'active');
-
-							if (response.removedActivePeers)
-								removePeers(response.removedActivePeers, 'active');
-
-							if (response.removedKnownPeers)
-								removePeers(response.removedKnownPeers, 'known');
-
-							if (response.removedBlacklistedPeers)
-								removePeers(response.removedBlacklistedPeers, 'blacklisted');
-
-							if (response.addedRecentBlocks) {
-								//if current user forged a block, add the transaction to "My Transactions"
-								for (j = 0; j < response.addedRecentBlocks.length; j++) {
-									object = response.addedRecentBlocks[j];
-
-									if (object.generator == account && object.totalFee > 0) {
-										addTransaction({
-											"index":                 object.block,
-											"blockTimestamp":        object.timestamp,
-											"block":                 object.block,
-											"earnedAmount":          object.totalFee,
-											"numberOfConfirmations": 1,
-											"id":                    "-"
-										}, 'my');
-									}
-								}
-
-								addBlocks(response.addedRecentBlocks, 'recent');
-							}
-
-							if (response.addedOrphanedBlocks) {
-								removeBlocks(response.addedOrphanedBlocks, 'recent');
-								addBlocks(response.addedOrphanedBlocks, 'orphaned');
-							}
-
-							break;
-
-						case "requestAssets":
-							requestAssets();
-							break;
-
-						case "setBalance":
-							balance = Math.floor(response.balance / 100);
-
-							$('#balance').html(formatAmount(balance));
-							$('#balance').attr('data-balance', balance);
-
-							if (!balance)
-								$('.top-bar-section .send').addClass('hidden');
-
-							log('Balance updated');
-
-							break;
-
-						case "setBlockGenerationDeadline":
-							setDeadline(response.deadline);
-							break;
-
-						case "showAuthorizationToken":
-							var message = Language.get('messages.accountAuthorized', {
-								replacementVars: {
-									website: $('#website').val()
-								}
-							});
-							$('#modal-account-authorized .account-authorized-message').text(message);
-
-							$('#auth-token').val(response.token);
-
-							$('#modal-account-authorized').foundation('reveal', 'open');
-							setTimeout(function(){
-								$('#auth-token').select();
-							}, 250);
-
-							clearSecretPhrase();
-
-							log('Authorization token generated');
-
-							break;
-
-						case "showMessage":
-							var message     = response.message;
-							var messageType = "General";
-							var messageRaw  = true;
-
-							if (message == "Invalid secret phrase!") {
-								message     = "secretPhraseIncorrect";
-								messageType = "Error";
-								messageRaw  = false;
-							}
-
-							//show message
-							switch (messageType) {
-								case "General":
-									showMessage(message, {
-										messageRaw: messageRaw,
-									});
-									break;
-								case "Success":
-									showSuccessMessage(message, {
-										messageRaw: messageRaw,
-									});
-									break;
-								case "Error":
-									showError(message, {
-										messageRaw: messageRaw,
-									});
-									break;
-								case "Warning":
-									showWarning(message, {
-										messageRaw: messageRaw,
-									});
-									break;
-							}
-
-							break;
-
-						case "unlockAccount":
-							account = response.account;
-							balance = Math.floor(response.balance / 100);
-
-							$('#account .account-number').text(account);
-							$('#balance').html(formatAmount(balance));
-							$('#balance').attr('data-balance', balance);
-
-							$('#modal-unlock-account').foundation('reveal', 'close');
-
-							$('#unlock').addClass('hidden');
-							$('#lock').removeClass('hidden');
-							$('.account-unlocked').removeClass('hidden');
-							$('.account-unlocked').next('li.divider').removeClass('hidden');
-
-							if (!balance)
-								$('.top-bar-section .send').addClass('hidden');
-
-							clearSecretPhrase();
-
-							$('.transaction-info a.me').attr('href', config.accountUrl.replace('[accountId]', account));
-							$('.transaction-info a.me .account-number').text(account);
-
-							if (response.secretPhraseStrength < 4) {
-								if (config.secretPhraseRequireStrong) {
-
-									showError('secretPhraseLength', {
-										onCloseFunction: function(){
-											sendRequest('lockAccount');
-
-											//focus secret phrase field and ensure transparent background fades in
-											setTimeout(function(){
-												$('#modal-unlock-account .loading').hide();
-												$('#modal-unlock-account .form').removeClass('invisible');
-
-												$('#modal-unlock-account').foundation('reveal', 'open');
-
-												focusSecretPhrase();
-												$('.reveal-modal-bg').fadeIn();
-											}, 250);
-										}
-									});
-
-								} else {
-									showWarning('secretPhraseLength');
-								}
-							}
-
-							$('#modal-unlock-account .loading').hide();
-							$('#modal-unlock-account .form').removeClass('invisible');
-
-							if (response.secretPhraseStrength >= 4 || ! config.secretPhraseRequireStrong)
-								log('Account unlocked');
-
-							break;
-
-						case "updateAssets":
-							document.getElementById("assetsFrame").contentWindow.updateAssets(response.assets);
-							break;
-					}
-				}
-			}
-		}
-	};
-	numberOfPendingRequests++;
-	request.send();
 }
 
 function setSelectedAsset(assetId) {
@@ -1271,6 +926,10 @@ function showAccountDialog() {
 	$('#modal-unlock-account .form').removeClass('invisible');
 
 	$('#modal-unlock-account').foundation('reveal', 'open');
+
+	setTimeout(function(){
+		focusSecretPhrase();
+	}, 250);
 }
 
 function showAuthorizationDialog() {
@@ -1292,7 +951,7 @@ function showTransactionDialog() {
 		$('.reveal-modal-bg').fadeIn();
 	}, 250);
 
-	adjustDeadlineTime();
+	adjustDeadlineTime('send');
 }
 
 function showAssetDialog(name, description, quantity, fee) {
@@ -1322,27 +981,6 @@ function showBidOrderDialog(quantity, price, fee) {
 	$('#modal-order-bid').foundation('reveal', 'open');
 }
 
-function toggleAdvancedWidget(advancedWidgetIndex) {
-	var advancedWidgetToggle = document.getElementById(advancedWidgetIds[advancedWidgetIndex] + "Toggle"), i, element;
-	if (advancedWidgetToggle.className == "enabled" + advancedWidgetToggleClassNames[advancedWidgetIndex]) {
-		advancedWidgetToggle.className = "disabled" + advancedWidgetToggleClassNames[advancedWidgetIndex];
-	} else {
-		for (i = 0; i < 4; i++) {
-			element = document.getElementById(advancedWidgetIds[i] + "Toggle");
-			if (element.className == "enabled" + advancedWidgetToggleClassNames[i]) {
-				element.className = "disabled" + advancedWidgetToggleClassNames[i];
-			}
-		}
-		advancedWidgetToggle.className = "enabled" + advancedWidgetToggleClassNames[advancedWidgetIndex];
-		switch (advancedWidgetIndex) {
-		case 2:
-			requestAssets();
-			break;
-		}
-	}
-	adjustWidgets();
-}
-
 function toggleAssetFilter(filterIndex) {
 	var filterIds = ["issued", "owned", "other"], filterClassNames = ["Issued", "Owned", "Other"], element = document.getElementById(filterIds[filterIndex] + "Assets");
 	element.className = element.className == "enabled" + filterClassNames[filterIndex] + "Assets" ? ("disabled" + filterClassNames[filterIndex] + "Assets") : ("enabled" + filterClassNames[filterIndex] + "Assets");
@@ -1360,7 +998,7 @@ function toggleWidget(widgetIndex) {
 }
 
 function updateCounter(type, subType) {
-	var element = type == "peers" ? "tr" : "li";
+	var element = $('#' + type + ' table.items').length ? "tr" : "li";
 	var current = $('#' + subType + '-' + type + ' ' + element).not('.hidden').length;
 	var total   = $('#' + subType + '-' + type + ' ' + element).length;
 
@@ -1407,6 +1045,8 @@ function serialize(obj) {
 }
 
 function log(item) {
-	if (config.consoleLogging)
+	if (config.consoleLogging) {
+		item = moment().format('YYYY-MM-DD h:mm:ss a') + " :: " + item;
 		console.log(item);
+	}
 }

@@ -3,7 +3,7 @@
 | Language.js
 |------------------------------------------------------------------------------
 |
-| Last Updated: February 16, 2014
+| Last Updated: February 24, 2014
 |
 */
 
@@ -54,7 +54,7 @@ var Language = {
 	},
 
 	replaceText: function() {
-		$('[data-language-text]').each(function(){
+		$('[data-language-text]').not('.language-text-replaced').each(function(){
 			var text      = Language.get($(this).attr('data-language-text'));
 			var attribute = $(this).attr('data-language-attribute');
 
@@ -62,6 +62,8 @@ var Language = {
 				$(this).attr(attribute, text);
 			else
 				$(this).html(text);
+
+			$(this).addClass('language-text-replaced');
 		});
 	}
 

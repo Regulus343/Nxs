@@ -1,7 +1,13 @@
 {
 	"labels": {
 		"nxt":                       "Nxt",
+		"general":                   "General",
+		"nxtAccount":                "Nxt Account",
+		"nxtAccountNumber":          "Nxt Account Number",
 		"accountNumber":             "Account Number",
+		"url":                       "URL",
+		"uri":                       "URI",
+		"type":                      "Type",
 		"send":                      "Send",
 		"sendNxt":                   "Send Nxt",
 		"alias":                     "Alias",
@@ -28,6 +34,10 @@
 		"cipher":                    "Cipher",
 		"generate":                  "Generate",
 
+		"sendMessage":               "Send Message",
+		"registerAlias":             "Register Alias",
+		"updateAlias":               "Update Alias",
+
 		"unlockAccount":             "Unlock Account",
 		"secretPhrase":              "Secret Phrase",
 		"showPhrase":                "Show Phrase",
@@ -53,9 +63,14 @@
 		"placeBidOrder":             "Place Bid Order",
 
 		"transactions":              "Transactions",
+		"accounts":                  "Accounts",
+		"contacts":                  "Contacts",
+		"assetExchange":             "Asset Exchange",
+		"messages":                  "Messages",
+		"aliases":                   "Aliases",
+		"polls":                     "Polls",
 		"peers":                     "Peers",
 		"blocks":                    "Blocks",
-		"accounts":                  "Accounts",
 
 		"myTransactions":            "My Transactions",
 		"allTransactions":           "All Transactions",
@@ -66,6 +81,12 @@
 		"unconfirmed":               "Unconfirmed",
 		"confirmed":                 "Confirmed",
 		"doubleSpending":            "Double Spending",
+
+		"myAliases":                 "My Aliases",
+		"allAliases":                "All Aliases",
+		"searchAliases":             "Search aliases...",
+
+		"other":                     "Other",
 
 		"activePeers":               "Active Peers",
 		"knownPeers":                "Known Peers",
@@ -87,7 +108,11 @@
 		"disconnected":              "Disconnected",
 
 		"downloaded":                "Downloaded",
-		"uploaded":                  "Uploaded"
+		"uploaded":                  "Uploaded",
+
+		"edit":                      "Edit",
+		"update":                    "Update",
+		"updateUri":                 "Update URI"
 	},
 
 	"messages": {
@@ -97,6 +122,9 @@
 
 		"noTransactions":            "There are currently no transactions.",
 		"noTransactionsSub":         "Please adjust category or filters to see transactions.",
+
+		"noAliases":                 "There are currently no aliases.",
+		"noAliasesSub":              "Please adjust category or filters to see aliases.",
 
 		"noPeers":                   "There are currently no peers.",
 		"noPeersSub":                "Please adjust category or filters to see peers.",
@@ -112,10 +140,15 @@
 		"authorizeAccount":          "Type in a website URL and your secret phrase to create an authorization token for your account.",
 		"accountAuthorized":         "Use the authorization token below for the website it was created for ([website]).",
 
+		"aliasTaken":                "The alias \"[alias]\" is already taken. Please try another alias.",
+		"aliasAvailable":            "The alias \"[alias]\" is available!",
+		"aliasEditable":             "The alias \"[alias]\" belongs to your account and may be updated.",
+
 		"success": {
 			"amountSent":            "You have successfully sent [amount] to [recipient].",
 			"orderPlaced":           "Your order has been placed.",
-			"assetIssued":           "Your asset has been issued."
+			"assetIssued":           "Your asset has been issued.",
+			"aliasRegistered":       "The URI \"[uri]\" has been successfully registered to the alias \"[alias]\"."
 		},
 
 		"errors": {
@@ -125,7 +158,8 @@
 			"deadlineWithinLimits":  "The deadline must be between 1 and 24 hours.",
 			"secretPhraseLength":    "Your secret phrase is too short. Please choose a more secure secret phrase.",
 			"secretPhraseRequired":  "Please enter your secret phrase.",
-			"secretPhraseIncorrect": "Your secret phrase is incorrect."
+			"secretPhraseIncorrect": "Your secret phrase is incorrect.",
+			"notEnoughFunds":        "You do not have enough funds available to complete the action."
 		},
 
 		"warnings": {
@@ -139,7 +173,8 @@
 			"signingTransaction":    "Signing transaction",
 			"issuingAsset":          "Issuing asset",
 			"placingAskOrder":       "Placing ask order",
-			"placingBidOrder":       "Placing bid order"
+			"placingBidOrder":       "Placing bid order",
+			"registeringAlias":      "Registering alias"
 		}
 	}
 }

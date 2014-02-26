@@ -1,7 +1,7 @@
 Nxs
 ===
 
-**A versatile web interface for the official Nxt Client for the Nxt cryptocurrency**
+**A versatile web interface for the official Nxt client for the Nxt cryptocurrency**
 
 Nxs, pronounced "Nexus" as Nxt is pronounced "Next", is a modified version of the default NRS web app of the official Nxt client that includes many new features and a more modern design. Some of Nxs' features include:
 
@@ -15,6 +15,7 @@ Nxs, pronounced "Nexus" as Nxt is pronounced "Next", is a modified version of th
 - Ability to display a QR code of the currently unlocked account
 - Ability to filter transactions by sent, received, confirmed, or unconfirmed
 - Ability to run secret phrases through a substitution cipher (of which there are 100 by default) to obfuscate dictionary words
+- Ability to register aliases
 
 ## Table of Contents
 
@@ -24,18 +25,37 @@ Nxs, pronounced "Nexus" as Nxt is pronounced "Next", is a modified version of th
 - [Automatically Unlocking an Account on Startup](#auto-unlocking-account)
 - [Security and Trust of Nxs](#security)
 - [Credits and Donation](#credits)
+- [License](#license)
 
 <a name="composer-package-installation"></a>
 ## Installation
 
-To install Nxs, copy the directory to the `webapps/root` directory of the Nxt Client and rename it to `nxs`. Then, open `etc/webdefault.xml` and add this:
+To install Nxs, first [install the official Nxt client](http://www.nxtcrypto.org/nxt-coin/client-download). Make sure you check the SHA-256 hash to verify its integrity. Then, unzip the files into a directory.
+
+**Version 0.8+:**
+
+Next, (download Nxs)[https://github.com/Regulus343/Nxs/archive/master.zip] and copy the directory to the `html` directory of the Nxt client and rename it to `nxs`. Then, open `conf/nxt-default.properties` and change `nxt.uiResourceBase` to `html/nxs`:
+
+	nxt.uiResourceBase=html/nxs
+
+You will also have to change `nxt.apiServerCORS` to `true` to allow API server requests (default port 7876) to be made from the UI server (default port 7875):
+
+	nxt.apiServerCORS=true
+
+If you intend to change the `nxt.apiServerPort` variable, make sure you also change the `apiServerPort` variable in `html/nxs/assets/js/config.js` to match it.
+
+**Prior to Version 0.8:**
+
+Next, (download Nxs)[https://github.com/Regulus343/Nxs/archive/master.zip] and copy the directory to the `webapps/root` directory of the Nxt client and rename it to `nxs`. Then, open `etc/webdefault.xml` and add this:
 
 	<init-param>
 		<param-name>relativeResourceBase</param-name>
 		<param-value>/nxs</param-value>
-    </init-param>
+	</init-param>
 
-Run Nxt from the command line and open the web app it (at `http://localhost:7874` by default). The new Nxs Client should now display.
+**Run Nxt from the command line:**
+
+Run Nxt from the command line and open Nxs in the browser (at `http://localhost:7875` by default). The Nxs client should now display.
 
 <a name="unlocking-account"></a>
 ## Unlocking an Account
@@ -60,6 +80,10 @@ To open the `Send` dialog, you may press the `S` key.
 **"Q": Show QR Code**
 
 To show the QR code of the currently unlocked account, you may press the `Q` key.
+
+**"N": Toggle Navigation Menu**
+
+To slide the navigation menu larger or smaller, you may press the `N` key (as an alternative to clicking the right edge of the pages navigation menu). There is a short format that just shows the icons of the pages and a wider format that includes the name of the page as well.
 
 <a name="unlocking-account"></a>
 ## Automatically Unlocking an Account on Startup
@@ -104,7 +128,7 @@ Special thanks to the following people or organizations for their contribution t
 - [NXT Spain](http://nxtspain.org) for translating the language file to Spanish
 - [nxtcoin.fr](https://twitter.com/nxtcoinfr) for translating the language file to French
 - [NXTcoin_de](https://twitter.com/NXTcoin_de) for translating the language file to German
-- the developers of the other Nxt clients such as dotNXT, clieNXT, and NXT Solaris
+- the developers of the other Nxt clients such as [dotNXT](http://dotnxtclient.blogspot.ca), [clieNXT](https://bitbucket.org/fmiboy), [NXT Solaris](http://nxtsolaris.wordpress.com), [Offspring](http://offspring.dgex.com), and [NXT Wallet](http://nxtra.org/nxt-client)
 - the rest of the wonderful Nxt community for their hard work and support
 
 <a name="license"></a>
