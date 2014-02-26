@@ -17,6 +17,8 @@ Nxs, pronounced "Nexus" as Nxt is pronounced "Next", is a modified version of th
 - Ability to run secret phrases through a substitution cipher (of which there are 100 by default) to obfuscate dictionary words
 - Ability to register aliases
 
+![Alt text](/docs/screenshots/transactions.png)
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -34,7 +36,7 @@ To install Nxs, first [install the official Nxt client](http://www.nxtcrypto.org
 
 **Version 0.8+:**
 
-Next, (download Nxs)[https://github.com/Regulus343/Nxs/archive/master.zip] and copy the directory to the `html` directory of the Nxt client and rename it to `nxs`. Then, open `conf/nxt-default.properties` and change `nxt.uiResourceBase` to `html/nxs`:
+Next, [download Nxs](https://github.com/Regulus343/Nxs/archive/master.zip) and copy the directory to the `html` directory of the Nxt client and rename it to `nxs`. Then, open `conf/nxt-default.properties` and change `nxt.uiResourceBase` to `html/nxs`:
 
 	nxt.uiResourceBase=html/nxs
 
