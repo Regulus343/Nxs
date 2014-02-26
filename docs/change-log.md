@@ -17,11 +17,11 @@ Nxs Change Log
 
 - Various new config variables added. Some have been added out of necessity such as `apiServerPort` which must be the same as `nxt.apiServerPort` in Nxt's `conf/nxt-default.properties` or `conf/nxt.properties`.
 
-- Bug corrected where the block forge estimation time text was displayed when no account was unlocked.
-
 - Improved real-time updating of numbers of confirmations for transactions.
 
 - Made rate of request for new data adjustable allowing Nxs to potential run more smoothly on older computers.
+
+- Bug corrected where the block forge estimation time text was displayed when no account was unlocked.
 
 - Added timestamps to console log entries.
 
