@@ -48,7 +48,7 @@ If you intend to change the `nxt.apiServerPort` variable, make sure you also cha
 
 **Prior to Version 0.8:**
 
-Next, (download Nxs)[https://github.com/Regulus343/Nxs/archive/master.zip] and copy the directory to the `webapps/root` directory of the Nxt client and rename it to `nxs`. Then, open `etc/webdefault.xml` and add this:
+Next, [download Nxs](https://github.com/Regulus343/Nxs/archive/master.zip) and copy the directory to the `webapps/root` directory of the Nxt client and rename it to `nxs`. Then, open `etc/webdefault.xml` and add this:
 
 	<init-param>
 		<param-name>relativeResourceBase</param-name>
