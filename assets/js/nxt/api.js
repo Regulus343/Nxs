@@ -3,7 +3,7 @@
 | Api.js: API JS interface for Nxt/Nxs client
 |------------------------------------------------------------------------------
 |
-| Last Updated: February 25, 2014
+| Last Updated: February 26, 2014
 |
 */
 
@@ -65,6 +65,15 @@ var Api = {
 				$('#register-alias-modal').foundation('reveal', 'close');
 
 				if (response.errorCode === undefined) {
+					if (!$('#aliases table.items tr[data-alias="' + data.alias + '"]').length) {
+						addAlias(data, 'my');
+						addAlias(data, 'all');
+					}
+
+					$('#aliases table.items tr[data-alias="' + data.alias + '"]').addClass('pending');
+					$('#aliases table.items tr[data-alias="' + data.alias + '"] .uri').attr('data-uri', data.uri);
+					$('#aliases table.items tr[data-alias="' + data.alias + '"] .uri').text(data.uri);
+
 					showSuccessMessage('aliasRegistered', {
 						replacementVars: {
 							alias: '<strong>' + data.alias + '</strong>',
@@ -72,7 +81,7 @@ var Api = {
 						}
 					});
 
-					getAliases('my');
+					log('Alias registered');
 
 					$('#register-alias-secret-phrase').val('');
 					$('#register-alias-secret-phrase-visible').val('');
@@ -143,6 +152,13 @@ var Api = {
 				//update number of confirmations
 				numberOfConfirmations = response.confirmations !== undefined ? response.confirmations : 0;
 
+				var officialMinimum = 5;
+				var currentNumber   = parseInt($(selector).find('.confirmations').attr('data-confirmations'));
+				if (currentNumber < officialMinimum && response.sender == account && numberOfConfirmations >= officialMinimum)
+					official = true;
+				else
+					official = false;
+
 				if (numberOfConfirmations == 1) {
 					numberOfConfirmationsTitleText = numberOfConfirmations + ' ' + Language.get('labels.confirmation');
 
@@ -165,21 +181,40 @@ var Api = {
 
 				$(selector).find('.confirmations .number').text(numberOfConfirmationsFormatted);
 
+				//add transaction to "My Transactions" if it is not already there
+				if (official && !$('#my-transactions li[data-transaction-id=' + data.transaction + ']').length)
+					$('#my-transactions').prepend($(selector).clone());
+
 				//add alias to transaction
 				if (response.attachment !== undefined) {
 					if (response.attachment.alias !== undefined) {
-						$(selector).find('.additional-data .alias').text(response.attachment.alias);
-						$(selector).find('.additional-data .uri').html(formatAliasUri(response.attachment.uri));
+						//add alias if it hasn't previously been added
+						if ($(selector).find('.additional-data').hasClass('hidden')) {
+							$(selector).find('.additional-data .alias').text(response.attachment.alias);
+							$(selector).find('.additional-data .uri').html(formatAliasUri(response.attachment.uri));
 
-						if (response.attachment.uri != "")
-							$(selector).find('.additional-data .alias-data .separator').removeClass('hidden');
-						else
-							$(selector).find('.additional-data .alias-data .separator').addClass('hidden');
+							if (response.attachment.uri != "")
+								$(selector).find('.additional-data .alias-data .separator').removeClass('hidden');
+							else
+								$(selector).find('.additional-data .alias-data .separator').addClass('hidden');
 
-						$(selector).find('.additional-data .alias-data').removeClass('hidden');
-						$(selector).find('.additional-data').removeClass('hidden');
+							$(selector).find('.additional-data .alias-data').removeClass('hidden');
+							$(selector).find('.additional-data').removeClass('hidden');
+						}
 
-						$(selector).attr('data-filters', $(selector).attr('data-filters') + " alias");
+						//add alias filter if one doesn't exist
+						var filters = $(selector).attr('data-filters').split(' ');
+						if (filters !== undefined) {
+							if ($.inArray('alias', filters) < 0)
+								$(selector).attr('data-filters', $(selector).attr('data-filters') + " alias");
+						}
+
+						if (numberOfConfirmations < officialMinimum)
+							$('#aliases table.items tr[data-alias="' + response.attachment.alias + '"]').addClass('pending');
+
+						//at "official" number of confirmations, remove "pending" status from alias
+						if (official)
+							$('#aliases table.items tr[data-alias="' + response.attachment.alias + '"]').removeClass('pending');
 					}
 				}
 
@@ -213,8 +248,12 @@ var Api = {
 						break;
 
 					case "lockAccount":
-						account = false;
 						removeAllTransactions('my');
+
+						$('#all-transactions li .transaction-info .sender').removeClass('me');
+						$('#all-transactions li .transaction-info .recipient').removeClass('me');
+
+						account = false;
 
 						//adjust navigation bar
 						$('#lock').addClass('hidden');
@@ -499,6 +538,8 @@ var Api = {
 						account = response.account;
 						balance = Math.floor(response.balance / 100);
 
+						initialTransactions = true;
+
 						$('#account .account-number').text(account);
 						$('#balance').html(formatAmount(balance));
 						$('#balance').attr('data-balance', balance);
@@ -514,6 +555,9 @@ var Api = {
 							$('.top-bar-section .send').addClass('hidden');
 
 						clearSecretPhrase();
+
+						$('#all-transactions li[data-sender=' + account + '] .transaction-info .sender').addClass('me');
+						$('#all-transactions li[data-recipient=' + account + '] .transaction-info .recipient').addClass('me');
 
 						$('.transaction-info a.me').attr('href', config.accountUrl.replace('[accountId]', account));
 						$('.transaction-info a.me .account-number').text(account);
@@ -550,6 +594,7 @@ var Api = {
 							log('Account unlocked');
 
 						//get aliases
+						initialAliases = true;
 						getAliases('my');
 
 						//show blocks generation time

@@ -145,7 +145,7 @@
 		"aliasEditable":             "The alias \"[alias]\" belongs to your account and may be updated.",
 
 		"success": {
-			"amountSent":            "You have successfully sent [amount] to [recipient].",
+			"amountSent":            "You have successfully sent [amount] NXT to [recipient].",
 			"orderPlaced":           "Your order has been placed.",
 			"assetIssued":           "Your asset has been issued.",
 			"aliasRegistered":       "The URI \"[uri]\" has been successfully registered to the alias \"[alias]\"."

@@ -1,6 +1,6 @@
 <script id="transaction-template" type="text/x-handlebars-template">
 
-	<li class="transaction-{{index}}" data-filters="{{filters}}" data-transaction-id="{{id}}">
+	<li class="transaction-{{index}}" data-filters="{{filters}}" data-transaction-id="{{id}}" data-sender="{{sender}}" data-recipient="{{recipient}}">
 		<h5>
 			{{#if timestampTransaction}}
 				<span class="icon icon-loop2" title="Transaction Time"></span>

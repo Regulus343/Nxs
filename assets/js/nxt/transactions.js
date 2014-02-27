@@ -1,3 +1,5 @@
+var initialTransactions = true;
+
 function addTransaction(transaction, type) {
 	var source = $('#transaction-template').html();
 
@@ -44,11 +46,15 @@ function addTransaction(transaction, type) {
 			}
 		}
 
-		if (t.sender == account)
-			t.senderClass = "me";
+		if (t.sender == account) {
+			t.senderClass  = "me";
+			t.filters     += " sent";
+		}
 
-		if (t.recipient == account)
-			t.recipientClass = "me";
+		if (t.recipient == account) {
+			t.recipientClass  = "me";
+			t.filters        += " received";
+		}
 
 		if (t.fee === undefined)
 			t.fee = 0;
@@ -113,7 +119,14 @@ function addTransaction(transaction, type) {
 		//get HTML markup for template and append it
 		var html = template(t);
 
-		$('#' + type + '-transactions').append(html);
+		if (initialTransactions)
+			$('#' + type + '-transactions').append(html);
+		else
+			$('#' + type + '-transactions').prepend(html);
+
+		//add to "My Transactions" as well if transaction is being added to "All Transactions" and sender is current account
+		if (t.senderClass == "me" && type == "all")
+			$('#my-transactions').prepend(html);
 
 		//update transactions counter
 		updateCounter('transactions', type);
@@ -136,6 +149,9 @@ function addTransaction(transaction, type) {
 }
 
 function addTransactions(transactions, type) {
+	if (type == "my")
+		initialTransactions = true;
+
 	for (t = 0; t < transactions.length; t++) {
 		addTransaction(transactions[t], type);
 	}
@@ -149,6 +165,8 @@ function addTransactions(transactions, type) {
 	checkNoItemsForSectionFilter('transactions', type + '-transactions-section');
 
 	adjustPageTabContent();
+
+	initialTransactions = false;
 }
 
 function reorderTransactions(type) {
@@ -208,9 +226,10 @@ function incrementNumberOfConfirmations(type) {
 			numberOfConfirmationsTitleText = numberOfConfirmations + ' ' + Language.get('labels.confirmation');
 
 			filters = $(this).parents('li').attr('data-filters');
-			filters = filters.replace('unconfirmed', 'confirmed');
-
-			$(this).parents('li').attr('data-filters', filters);
+			if (filters !== undefined) {
+				filters = filters.replace('unconfirmed', 'confirmed');
+				$(this).parents('li').attr('data-filters', filters);
+			}
 		} else {
 			numberOfConfirmationsTitleText = numberOfConfirmations + ' ' + Language.get('labels.confirmations');
 		}
@@ -221,9 +240,10 @@ function incrementNumberOfConfirmations(type) {
 
 		if (numberOfConfirmations == 1) {
 			filters = $(this).attr('data-filters');
-			filters = filters.replace('unconfirmed', 'confirmed');
-
-			$(this).attr('data-filters', filters);
+			if (filters !== undefined) {
+				filters = filters.replace('unconfirmed', 'confirmed');
+				$(this).attr('data-filters', filters);
+			}
 		}
 
 		$(this).find('.confirmations')

@@ -1,6 +1,16 @@
 Nxs Change Log
 ==============
 
+## 2014.02.26 :: 0.3.5
+
+- Corrected issue with colors of confirmation numbers (1 - 3 confirmations was displaying green instead of orange). Also, the color progression of confirmation colors occurs over 0 - 20 confirmations instead of 0 - 10.
+
+- New unconfirmed transactions are now being added to the top of the `All Transactions` area.
+
+- When an account is locked, unconfirmed transactions sent or received by that account no longer show up in blue in the `All Transactions` area. When a new account is unlocked, its sent/received unconfirmed transactions will automatically be highlighted in blue.
+
+- When a new alias is registered or updated, it shows up in the `My Aliases` area and is `pending` until it gets at least 5 confirmations. While an alias is `pending`, the text color is pink and the `Update URI` button does not appear.
+
 ## 2014.02.25 :: 0.3.4
 
 - All UI / API server requests now use POST HTTP method instead of GET.

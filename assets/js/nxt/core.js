@@ -83,6 +83,9 @@ function initialize() {
 
 	//set up send function
 	$('#send').click(function(){
+		$('#modal-send .loading').hide();
+		$('#modal-send .form').removeClass('invisible');
+
 		setTimeout(function(){
 			$('#send-recipient').focus();
 		}, 250);

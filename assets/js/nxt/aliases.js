@@ -1,4 +1,5 @@
-var myAliases = [];
+var initialAliases = true;
+var myAliases      = [];
 
 function addAlias(alias, type) {
 	var source = $('#alias-template').html();
@@ -18,6 +19,9 @@ function addAlias(alias, type) {
 		//set type
 		a.aliasType       = Language.get('labels.general');
 		a.aliasTypeNumber = 3;
+
+		if (a.uri === undefined)
+			a.uri = "";
 
 		if (a.uri.substr(0, 5) == "acct:" && a.uri.substr(-4) == "@nxt") {
 			a.aliasType       = Language.get('labels.nxtAccount');
@@ -41,7 +45,10 @@ function addAlias(alias, type) {
 		//get HTML markup for template and append it
 		var html = template(a);
 
-		$('#' + type + '-aliases').append(html);
+		if (initialAliases)
+			$('#' + type + '-aliases').append(html);
+		else
+			$('#' + type + '-aliases').prepend(html);
 
 		//update aliases counter
 		updateCounter('aliases', type);
@@ -57,8 +64,10 @@ function addAlias(alias, type) {
 			showUpdateAliasDialog(type, $(this).parents('tr').attr('data-index'));
 		});
 
-		if (type == "my")
+		if (type == "my") {
 			myAliases.push(a.alias);
+			reorderAliases(type);
+		}
 
 		return true;
 	}
@@ -80,13 +89,18 @@ function addAliases(aliases, type) {
 	checkNoItemsForSectionFilter('aliases', type + '-aliases-section');
 
 	adjustPageTabContent();
+
+	initialAliases = false;
 }
 
 function reorderAliases(type) {
-	$('#'+type+'-aliases tr').tsort('td.type', {order: 'asc', attr: 'data-type-number'});
+	$('#'+type+'-aliases tr').tsort('td.alias', {order: 'asc', attr: 'data-alias'});
 }
 
 function formatAliasUri(uri) {
+	if (uri === undefined)
+		uri = "";
+
 	if (uri.substr(0, 5) == "acct:" && uri.substr(-4) == "@nxt") {
 		var accountNumber = uri.substr(5, (uri.length - 9));
 		return '<a href="' + config.accountUrl.replace('[accountId]', accountNumber) + '" target="_blank">' + accountNumber + '</a>';

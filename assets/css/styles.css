@@ -405,36 +405,61 @@ ul.items li div.amount .additional-data {
 ul.items li .confirmations,
 ul.items li .transactions { position: absolute; top: 8px; right: 8px; font-size: 13px; }
 
+/* 20 or Greater Confirmations: Green */
 ul.items li .confirmations,
 ul.items li .confirmations *,
 ul.items li .transactions,
-ul.items li .transactions .icon { color: #56e32b; }
+ul.items li .transactions * { color: #56e32b; }
 
+/* 0 Confirmations: Red */
 ul.items li .confirmations.confirmations-0,
 ul.items li .confirmations.confirmations-0 *,
 ul.items li .transactions.transactions-0,
 ul.items li .transactions.transactions-0 * { color: #de5050; }
 
+/* 1-5 Confirmations: Orange */
 ul.items li .confirmations.confirmations-1,
 ul.items li .confirmations.confirmations-2,
 ul.items li .confirmations.confirmations-3,
-ul.items li .confirmations.confirmations-1 *,
-ul.items li .confirmations.confirmations-2 *,
-ul.items li .confirmations.confirmations-3 *, { color: #e3842b; }
-
 ul.items li .confirmations.confirmations-4,
 ul.items li .confirmations.confirmations-5,
-ul.items li .confirmations.confirmations-6,
+ul.items li .confirmations.confirmations-1 *,
+ul.items li .confirmations.confirmations-2 *,
+ul.items li .confirmations.confirmations-3 *,
 ul.items li .confirmations.confirmations-4 *,
-ul.items li .confirmations.confirmations-5 *,
-ul.items li .confirmations.confirmations-6 * { color: #e3dd2b; }
+ul.items li .confirmations.confirmations-5 * { color: #e3842b; }
 
+/* 6-10 Confirmations: Yellow */
+ul.items li .confirmations.confirmations-6,
 ul.items li .confirmations.confirmations-7,
 ul.items li .confirmations.confirmations-8,
 ul.items li .confirmations.confirmations-9,
+ul.items li .confirmations.confirmations-10,
+ul.items li .confirmations.confirmations-6 *,
 ul.items li .confirmations.confirmations-7 *,
 ul.items li .confirmations.confirmations-8 *,
-ul.items li .confirmations.confirmations-9 * { color: #93e32b; }
+ul.items li .confirmations.confirmations-9 *,
+ul.items li .confirmations.confirmations-10 * { color: #e3dd2b; }
+
+/* 11-19 Confirmations: Yellow-Green */
+ul.items li .confirmations.confirmations-11,
+ul.items li .confirmations.confirmations-12,
+ul.items li .confirmations.confirmations-13,
+ul.items li .confirmations.confirmations-14,
+ul.items li .confirmations.confirmations-15,
+ul.items li .confirmations.confirmations-16,
+ul.items li .confirmations.confirmations-17,
+ul.items li .confirmations.confirmations-18,
+ul.items li .confirmations.confirmations-19,
+ul.items li .confirmations.confirmations-11 *,
+ul.items li .confirmations.confirmations-12 *,
+ul.items li .confirmations.confirmations-13 *,
+ul.items li .confirmations.confirmations-14 *,
+ul.items li .confirmations.confirmations-15 *,
+ul.items li .confirmations.confirmations-16 *,
+ul.items li .confirmations.confirmations-17 *,
+ul.items li .confirmations.confirmations-18 *,
+ul.items li .confirmations.confirmations-19 * { color: #93e32b; }
 
 ul.items li .transaction-info,
 ul.items li .block-info { clear: both; padding: 8px 0 0 0; font-size: 15px; }
@@ -490,6 +515,11 @@ table.items tr td.actions .remove { color: #e33; }
 table.items tr td.actions .remove:hover { color: #f00; }
 
 table.items tr td.actions button { margin-bottom: 0; padding: 4px 8px; font-size: 12px; text-shadow: #000 1px 1px 1px; }
+
+table.items tr.pending td,
+table.items tr.pending td a { color: #faa; }
+
+table.items tr.pending td.actions button { display: none; }
 
 h4.no-items { display: none; }
 h4.no-items .sub { font-size: 16px; }

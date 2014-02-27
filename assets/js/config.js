@@ -4,8 +4,8 @@
 |------------------------------------------------------------------------------
 |
 | Created By:   Cody Jassman
-| Version:      0.3.4
-| Last Updated: February 25, 2014
+| Version:      0.3.5
+| Last Updated: February 26, 2014
 | Source:       http://github.com/Regulus343/Nxs (or, simply, Nxt alias "Nxs")
 | 
 | The Nxs GUI system (pronounced "Nexus") for the official Nxt client is a
@@ -22,6 +22,8 @@
 |
 |     -includes this configuration file which allows high customization of the
 |      user experience
+|
+| You can check the latest version number using the alias "NxsVersion".
 |
 */
 
@@ -294,6 +296,6 @@ var config = {
 	| The current version number of Nxs. This variable should not be changed.
 	|
 	*/
-	'version': '0.3.4',
+	'version': '0.3.5',
 
 }
