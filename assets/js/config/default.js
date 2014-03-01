@@ -305,6 +305,6 @@ var config = {
 	| The current version number of Nxs. This variable should not be changed.
 	|
 	*/
-	'version': '0.3.5',
+	'version': '0.3.6',
 
 }
