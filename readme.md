@@ -21,15 +21,22 @@ Nxs, pronounced "Nexus" as Nxt is pronounced "Next", is a modified version of th
 
 ## Table of Contents
 
+- [Change Log](#change-log)
 - [Installation](#installation)
 - [Unlocking an Account](#unlocking-account)
 - [Keyboard Shortcuts](#keyboard-shortcuts)
 - [Automatically Unlocking an Account on Startup](#auto-unlocking-account)
 - [Security and Trust of Nxs](#security)
+- [Updating](#updating)
 - [Credits and Donation](#credits)
 - [License](#license)
 
-<a name="composer-package-installation"></a>
+<a name="change-log"></a>
+## Change Log
+
+To see a list of the latest changes, you may [view the change log](/docs/change-log.md).
+
+<a name="installation"></a>
 ## Installation
 
 **Automatic Installation Using the Shell Script on Linux**
@@ -39,7 +46,7 @@ To install Nxs and automatically install the official Nxt client along with it i
 	cd Nxs-master/installation
 	./install.sh
 
-The script will download Nxt from download.nxtcrypto.org along with a SHA-256 hash to compare Nxt's zip archive to. If it fails, the installation script will abort. If the hash matches the file, the installation process will continue. When installation is finished, Nxt will automatically be started up.
+The script will download Nxt from download.nxtcrypto.org according to the version in `installation/resources/version.sh` along with a SHA-256 hash to compare Nxt's zip archive to. If it fails, the installation script will abort. If the hash matches the file, the installation process will continue. This feature is very much considered "alpha" and may not function exactly as expected. Please report any bugs to the [Issues](https://github.com/Regulus343/Nxs/issues) page.
 
 **Manual Installation for Version 0.8+:**
 
@@ -123,6 +130,15 @@ You may generate a new secret phrase by clicking the `Generate` button in the bo
 **Using Substitution Ciphers**
 
 You can use any of the 100 predefined substitution ciphers to obscure your secret phrase if it is made up of dictionary words. To cipher your typed-in secret phrase, click the `Cipher` button in the bottom right of the secret phrase field. You may now click one of the numbers to use that substitution cipher. The keys can be found in `assets/json/cipher/keys.json`. You may also generate your own unique substitution ciphers with the `Cipher.createKeys()` Javascript function. If you do this, it is recommended you save them in a JSON file at `assets/json/cipher/keys-custom.json` and then change the `Secret Phrase - Cipher Custom Keys` variable in the config file to `true`. This way, you are less likely to overwrite your custom keys file when you upgrade Nxs. To further ensure you don't overwrite your custom keys file, you should be sure to backup this file.
+
+<a name="updating"></a>
+## Updating
+
+To update on Linux, there is a new `update.sh` shell script at `installation/update.sh`. This script, along with the installation script, are still considered very much "alpha" features. Please report any bugs to the [Issues](https://github.com/Regulus343/Nxs/issues) page. To use this script, navigate to the `installation` directory in the command line and run `update.sh`:
+
+	./update.sh
+
+Nxs and Nxt NRS should both be automatically updated. NRS is currently being updated according to the `version.sh` file at `installation/resources/version.sh`. In the future, this will likely be an automated task and it will no longer be necessary to edit `version.sh` to the latest version of NRS.
 
 <a name="credits"></a>
 ## Credits and Donation
