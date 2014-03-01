@@ -192,6 +192,99 @@
 	</div>
 </div><!-- /#modal-authorize-account -->
 
+<!-- About Nxs -->
+<div id="modal-about" class="reveal-modal modal-small" data-reveal>
+	<h2>
+		<span class="icon icon-nxt"></span>
+		<span data-language-text="labels.aboutNxs"></span>
+	</h2>
+
+	<a class="icon icon-close icon-close-red close-reveal-modal" title="Close"></a>
+
+	<div class="row">
+		<div class="large-12 columns">
+			<img src="assets/images/logo-splash.png" alt="Nxt" title="Nxt" class="logo" />
+
+			<p data-language-text="messages.aboutNxs"></p>
+		</div>
+	</div>
+
+	<!-- Nxt / Nxs Versions -->
+	<div class="row">
+		<div class="large-12 columns">
+			<table class="dark-border radius">
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th data-language-text="labels.version">
+							<span class="version right-padded">
+
+							</span>
+						</th>
+						<th data-language-text="labels.latestVersion"></th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="nxt">
+						<td>
+							<a href="http://www.nxtcrypto.org/nxt-coin/client-download" target="_blank" class="strong">Nxt</a>
+						</td>
+						<td class="version right-padded">
+							<span class="icon icon-checkmark-circle icon-light-green up-to-date hidden"></span>
+							<span class="icon icon-spam icon-light-red outdated hidden"></span>
+							<span class="version right-padded"></span>
+						</td>
+						<td class="latest-version right-padded"></td>
+						<td class="update actions">
+							<a href="http://www.nxtcrypto.org/nxt-coin/client-download" target="_blank" class="button round blue icon-right hidden" id="update-nxt">
+								<span class="icon icon-lightning"></span>
+								<span data-language-text="labels.update"></span>
+							</a>
+
+							<!-- Nxt SHA-256 Hash Checker -->
+							<div id="nxt-hash-check-target" class="hidden">
+								<span class="icon icon-question"></span>
+								<span class="message" data-language-text="messages.dropFile"></span>
+								<div class="progress hidden"></div>
+							</div>
+
+							<div class="hidden">
+								<iframe id="hash-frame"></iframe>
+								<input type="file" name="files[]" id="hash-files" />
+							</div>
+						</td>
+					</tr>
+
+					<tr class="nxs">
+						<td>
+							<a href="https://github.com/Regulus343/Nxs" target="_blank" class="strong">Nxs</a>
+						</td>
+						<td class="version right-padded">
+							<span class="icon icon-checkmark-circle icon-light-green up-to-date hidden"></span>
+							<span class="icon icon-spam icon-light-red outdated hidden"></span>
+							<span class="version right-padded"></span>
+						</td>
+						<td class="latest-version right-padded"></td>
+						<td class="update actions">
+							<a href="https://github.com/Regulus343/Nxs/archive/master.zip" class="button round blue icon-right hidden">
+								<span class="icon icon-lightning"></span>
+								<span data-language-text="labels.update"></span>
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+	<div class="row modal-bottom-row">
+		<div class="large-12 columns">
+			<p data-language-text="messages.updateNxs"></p>
+		</div>
+	</div>
+</div>
+
 <!-- Account QR Code -->
 <div id="modal-qr-code" class="reveal-modal" data-reveal>
 	<h2>

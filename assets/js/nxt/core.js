@@ -393,6 +393,8 @@ function initializeModalActions() {
 
 	initializeModalAuthorizeAccount();
 
+	initializeModalAbout();
+
 	initializeModalSend();
 
 	initializeModalRegisterAlias();
@@ -438,6 +440,14 @@ function initializeModalAuthorizeAccount() {
 
 	$('#modal-account-authorized .ok').click(function(){
 		$('#modal-account-authorized').foundation('reveal', 'close');
+	});
+}
+
+function initializeModalAbout() {
+	$('#update-nxt').click(function(){
+		$('#nxt-hash-check-target').hide().removeClass('hidden').fadeIn();
+
+		downloadNxtClient();
 	});
 }
 
@@ -652,6 +662,13 @@ function loadViews() {
 	//if views were loaded, attempt to load empty views again in case there are more views to be loaded in newly loaded views
 	if (loadAgain)
 		setTimeout("loadViews();", 250);
+}
+
+function getLatestSoftwareVersions() {
+	Api.sendRequest('getAliasURI', {alias: config.nrsVersionCheckBeta ? 'NRSbetaversion' : 'NRSversion'});
+	Api.sendRequest('getAliasURI', {alias: config.nrsVersionCheckBeta ? 'NRSbetarelease' : 'NRSrelease'});
+
+	Api.sendRequest('getAliasURI', {alias: 'NxsVersion'});
 }
 
 function refreshReadableTimestamps() {

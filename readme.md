@@ -32,9 +32,18 @@ Nxs, pronounced "Nexus" as Nxt is pronounced "Next", is a modified version of th
 <a name="composer-package-installation"></a>
 ## Installation
 
-To install Nxs, first [install the official Nxt client](http://www.nxtcrypto.org/nxt-coin/client-download). Make sure you check the SHA-256 hash to verify its integrity. Then, unzip the files into a directory.
+**Automatic Installation Using the Shell Script on Linux**
 
-**Version 0.8+:**
+To install Nxs and automatically install the official Nxt client along with it in one step, [download Nxs](https://github.com/Regulus343/Nxs/archive/master.zip) and unzip the `Nxs-master` directory where you would like your `nxt` directory to sit. Open the terminal and navigate to `Nxs-master/installation` and run the `install.sh` script:
+
+	cd Nxs-master/installation
+	./install.sh
+
+The script will download Nxt from download.nxtcrypto.org along with a SHA-256 hash to compare Nxt's zip archive to. If it fails, the installation script will abort. If the hash matches the file, the installation process will continue. When installation is finished, Nxt will automatically be started up.
+
+**Manual Installation for Version 0.8+:**
+
+To install Nxs, first [install the official Nxt client](http://www.nxtcrypto.org/nxt-coin/client-download). Make sure you check the SHA-256 hash to verify its integrity. Then, unzip the files into a directory.
 
 Next, [download Nxs](https://github.com/Regulus343/Nxs/archive/master.zip) and copy the directory to the `html` directory of the Nxt client and rename it to `nxs`. Then, open `conf/nxt-default.properties` and change `nxt.uiResourceBase` to `html/nxs`:
 
@@ -44,9 +53,13 @@ You will also have to change `nxt.apiServerCORS` to `true` to allow API server r
 
 	nxt.apiServerCORS=true
 
-If you intend to change the `nxt.apiServerPort` variable, make sure you also change the `apiServerPort` variable in `html/nxs/assets/js/config.js` to match it.
+If you intend to change the `nxt.apiServerPort` variable, make sure you also change the `apiServerPort` variable in `html/nxs/assets/js/config/default.js` to match it or define it in `html/nxs/assets/js/config/custom.js`:
 
-**Prior to Version 0.8:**
+	Config.apiServerPort = 7876;
+
+**Manual Installation Prior to Version 0.8:**
+
+To install Nxs, first [install the official Nxt client](http://www.nxtcrypto.org/nxt-coin/client-download). Make sure you check the SHA-256 hash to verify its integrity. Then, unzip the files into a directory.
 
 Next, [download Nxs](https://github.com/Regulus343/Nxs/archive/master.zip) and copy the directory to the `webapps/root` directory of the Nxt client and rename it to `nxs`. Then, open `etc/webdefault.xml` and add this to the `default` servlet, perhaps below `useFileMappedBuffer`:
 
@@ -62,7 +75,7 @@ Run Nxt from the command line and open Nxs in the browser (at `http://localhost:
 <a name="unlocking-account"></a>
 ## Unlocking an Account
 
-You may type a secret phrase to unlock an account. Please choose something secure. 50+ characters is recommended. Clicking the `Show Phrase` checkbox will show your secret phrase as you type it so you may check it for mistakes. Otherwise, the characters will be hidden as you type them. You may set a secret phrase hint in the config file in `assets/js/config.js`. This may help you to remember your secret phrase. Do not use something specific enough to help someone else figure out your secret phrase should your computer ever become breached. If the hint is used, it should be somewhat vague. There is also a `Generate` button to randomly generate a new account secret phrase for you and a `Cipher` button with available substitution ciphers. This can be useful if you are using a unique phrase of dictionary words which you would like to obfuscate through substitution.
+You may type a secret phrase to unlock an account. Please choose something secure. 50+ characters is recommended. Clicking the `Show Phrase` checkbox will show your secret phrase as you type it so you may check it for mistakes. Otherwise, the characters will be hidden as you type them. You may set a secret phrase hint in the config file in `assets/js/config/default.js` or `assets/js/config/custom.js`. This may help you to remember your secret phrase. Do not use something specific enough to help someone else figure out your secret phrase should your computer ever become breached. If the hint is used, it should be somewhat vague. There is also a `Generate` button to randomly generate a new account secret phrase for you and a `Cipher` button with available substitution ciphers. This can be useful if you are using a unique phrase of dictionary words which you would like to obfuscate through substitution.
 
 <a name="keyboard-shortcuts"></a>
 ## Keyboard Shortcuts
@@ -90,7 +103,7 @@ To slide the navigation menu larger or smaller, you may press the `N` key (as an
 <a name="unlocking-account"></a>
 ## Automatically Unlocking an Account on Startup
 
-In `assets/js/config.js`, you may set a secret phrase to unlock an account with on startup.
+In `assets/js/config/default.js` or `assets/js/config/custom.js` you may set a secret phrase to unlock an account with on startup.
 
 > **Warning:** This feature should only be used when testing accounts with small balances because of the security risk with your account that using this feature creates. Do not use this feature for accounts with anything more than a petty balance.
 
@@ -99,7 +112,7 @@ In `assets/js/config.js`, you may set a secret phrase to unlock an account with 
 
 Because Nxs is third-party software that works with the official Nxt Client, you should be skeptical at first and audit the code for yourself (you should be able to audit all of the javascript code for remote ajax requests in the span of about 10 minutes). The community should be diligent in checking that the Nxs code is doing what it claims to be doing and also to extend the same diligence and skepticism towards any forks of Nxs that are developed by others. It should go without saying that financial software requires careful analysis to prevent theft.
 
-With that said, I am putting Nxs out under my real name (Cody Jassman) and am personally endorsing the product and making the claim that there is absolutely no nefarious motive to Nxs. I have created Nxs because I believe in the Nxt cryptocurrency and want to offer my web development skills to further the ease-of-use and available features that the Nxt Client offers. I acknowledge that jQuery's $.ajax() method is used twice: once in `assets/js/language.js` and once in `assets/js/cipher.js`, but the requests are being made to local `JSON` files that contains the labels and messages for the selected language in `assets/js/config.js` and the array of available substitution ciphers for your secret phrases. You should never see an `xmlhttprequest` call being made to a remote server of any kind.
+With that said, I am putting Nxs out under my real name (Cody Jassman) and am personally endorsing the product and making the claim that there is absolutely no nefarious motive to Nxs. I have created Nxs because I believe in the Nxt cryptocurrency and want to offer my web development skills to further the ease-of-use and available features that the Nxt Client offers. I acknowledge that jQuery's $.ajax() method is used twice: once in `assets/js/language.js` and once in `assets/js/cipher.js`, but the requests are being made to local `JSON` files that contains the labels and messages for the selected language in the config file and the array of available substitution ciphers for your secret phrases. You should never see an `xmlhttprequest` call being made to a remote server of any kind.
 
 You should also, as mentioned above, avoid the use of the `secretPhrase` setting in the config file except for testing purposes or working with small balances that you do not fear losing.
 

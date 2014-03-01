@@ -1,6 +1,7 @@
 {
 	"labels": {
 		"nxt":                       "Nxt",
+		"nxs":                       "Nxs",
 		"general":                   "General",
 		"nxtAccount":                "Nxt Account",
 		"nxtAccountNumber":          "Nxt Account Number",
@@ -47,6 +48,10 @@
 		"authToken":                 "Authorization Token",
 		"generateAuthToken":         "Generate Authorization Token",
 		"website":                   "Website",
+
+		"aboutNxs":                  "About Nxs",
+		"version":                   "Version",
+		"latestVersion":             "Latest Version",
 
 		"qrCode":                    "QR Code",
 
@@ -139,6 +144,13 @@
 		"unlockAccount":             "Type in a long, secure phrase. This will be the access code to your account and its funds. Please ensure you do not lose your secret phrase as it will not be able to be recovered. To ensure a secure account, a phrase of 30+ characters is recommended.",
 		"authorizeAccount":          "Type in a website URL and your secret phrase to create an authorization token for your account.",
 		"accountAuthorized":         "Use the authorization token below for the website it was created for ([website]).",
+
+		"aboutNxs":                  "Nxs (\"Nexus\") is an open-source browser-based GUI for the Nxt cryptocurrency client.",
+		"updateNxs":                 "If you are using Linux, you can update Nxt and Nxs by running the \"update.sh\" shell script from the \"installation\" directory. This feature (along with the installation script) is undergoing testing at the moment, so please be wary and file any bugs on Nxs' <a href=\"https://github.com/Regulus343/Nxs/issues\" target=\"_blank\">Issues</a> page. Expect this warning to go away after Nxs' install and update scripts have had more independent testing.",
+
+		"dropFile":                  "Drop file here...",
+		"hashVerified":              "Hash verified!",
+		"hashIncorrect":             "Hash incorrect!",
 
 		"aliasTaken":                "The alias \"[alias]\" is already taken. Please try another alias.",
 		"aliasAvailable":            "The alias \"[alias]\" is available!",

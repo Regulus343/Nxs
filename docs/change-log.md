@@ -1,6 +1,16 @@
 Nxs Change Log
 ==============
 
+## 2014.03.01 :: 0.3.6
+
+- Clicking the Nxt logo in the top menu bar brings up the `About Nxs` dialog with a section for updating Nxt and Nxs. The table shows the current version numbers of each, along with the latest version numbers for comparison (which are URIs to aliases on the blockchain). If either is out of date, an `Update` button is shown with a direct download link to the Nxt and/or Nxs zip files. When the latest Nxt client is downloaded, the same drag & drop feature from the original NRS app's `update.html` page is available allowing you to drag and drop the downloaded file to check the SHA-256 hash.
+
+- New Linux shell scripts have been created to aid with installation and updating at `installation/install.sh` and `installation/update.sh`, respectively. The `install.sh` and `update.sh` scripts are still very much in "alpha" right now and should be treated as such. There may be issues with them and I encourage the community to check that the SHA-256 hash verifying portion of `install.sh` is working as it should. Any help with this is greatly appreciated, as getting an easy update process implemented now will make it much more likely that people keep both Nxt NRS and Nxs up-to-date.
+
+- Because of the new updating shell script, config has been moved from `assets/js/config.js` to `assets/js/config/default.js`. This allows another config file to be used, `assets/js/config/custom.js`, which allows a user to overwrite specific variables. The `custom.js` config file will not be overwritten by the update script while `default.js` will be overwritten to allow new config variables to be created in later versions of Nxs.
+
+- Removed `admin.html`, `message.html`, and `update.html`. The former two are available in NRS' `html/tools` directory and will soon be directly implemented into the Nxs interface. The latter is now built into the new `About Nxs` dialog.
+
 ## 2014.02.26 :: 0.3.5
 
 - Corrected issue with colors of confirmation numbers (1 - 3 confirmations was displaying green instead of orange). Also, the color progression of confirmation colors occurs over 0 - 20 confirmations instead of 0 - 10.

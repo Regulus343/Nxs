@@ -4,8 +4,8 @@
 |------------------------------------------------------------------------------
 |
 | Created By:   Cody Jassman
-| Version:      0.3.5
-| Last Updated: February 26, 2014
+| Version:      0.3.6
+| Last Updated: March 1, 2014
 | Source:       http://github.com/Regulus343/Nxs (or, simply, Nxt alias "Nxs")
 | 
 | The Nxs GUI system (pronounced "Nexus") for the official Nxt client is a
@@ -22,8 +22,6 @@
 |
 |     -includes this configuration file which allows high customization of the
 |      user experience
-|
-| You can check the latest version number using the alias "NxsVersion".
 |
 */
 
@@ -276,6 +274,17 @@ var config = {
 	|
 	*/
 	'autoTrimAliasUri': true,
+
+	/*
+	|--------------------------------------------------------------------------
+	| NRS Version Check Beta
+	|--------------------------------------------------------------------------
+	|
+	| If true, the latest version of Nxt (NRS) that is checked is the beta
+	| version. Otherwise, the standard version is used.
+	|
+	*/
+	'nrsVersionCheckBeta': true,
 
 	/*
 	|--------------------------------------------------------------------------

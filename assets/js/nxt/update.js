@@ -1,3 +1,8 @@
+var nxtVersion;
+var nxtLatestVersion;
+var nxtLatestHash;
+var nxtLatestFileUrl;
+
 var installedVersion;
 var normalVersion = {};
 var betaVersion = {};
@@ -54,7 +59,7 @@ function load() {
 
 	// Check for the various File API support.
 	if (!window.File || !window.FileReader || !window.FileList || !window.Blob || !File.prototype.slice || !window.Worker) {
-	  alert('File APIs are not fully supported in this browser. Please use latest Mozilla Firefox or Google Chrome.');
+		alert('File APIs are not fully supported in this browser. Please use latest Mozilla Firefox or Google Chrome.');
 	}
 
 	//get Current version
@@ -115,32 +120,37 @@ function handleFileSelect(evt) {
 
 	var files = evt.dataTransfer ? evt.dataTransfer.files : evt.target.files;
 
-	document.getElementById('hash-progress').style.width = '0%';
-	document.getElementById('hash-progress').style.display = 'block';
+	$('#nxt-hash-check-target .progress').css('width', '0%').removeClass('hidden');
 
 	var worker = new Worker('assets/js/worker-sha256.js');
 
+	log('Verifying SHA-256 hash for Nxt zip archive...');
+
 	worker.onmessage = function(e) {
 		if (e.data.progress) {
-			document.getElementById('hash-progress').style.width = e.data.progress + '%';
+			$('#nxt-hash-check-target .progress').animate({width: e.data.progress + '%'}, 150);
 		} else {
-		   document.getElementById('hash-progress').style.display = 'none';
-		   document.getElementById('drop_zone').style.display = 'none';
+			$('#nxt-hash-check-target .progress').css('width', '0%').addClass('hidden');
 
-		   if (e.data.sha256 == downloadedVersion.hash) {
-			   document.getElementById('result').innerHTML = 'The downloaded version has been verified, the hash is correct. You may proceed with the installation.';
-			   document.getElementById('result').className = '';
-		   } else {
-			   document.getElementById('result').innerHTML = 'The downloaded version hash does not compare to the specified hash in the blockchain. DO NOT PROCEED.';
-			   document.getElementById('result').className = 'incorrect';
-		   }
-		
-		   document.getElementById('hash_version').innerHTML = downloadedVersion.versionNr;
-		   document.getElementById('hash_download').innerHTML = e.data.sha256;
-		   document.getElementById('hash_official').innerHTML = downloadedVersion.hash;
-		   document.getElementById('hashes').style.display = 'block';
+			if (e.data.sha256 == 'x' + nxtLatestHash) {
+				$('#nxt-hash-check-target').removeClass('incorrect').addClass('verified');
+				$('#nxt-hash-check-target .message').text(Language.get('messages.hashVerified'));
+				$('#nxt-hash-check-target .icon')
+					.removeClass('icon-question')
+					.removeClass('icon-spam')
+					.addClass('icon-checkmark-circle');
 
-		   document.getElementById('result').style.display = 'block';
+				log('SHA-256 hash verified: ' + e.data.sha256);
+			} else {
+				$('#nxt-hash-check-target').removeClass('verified').addClass('incorrect');
+				$('#nxt-hash-check-target .message').text(Language.get('messages.hashIncorrect'));
+				$('#nxt-hash-check-target .icon')
+					.removeClass('icon-question')
+					.removeClass('icon-checkmark-circle')
+					.addClass('icon-spam');
+
+				log('SHA-256 hash incorrect: ' + e.data.sha256 + ' / ' + nxtLatestHash);
+			}
 		}
 	};
 
@@ -224,24 +234,15 @@ function sendRequest(requestParameters, callback) {
 }
 
 function downloadNxtClient(normal) {
-	if (normal) {
-		downloadedVersion = normalVersion;
-	} else {
-		downloadedVersion = betaVersion;
-	}
+	//download file to iframe
+	$('#hash-frame').attr('src', nxtLatestFileUrl);
 
-	var ifrm = document.getElementById("frame");
-	ifrm.src = "http://download.nxtcrypto.org/nxt-client-" + (normal ? normalVersion.versionNr : betaVersion.versionNr) + ".zip";
-	document.getElementById('explanation').style.display = 'none';
-	document.getElementById('drop_zone').style.display = 'block';
-	
-	// Setup the dnd listeners.
+	//setup drag and drop listeners
 	var dropZone = document.getElementsByTagName('html')[0];
 	dropZone.addEventListener('dragover', handleDragOver, false);
 	dropZone.addEventListener('drop', handleFileSelect, false);
-	
-	document.getElementById('files').addEventListener('change', handleFileSelect, false);
-	document.getElementById('download_again').style.display = 'block';
+
+	document.getElementById('hash-files').addEventListener('change', handleFileSelect, false);
 
 	return false;
 }

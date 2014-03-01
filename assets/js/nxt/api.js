@@ -144,6 +144,44 @@ var Api = {
 					aliasFieldChanged = false;
 				}
 
+				//check Nxt (NRS) version against latest version
+				if ($.inArray(data.alias, ['NRSversion', 'NRSbetaversion']) >= 0) {
+					var versionData  = response.uri.split(' ');
+					nxtLatestVersion = versionData[0];
+					nxtLatestHash    = versionData[1];
+
+					$('tr.nxt td.latest-version')
+						.text(nxtLatestVersion)
+						.attr('title', nxtLatestHash);
+
+					var comparison = versionCompare(nxtVersion, nxtLatestVersion);
+					if (comparison < 0 || comparison > 0) {
+						$('tr.nxt td.version .outdated').removeClass('hidden');
+						$('tr.nxt td.update a').removeClass('hidden');
+					} else {
+						$('tr.nxt td.version .up-to-date').removeClass('hidden');
+					}
+				}
+
+				//adjust link URL for Nxt's "Update" button
+				if ($.inArray(data.alias, ['NRSrelease', 'NRSbetarelease']) >= 0) {
+					nxtLatestFileUrl = response.uri;
+					//$('tr.nxt td.actions a').attr('href', response.uri).removeAttr('target');
+					$('tr.nxt td.actions a').attr('href', '#').removeAttr('target');
+				}
+
+				//check Nxt (NRS) version against latest version
+				if (data.alias == "NxsVersion") {
+					$('tr.nxs td.latest-version').text(response.uri);
+					var comparison = versionCompare(config.version, response.uri);
+					if (comparison < 0) {
+						$('tr.nxs td.version .outdated').removeClass('hidden');
+						$('tr.nxs td.update a').removeClass('hidden');
+					} else {
+						$('tr.nxs td.version .up-to-date').removeClass('hidden');
+					}
+				}
+
 				break;
 
 			case "getTransaction":
@@ -369,9 +407,16 @@ var Api = {
 					case "processInitialData":
 						document.title = document.title + " :: " + response.version;
 
+						nxtVersion = response.version;
+
 						$('.nxt-version').text(response.version);
 						$('.nxs-version').text(config.version);
 						$('#footer .versions').fadeIn('slow');
+
+						$('tr.nxt span.version').text(response.version);
+						$('tr.nxs span.version').text(config.version);
+
+						getLatestSoftwareVersions();
 
 						if (response.unconfirmedTransactions)
 							addTransactions(response.unconfirmedTransactions, 'all');
