@@ -132,7 +132,7 @@ function handleFileSelect(evt) {
 		} else {
 			$('#nxt-hash-check-target .progress').css('width', '0%').addClass('hidden');
 
-			if (e.data.sha256 == 'x' + nxtLatestHash) {
+			if (e.data.sha256 == nxtLatestHash) {
 				$('#nxt-hash-check-target').removeClass('incorrect').addClass('verified');
 				$('#nxt-hash-check-target .message').text(Language.get('messages.hashVerified'));
 				$('#nxt-hash-check-target .icon')
