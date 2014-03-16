@@ -839,8 +839,6 @@ function unlockAccount() {
 
 	var secretPhrase = getSecretPhrase('unlock');
 
-	console.log(encodeURIComponent(secretPhrase));
-
 	setTimeout(function(){
 		Api.sendUiRequest('unlockAccount', {secretPhrase: secretPhrase});
 	}, 350);
