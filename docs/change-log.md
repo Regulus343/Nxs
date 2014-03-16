@@ -1,6 +1,19 @@
 Nxs Change Log
 ==============
 
+## 2014.03.16 :: 0.3.7
+
+- Unlock account was giving a different account number than NRS because jQuery already encoded data which had already been encoded using encodeURIComponent(). If you previously created an account using Nxs and your secret phrase is no longer returning your previous account number, try this in javascript to get a secret phrase that will work going forward:
+
+	var secretPhrase = "Your secret phrase";
+	alert(encodeURIComponent(secretPhrase));
+
+- Send message dialog is a work in progress. It has not been tested yet, so it is currently disabled.
+
+- Italian language file has been added thanks to Nextcoin.org forum user "redsn0w".
+
+- Working on testnet config settings to allow easy switch to test network [incomplete].
+
 ## 2014.03.01 :: 0.3.6
 
 - Clicking the Nxt logo in the top menu bar brings up the `About Nxs` dialog with a section for updating Nxt and Nxs. The table shows the current version numbers of each, along with the latest version numbers for comparison (which are URIs to aliases on the blockchain). If either is out of date, an `Update` button is shown with a direct download link to the Nxt and/or Nxs zip files. When the latest Nxt client is downloaded, the same drag & drop feature from the original NRS app's `update.html` page is available allowing you to drag and drop the downloaded file to check the SHA-256 hash.

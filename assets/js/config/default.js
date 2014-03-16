@@ -4,8 +4,8 @@
 |------------------------------------------------------------------------------
 |
 | Created By:   Cody Jassman
-| Version:      0.3.6
-| Last Updated: March 1, 2014
+| Version:      0.3.7
+| Last Updated: March 16, 2014
 | Source:       http://github.com/Regulus343/Nxs (or, simply, Nxt alias "Nxs")
 | 
 | The Nxs GUI system (pronounced "Nexus") for the official Nxt client is a
@@ -58,6 +58,17 @@ var config = {
 	|
 	*/
 	'ssl': false,
+
+	/*
+	|--------------------------------------------------------------------------
+	| Test Network
+	|--------------------------------------------------------------------------
+	|
+	| If true, the test network will be used instead of the live network.
+	|
+	*/
+	'testNet': false,
+
 
 	/*
 	|--------------------------------------------------------------------------
@@ -305,6 +316,6 @@ var config = {
 	| The current version number of Nxs. This variable should not be changed.
 	|
 	*/
-	'version': '0.3.6',
+	'version': '0.3.7',
 
 }

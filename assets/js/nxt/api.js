@@ -146,27 +146,28 @@ var Api = {
 
 				//check Nxt (NRS) version against latest version
 				if ($.inArray(data.alias, ['NRSversion', 'NRSbetaversion']) >= 0) {
-					var versionData  = response.uri.split(' ');
-					nxtLatestVersion = versionData[0];
-					nxtLatestHash    = versionData[1];
+					if (response.uri !== undefined) {
+						var versionData  = response.uri.split(' ');
+						nxtLatestVersion = versionData[0];
+						nxtLatestHash    = versionData[1];
 
-					$('tr.nxt td.latest-version')
-						.text(nxtLatestVersion)
-						.attr('title', nxtLatestHash);
+						$('tr.nxt td.latest-version')
+							.text(nxtLatestVersion)
+							.attr('title', nxtLatestHash);
 
-					var comparison = versionCompare(nxtVersion, nxtLatestVersion);
-					if (comparison < 0 || comparison > 0) {
-						$('tr.nxt td.version .outdated').removeClass('hidden');
-						$('tr.nxt td.update a').removeClass('hidden');
-					} else {
-						$('tr.nxt td.version .up-to-date').removeClass('hidden');
+						var comparison = versionCompare(nxtVersion, nxtLatestVersion);
+						if (comparison < 0 || comparison > 0) {
+							$('tr.nxt td.version .outdated').removeClass('hidden');
+							$('tr.nxt td.update a').removeClass('hidden');
+						} else {
+							$('tr.nxt td.version .up-to-date').removeClass('hidden');
+						}
 					}
 				}
 
 				//adjust link URL for Nxt's "Update" button
 				if ($.inArray(data.alias, ['NRSrelease', 'NRSbetarelease']) >= 0) {
 					nxtLatestFileUrl = response.uri;
-					//$('tr.nxt td.actions a').attr('href', response.uri).removeAttr('target');
 					$('tr.nxt td.actions a').attr('href', '#').removeAttr('target');
 				}
 
@@ -182,6 +183,24 @@ var Api = {
 					}
 				}
 
+				break;
+
+			case "getBlock":
+				//check to see if Nxt is running on live network or test network
+				if (!testNetChecked) {
+					if (data.block == secondBlock && response.height !== 1) {
+						config.testNet       = true;
+						config.apiServerPort = 6876;
+
+						$('#test-network-indicator').fadeIn();
+
+						log('Detected network: Test');
+					} else {
+						log('Detected network: Live');
+					}
+
+					testNetChecked = true;
+				}
 				break;
 
 			case "getTransaction":

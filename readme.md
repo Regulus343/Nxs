@@ -159,6 +159,7 @@ Special thanks to the following people or organizations for their contribution t
 - [NXT Spain](http://nxtspain.org) for translating the language file to Spanish
 - [nxtcoin.fr](https://twitter.com/nxtcoinfr) for translating the language file to French
 - [NXTcoin_de](https://twitter.com/NXTcoin_de) for translating the language file to German
+- [redsn0w](https://nextcoin.org/index.php?action=profile;u=5915) for translating the language file to Italian
 - the developers of the other Nxt clients such as [dotNXT](http://dotnxtclient.blogspot.ca), [clieNXT](https://bitbucket.org/fmiboy), [NXT Solaris](http://nxtsolaris.wordpress.com), [Offspring](http://offspring.dgex.com), and [NXT Wallet](http://nxtra.org/nxt-client)
 - the rest of the wonderful Nxt community for their hard work and support
 

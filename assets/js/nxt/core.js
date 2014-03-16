@@ -2,8 +2,16 @@ var user              = Math.random();
 var account           = false;
 var balance           = 0;
 var currentPageId     = "transactions";
+
+var genesisBlock      = "2680262203532249785";
+var secondBlock       = "6556228577102711328";
+var testNetChecked    = false;
+
 var aliasFieldChanged = false;
 var selectedAssetId;
+
+if (config.testNet)
+	config.apiServerPort = 6876;
 
 function initialize() {
 	//load language data
@@ -29,7 +37,7 @@ function initialize() {
 
 		//automatically unlock account if secret phrase config variable is set
 		if (config.secretPhrase !== false)
-			Api.sendUiRequest('unlockAccount', {secretPhrase: encodeURIComponent(config.secretPhrase)});
+			Api.sendUiRequest('unlockAccount', {secretPhrase: config.secretPhrase});
 		else //otherwise, bring up account unlock dialog
 			showAccountDialog();
 
@@ -86,6 +94,8 @@ function initialize() {
 		$('#modal-send .loading').hide();
 		$('#modal-send .form').removeClass('invisible');
 
+		adjustDeadlineTime('send');
+
 		setTimeout(function(){
 			$('#send-recipient').focus();
 		}, 250);
@@ -113,9 +123,12 @@ function initialize() {
 	//set default fee
 	$('input.fee').val(config.defaultFee.toFixed(8));
 
+	//check if NRS is using test net or live net
+	checkTestNet();
+
 	//set up deadline fields
 	$('input.deadline').each(function(){
-		if ($(this).attr('id').substr(0, 4) == "send")
+		if ($(this).attr('id') == "send-deadline")
 			$(this).val(1);
 		else
 			$(this).val(60);
@@ -324,6 +337,11 @@ function initializeTabSections() {
 	});
 }
 
+function checkTestNet() {
+	//check if using test net by attempting to get second block
+	Api.sendRequest('getBlock', {block: secondBlock});
+}
+
 function initializeLockUnlockAccount() {
 	$('#unlock').click(function(){
 		setTimeout(function(){
@@ -396,6 +414,8 @@ function initializeModalActions() {
 	initializeModalAbout();
 
 	initializeModalSend();
+
+	initializeModalSendMessage();
 
 	initializeModalRegisterAlias();
 }
@@ -473,6 +493,22 @@ function initializeModalSend() {
 	var eventType = config.sendRequireDoubleClick ? "dblclick" : "click";
 	$('#send-confirm').on(eventType, function(){
 		sendMoney();
+	});
+}
+
+function initializeModalSendMessage() {
+	$('#send-message').click(function(){
+		$('#modal-send-message .loading').hide();
+		$('#modal-send-message .form').removeClass('invisible');
+
+		$('#send-message-recipient').val('');
+		$('#send-message-message').val('');
+
+		adjustDeadlineTime('send-message');
+
+		setTimeout(function(){
+			$('#send-message-recipient').focus();
+		}, 250);
 	});
 }
 
@@ -803,8 +839,10 @@ function unlockAccount() {
 
 	var secretPhrase = getSecretPhrase('unlock');
 
+	console.log(encodeURIComponent(secretPhrase));
+
 	setTimeout(function(){
-		Api.sendUiRequest('unlockAccount', {secretPhrase: encodeURIComponent(secretPhrase)});
+		Api.sendUiRequest('unlockAccount', {secretPhrase: secretPhrase});
 	}, 350);
 }
 
@@ -832,7 +870,7 @@ function generateAuthorizationToken() {
 
 	setTimeout(function(){
 		Api.sendUiRequest('generateAuthorizationToken', {
-			secretPhrase: encodeURIComponent(secretPhrase),
+			secretPhrase: secretPhrase,
 			website:      website,
 		});
 	}, 250);

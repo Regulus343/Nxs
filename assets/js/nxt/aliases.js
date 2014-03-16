@@ -152,7 +152,7 @@ function registerAlias() {
 		uri:          uri,
 		fee:          parseFloat($('#register-alias-fee').val()),
 		deadline:     parseInt($('#register-alias-deadline').val()),
-		secretPhrase: encodeURIComponent(secretPhrase),
+		secretPhrase: secretPhrase,
 	};
 
 	Api.sendRequest('assignAlias', data);

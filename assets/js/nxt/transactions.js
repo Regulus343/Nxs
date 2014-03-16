@@ -281,11 +281,11 @@ function sendMoney() {
 	var secretPhrase = getSecretPhrase('send');
 
 	var data = {
-		recipient:    encodeURIComponent($('#send-recipient').val()),
+		recipient:    $('#send-recipient').val(),
 		amount:       parseFloat($('#send-amount').val()),
 		fee:          parseFloat($('#send-fee').val()),
 		deadline:     parseInt($('#send-deadline').val()),
-		secretPhrase: encodeURIComponent(secretPhrase),
+		secretPhrase: secretPhrase,
 	};
 
 	Api.sendUiRequest('sendMoney', data);

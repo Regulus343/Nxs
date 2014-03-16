@@ -1,0 +1,192 @@
+{
+	"labels": {
+		"nxt":                       "Nxt",
+		"nxs":                       "Nxs",
+		"general":                   "Generale",
+		"nxtAccount":                "Account Nxt ",
+		"nxtAccountNumber":          "Numero dell'account Nxt",
+		"accountNumber":             "Numero account",
+		"url":                       "URL",
+		"uri":                       "URI",
+		"type":                      "Type",
+		"send":                      "Invia",
+		"sendNxt":                   "InviaNxt",
+		"alias":                     "Alias",
+		"sender":                    "Sender",
+		"recipient":                 "Recipiente",
+		"amount":                    "Ammontare",
+		"fee":                       "Tasse",
+		"balance":                   "Bilancio",
+		"forge":                     "Forge",
+		"block":                     "Blocco",
+		"transaction":               "Transazione",
+		"deadline":                  "Deadline",
+		"deadlineInHours":           "Deadline (in ore)",
+		"deadlineInMinutes":         "Deadline (in minuti)",
+		"noDeadline":                "Niente deadline...",
+		"generalNotification":       "Notifiche generali",
+		"message":                   "Messagio",
+		"info":                      "Info",
+		"warning":                   "Attenzione",
+		"error":                     "Errore",
+		"success":                   "Successo",
+		"ok":                        "OK",
+		"cancel":                    "Cancel",
+		"cipher":                    "Cipher",
+		"generate":                  "Generare",
+
+		"sendMessage":               "Invia Message",
+		"registerAlias":             "Registra un Alias",
+		"updateAlias":               "Aggiorna un Alias",
+
+		"unlockAccount":             "Sblocca l'Account",
+		"secretPhrase":              "Password segreta",
+		"showPhrase":                "Mostra password",
+		"hint":                      "Hint",
+
+		"auth":                      "Autorizzazione ",
+		"authToken":                 " Autorizzazione Token",
+		"generateAuthToken":         "Generare un Autorizzazione Token",
+		"website":                   "Website",
+
+		"aboutNxs":                  "Info su Nxs",
+		"version":                   "Versione",
+		"latestVersion":             "Ultima Versione",
+
+		"qrCode":                    "QR Code",
+
+		"asset":                     "Asset",
+		"ask":                       "Chiedi",
+		"bid":                       "Punta",
+
+		"assetName":                 "Nome Asset ",
+		"quantity":                  "Quantità",
+		"description":               "Descrizione",
+
+		"issueAsset":                "Issue Asset",
+		"placeAskOrder":             "Piazza una richiesta di Ordine",
+		"placeBidOrder":             "Piazza una puntata ",
+
+		"transactions":              "Transazioni",
+		"accounts":                  "Account",
+		"contacts":                  "Contatti",
+		"assetExchange":             "Asset Exchange",
+		"messages":                  "Messaggi",
+		"aliases":                   "Aliases",
+		"polls":                     "Sondaggi",
+		"peers":                     "Peers",
+		"blocks":                    "Blocchi",
+
+		"myTransactions":            "Mie Transazioni",
+		"allTransactions":           "Tutte le Transazioni",
+
+		"all":                       "Totale",
+		"received":                  "Ricevuto",
+		"sent":                      "Inviato",
+		"unconfirmed":               "Non confermato",
+		"confirmed":                 "Confermato",
+		"doubleSpending":            "Double Spending",
+
+		"myAliases":                 "Miei Alias",
+		"allAliases":                "tutti gli Aliases",
+		"searchAliases":             "Cerca un alias...",
+
+		"other":                     "Altro",
+
+		"activePeers":               "Peers Attivi",
+		"knownPeers":                "Peers Conosciuti",
+		"blacklistedPeers":          "Peers nella lista nera",
+
+		"wellKnown":                 "Well-Known",
+		"announced":                 "Announced",
+
+		"recentBlocks":              "Blocchi recenti",
+		"orphanedBlocks":            "Blocchi orfani",
+
+		"withTransactions":          "Con Transazioni",
+		"withoutTransactions":       "Senza Transazioni",
+
+		"confirmation":              "Conferma",
+		"confirmations":             "Conferme",
+
+		"connected":                 "Connesso",
+		"disconnected":              "Disconnesso",
+
+		"downloaded":                "Scaricato",
+		"uploaded":                  "Caricato",
+
+		"edit":                      "Modifica",
+		"update":                    "Aggiorna",
+		"updateUri":                 "Aggiorna URI"
+	},
+
+	"messages": {
+		"typeSecretPhrase":          "Scrivi la password segreta per sbloccare l'account...",
+
+		"sendDoubleClick":           "Per prevenire invii accidentali, devi cliccare due volte sul bottone 'Invia'. Questo potrebbe essere stato disabilitato nelle impostazioni.",
+
+		"noTransactions":            "Al momento non ci sono transazioni",
+		"noTransactionsSub":         "Perfavore sistema le categorie o Filtra per vedere le transazioni.",
+
+		"noAliases":                 "Al momento non ci sono Alias.",
+		"noAliasesSub":              "Perfavore sistema le categorie o Filtra per vedere gli Alias.",
+
+		"noPeers":                   "Al momento non ci sono Peers.",
+		"noPeersSub":                "Perfavore sistema le categorie o Filtra per vedere i Peers.",
+
+		"forgeNextBlock":            "Puoi forgiare il prossimo blocco in :",
+		"noBlocks":                  "Al momento non ci sono Blochi.",
+		"noBlocksSub":               "Perfavore sistema le categorie o Filtra  per vedere i blocchi.",
+
+		"disconnectRemoveFromList":  "Disconnetti e rimuovi dalla lista.",
+		"removeFromList":            "Rimuovi dalla lista",
+
+		"unlockAccount":             "Digita una PassPhrase lunga , cossiché nessuno al di fuori di te abbia accesso ai tuoi fondi.Ricordati di non perdere la tua passphrase  perché non sarà possibile recuperarla in nessun modo.Per assicurare al tuo account usa una password con almeno 30+ caratteri se non di più..",
+		"authorizeAccount":          "Digita l'URL del sito e la tua PassPhrase per creare un token di autorizzazione per il tuo account.",
+		"accountAuthorized":         "Utilizza il token di autorizzazione  per sito web qui sotto: ([website]).",
+
+		"aboutNxs":                  "Nxs (\"Nexus\") è un progeto open-source , un browser con un interfaccia intuitiva differente dal solito client NRS.",
+		"updateNxs":                 "Se usi Linux , puoi aggiornarlo  digitando \"update.sh\" nel terminale ( Shell) .Questa funzione al momento è in fase beta.Perfavore segnala ogni bug qui nella sezione dedicata : <a href=\"https://github.com/Regulus343/Nxs/issues\" target=\"_blank\">Pagina dei problemi</a>. .",
+
+		"dropFile":                  "Sgancia un file qui ...",
+		"hashVerified":              "Hash verificato!",
+		"hashIncorrect":             "Hash incorretto ",
+
+		"aliasTaken":                "L' alias \"[alias]\" è gia stato registrato. Provane un altro..",
+		"aliasAvailable":            "L' alias \"[alias]\" è  disponibile!",
+		"aliasEditable":             "L alias \"[alias]\" è già  tuo.",
+
+		"success": {
+			"amountSent":            "Hai inviato correttamente :  [amount] NXT a  [recipient].",
+			"orderPlaced":           "Il tuo ordine è stato piazzato.",
+			"assetIssued":           "Il bene è stato rilasciato.",
+			"aliasRegistered":       "L' URI \"[uri]\" è stato correttamente registrato per  \"[alias]\"."
+		},
+
+		"errors": {
+			"general":               "Qualcosa è andato storto, perfavore riprova di nuovo.",
+			"recipientRequired":     "Perfavore scrivi il destinatario.",
+			"amountGreaterThanZero": "L'ammontare deve essere superiore di 0.",
+			"deadlineWithinLimits":  "La linea di scadenza deve essere da 1 a 24 ore.",
+			"secretPhraseLength":    "La tua PassPhrase è troppo corta , usane una migliore.",
+			"secretPhraseRequired":  "Perfavore immetti la tua PassPhrase.",
+			"secretPhraseIncorrect": "La PassPhrase è incorretta.",
+			"notEnoughFunds":        "Non hai abbastanza fondi per completare l'azione."
+		},
+
+		"warnings": {
+			"secretPhraseLength":    "La tua PassPhrase è troppo corta , potrebbe essere scoperta  da un hacker o malintenzionato. E' consigliato sceglierne una più lunga e robusta."
+		},
+
+		"loading": {
+			"blockchain":            "Caricamento blockchain",
+			"unlockingAccount":      "Sbloccare l'account",
+			"generatingAuthToken":   "Generare un token di autorizzazione.",
+			"signingTransaction":    "firma una transazione",
+			"issuingAsset":          "Emissione di Asset",
+			"placingAskOrder":       "Piazzare una richiesa di ordine.",
+			"placingBidOrder":       "Piazzare una puntata.",
+			"registeringAlias":      "Registra un alias"
+		}
+	}
+}

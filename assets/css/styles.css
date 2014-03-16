@@ -637,6 +637,8 @@ input[type="checkbox"]+label, input[type="radio"]+label {
 	padding-left: 0.3rem;
 }
 
+textarea { height: 120px; }
+
 div.send-double-click {
 	padding-top: 7px;
 	color: #666;
@@ -693,8 +695,13 @@ div#footer {
 	position: absolute;
 	bottom: 6px;
 	left: 12px;
+	width: 170px;
 	color: #888;
 	font-size: 12px;
 	text-align: right;
 }
+
+div#footer #test-network-indicator { display: none; margin-bottom: 5px; text-transform: uppercase; }
+div#footer #test-network-indicator:hover { color: #ddd; }
+
 div#footer .versions { display: none; text-shadow: #000 0 0 3px; }

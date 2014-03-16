@@ -34,6 +34,7 @@
 		"cancel":                    "Cancel",
 		"cipher":                    "Cipher",
 		"generate":                  "Generate",
+		"testNetwork":               "Test Network",
 
 		"sendMessage":               "Send Message",
 		"registerAlias":             "Register Alias",
@@ -87,6 +88,16 @@
 		"confirmed":                 "Confirmed",
 		"doubleSpending":            "Double Spending",
 
+		"myMessages":                "My Messages",
+		"allMessages":               "All Messages",
+		"searchMessages":            "Search messages...",
+
+		"unencrypted":               "Unencrypted",
+		"encrypted":                 "Encrypted",
+
+		"encrypt":                   "Encrypt",
+		"decrypt":                   "Decrypt",
+
 		"myAliases":                 "My Aliases",
 		"allAliases":                "All Aliases",
 		"searchAliases":             "Search aliases...",
@@ -127,6 +138,9 @@
 
 		"noTransactions":            "There are currently no transactions.",
 		"noTransactionsSub":         "Please adjust category or filters to see transactions.",
+
+		"noMessages":                "There are currently no messages.",
+		"noMessagesSub":             "Please adjust category or filters to see messages.",
 
 		"noAliases":                 "There are currently no aliases.",
 		"noAliasesSub":              "Please adjust category or filters to see aliases.",
